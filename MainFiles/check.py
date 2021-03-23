@@ -7,7 +7,7 @@ from sympy import Eq
 import math
 from sympy import *
 x=symbols('x')
-exp=cos(x)
+exp=230*x**4
 print(type(exp))
 print(type(x))
 print(exp.subs(x,4))
