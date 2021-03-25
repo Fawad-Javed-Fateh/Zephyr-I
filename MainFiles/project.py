@@ -40,6 +40,7 @@ def Bisection(equation,MainVar):
     AbsoluteError=0
     CheckFlag=0
     prevc=0
+    i=1
     while (AbsoluteError>tolerance or CheckFlag==0):
         PosinFunc=float(equation.evalf(subs={MainVar:positive}))
         NeginFunc=float(equation.evalf(subs={MainVar:negative}))
@@ -48,7 +49,7 @@ def Bisection(equation,MainVar):
             break
         c=(negative+positive)/2
         AbsoluteError=math.fabs(c-prevc)
-        print(str(c)+"                                                                              "+str(AbsoluteError))
+        print(str(i)+'.) '+str(c)+"                                                                                      "+str(AbsoluteError))
         if AbsoluteError<tolerance:
             break
         
@@ -59,6 +60,7 @@ def Bisection(equation,MainVar):
         else :
             positive=c
         prevc=c
+        i=i+1
     print("A suitable root within the given tolerance value is = "+str(c))
 
 def RegularFalsi(equation,MainVar):
@@ -79,6 +81,7 @@ def RegularFalsi(equation,MainVar):
     AbsoluteError=0
     CheckFlag=0
     prevc=0
+    i=1
     while (AbsoluteError>tolerance or CheckFlag==0):
           PosInFunc=float(equation.evalf(subs={MainVar:positive}))
           NegInFunc=float(equation.evalf(subs={MainVar:negative}))
@@ -88,7 +91,7 @@ def RegularFalsi(equation,MainVar):
           c=(a*float(equation.evalf(subs={MainVar:b}))-b*float(equation.evalf(subs={MainVar:a})))
           c=c/(float(equation.evalf(subs={MainVar:b}))-float(equation.evalf(subs={MainVar:a})))
           AbsoluteError=math.fabs(c-prevc)
-          print(str(c)+"                                                                              "+str(AbsoluteError))
+          print(str(i)+'.) '+str(c)+"                                                                              "+str(AbsoluteError))
           if AbsoluteError<tolerance:
             break
           CinFunc=float(equation.evalf(subs={MainVar:c}))
@@ -103,7 +106,78 @@ def RegularFalsi(equation,MainVar):
               else:
                   b=c            
           prevc=c
-    print("A suitable root within the given tolerance value is = "+str(c))       
+          i=i+1
+    print("A suitable root within the given tolerance value is = "+str(c))     
+
+def Secant(equation,MainVar):
+      tolerance=float(input("Enter the tolerance value = "))
+      a=float(input("Enter the value of 'a' = "))
+      b=float(input("Enter the value of 'b' = "))
+      AbsoluteError=0
+      CheckFlag=0
+      prevc=0
+      i=1
+      while(AbsoluteError>tolerance or CheckFlag==0):
+          c=(a*float(equation.evalf(subs={MainVar:b}))-b*float(equation.evalf(subs={MainVar:a})))
+          c=c/(float(equation.evalf(subs={MainVar:b}))-float(equation.evalf(subs={MainVar:a})))
+          AbsoluteError=math.fabs(c-prevc)
+          print(str(i)+'.) '+str(c)+"                                                                              "+str(AbsoluteError))
+          a=b
+          b=c 
+          i=i+1
+          if(AbsoluteError<tolerance):
+              break
+          prevc=c 
+      print("A suitable root within the given tolerance value is = "+str(c))      
+
+def NewtonRaphson(equation,MainVar):
+      tolerance=float(input("Enter the tolerance value = "))
+      a=float(input("Enter the value of 'a' = "))
+      b=float(input("Enter the value of 'b' = "))
+      AbsoluteError=0
+      CheckFlag=0
+      PrevP=0
+      i=1
+      p=float(a+b/2)
+      while(AbsoluteError>tolerance or CheckFlag==0):
+          PInFunc=float(equation.evalf(subs={MainVar:p}))
+          DerEq=diff(equation,MainVar)
+          PInDer=float(DerEq.evalf(subs={MainVar:p}))
+          PNext=float(p-(PInFunc/PInDer))
+          AbsoluteError=math.fabs(PNext-PrevP)
+          print(str(i)+'.) '+str(PNext)+"                                                                              "+str(AbsoluteError))
+          if(AbsoluteError<tolerance):
+              break
+          i=i+1
+          PrevP=PNext
+          p=PNext 
+      print("A sutibale root within the given tolerance value is = "+str(PNext))           
+
+def FixedPointIteration(equation,MainVar):
+      tolerance=float(input("Enter the tolerance value = "))
+      a=float(input("Enter the value of 'a' = "))
+      b=float(input("Enter the value of 'b' = "))
+      while(1):
+          NormalEq=input("Enter g(x), press QUIT if you want to terminate here")
+          if(NormalEq=='QUIT'):
+              break
+          ReadyEq=MakeStringReady(NormalEq)
+          ReadyEq=sympify(ReadyEq)
+          AbsoluteError=0
+          CheckFlag=0
+          PrevP=0
+          i=1
+          p=a
+          while(AbsoluteError>tolerance or CheckFlag==0):
+              PInFunc=float(ReadyEq.evalf(subs={MainVar:p}))
+              AbsoluteError=math.fabs(PInFunc-PrevP)
+              print(str(i)+'.) '+str(PInFunc)+"                                                                              "+str(AbsoluteError))
+              if(AbsoluteError<tolerance):
+                break
+              i=i+1
+              PrevP=PInFunc
+
+
 
 
 eq=input("Enter the equation :")
@@ -119,6 +193,8 @@ print(MainVar)
 NewVar=symbols(MainVar)
 NewStr=MakeStringReady(eq)
 NewStr=sympify(NewStr)
+NewtonRaphson(NewStr,MainVar)
+Secant(NewStr,MainVar)
 RegularFalsi(NewStr,MainVar)
 Bisection(NewStr,MainVar)
 i=0
