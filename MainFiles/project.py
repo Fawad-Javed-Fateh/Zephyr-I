@@ -6,6 +6,7 @@ from sympy import sympify
 from sympy import Eq
 import math
 from sympy import *
+import tkinter as tk
 
 def MakeStringReady(equation):
     ParsableEq=''
@@ -179,7 +180,7 @@ def FixedPointIteration(equation,MainVar):
 
 
 
-
+MainWindow=tk.Tk()
 eq=input("Enter the equation :")
 
 i=0
@@ -206,3 +207,4 @@ i=0
 #     print('\n')
 #     i=i+1
 
+MainWindow.mainloop();
