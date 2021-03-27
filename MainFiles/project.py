@@ -159,7 +159,7 @@ def FixedPointIteration(equation,MainVar):
       a=float(input("Enter the value of 'a' = "))
       b=float(input("Enter the value of 'b' = "))
       while(1):
-          NormalEq=input("Enter g(x), press QUIT if you want to terminate here")
+          NormalEq=input("Enter g(x), press QUIT if you want to terminate here : ")
           if(NormalEq=='QUIT'):
               break
           ReadyEq=MakeStringReady(NormalEq)
@@ -169,15 +169,21 @@ def FixedPointIteration(equation,MainVar):
           PrevP=0
           i=1
           p=a
+          CummulativeAbsError=0
           while(AbsoluteError>tolerance or CheckFlag==0):
               PInFunc=float(ReadyEq.evalf(subs={MainVar:p}))
               AbsoluteError=math.fabs(PInFunc-PrevP)
               print(str(i)+'.) '+str(PInFunc)+"                                                                              "+str(AbsoluteError))
               if(AbsoluteError<tolerance):
+                print("A sutibale root within the given tolerance value is = "+str(PInFunc))
                 break
               i=i+1
               PrevP=PInFunc
-
+              CummulativeAbsError=math.fabs(AbsoluteError+AbsoluteError)
+              if(CummulativeAbsError>20):
+                  print("The function is divergent so a solution wont exist here ")
+                  break
+              p=PInFunc
 
 
 MainWindow=tk.Tk()
@@ -194,6 +200,7 @@ print(MainVar)
 NewVar=symbols(MainVar)
 NewStr=MakeStringReady(eq)
 NewStr=sympify(NewStr)
+#FixedPointIteration(NewStr,MainVar)
 NewtonRaphson(NewStr,MainVar)
 Secant(NewStr,MainVar)
 RegularFalsi(NewStr,MainVar)
