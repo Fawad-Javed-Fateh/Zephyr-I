@@ -4,8 +4,12 @@ from sympy import Symbol
 from sympy import var
 from sympy import sympify
 from sympy import Eq
+import tkinter as tk
 import math
 from sympy import *
+MainWindow=tk.Tk()
+MainWindow.mainloop()
+
 x=symbols('x')
 exp=ln(x-1)
 c=(diff(exp,x))
