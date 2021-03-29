@@ -19,18 +19,27 @@ def MakeStringReady(equation):
         elif (equation[i]>='0' and equation[i]<='9') and (equation[i+1]>='a' and equation[i+1]<='z'):
             ParsableEq=ParsableEq+equation[i]
             ParsableEq=ParsableEq+'*'
+        elif equation[i] == 'e' and equation[i+1]=='^':
+            ParsableEq=ParsableEq+"exp("
+            i=i+2
+            for x in equation:
+                if (equation[i]>='0' and equation[i]<='9') and (equation[i+1]>='a' and equation[i+1]<='z'):
+                    ParsableEq=ParsableEq+equation[i]
+                    ParsableEq=ParsableEq+'*'
+                elif equation[i]>='a' and equation[i]<='z':
+                    ParsableEq=ParsableEq+equation[i]
+                else:
+                    break
+                i=i+1
+            ParsableEq=ParsableEq+')'
+            i=i-1
         else:         
             ParsableEq=ParsableEq+equation[i]
-        
         i=i+1
     return ParsableEq
 
 def Bisection(equation,MainVar):
-    tolerance=float(input("Enter the tolerance value = "))
-    a=float(input("Enter the value of 'a' = "))
-    b=float(input("Enter the value of 'b' = "))
-
-    decider=equation.evalf(subs={MainVar:a})
+    decider=equation.evalf(subs={MainVar:a}) #substitute a as value of mainvar. then evaluate and give value to decider
     decider=float(decider)
     if decider<0:
         negative=a
@@ -46,8 +55,8 @@ def Bisection(equation,MainVar):
         PosinFunc=float(equation.evalf(subs={MainVar:positive}))
         NeginFunc=float(equation.evalf(subs={MainVar:negative}))
         if PosinFunc*NeginFunc>0:
-            print("IVT failed , aborting iterations ")
-            break
+            print("IVT failed , aborting iterations!")
+            return 
         c=(negative+positive)/2
         AbsoluteError=math.fabs(c-prevc)
         print(str(i)+'.) '+str(c)+"                                                                                      "+str(AbsoluteError))
@@ -65,9 +74,9 @@ def Bisection(equation,MainVar):
     print("A suitable root within the given tolerance value is = "+str(c))
 
 def RegularFalsi(equation,MainVar):
-    tolerance=float(input("Enter the tolerance value = "))
-    a=float(input("Enter the value of 'a' = "))
-    b=float(input("Enter the value of 'b' = "))
+    # tolerance=float(input("Enter the tolerance value = "))
+    # a=float(input("Enter the value of 'a' = "))
+    # b=float(input("Enter the value of 'b' = "))
 
     decider=equation.evalf(subs={MainVar:a})
     decider=float(decider)
@@ -111,9 +120,9 @@ def RegularFalsi(equation,MainVar):
     print("A suitable root within the given tolerance value is = "+str(c))     
 
 def Secant(equation,MainVar):
-      tolerance=float(input("Enter the tolerance value = "))
-      a=float(input("Enter the value of 'a' = "))
-      b=float(input("Enter the value of 'b' = "))
+    #   tolerance=float(input("Enter the tolerance value = "))
+    #   a=float(input("Enter the value of 'a' = "))
+    #   b=float(input("Enter the value of 'b' = "))
       AbsoluteError=0
       CheckFlag=0
       prevc=0
@@ -132,9 +141,9 @@ def Secant(equation,MainVar):
       print("A suitable root within the given tolerance value is = "+str(c))      
 
 def NewtonRaphson(equation,MainVar):
-      tolerance=float(input("Enter the tolerance value = "))
-      a=float(input("Enter the value of 'a' = "))
-      b=float(input("Enter the value of 'b' = "))
+    #   tolerance=float(input("Enter the tolerance value = "))
+    #   a=float(input("Enter the value of 'a' = "))
+    #   b=float(input("Enter the value of 'b' = "))
       AbsoluteError=0
       CheckFlag=0
       PrevP=0
@@ -155,9 +164,9 @@ def NewtonRaphson(equation,MainVar):
       print("A sutibale root within the given tolerance value is = "+str(PNext))           
 
 def FixedPointIteration(equation,MainVar):
-      tolerance=float(input("Enter the tolerance value = "))
-      a=float(input("Enter the value of 'a' = "))
-      b=float(input("Enter the value of 'b' = "))
+    #   tolerance=float(input("Enter the tolerance value = "))
+    #   a=float(input("Enter the value of 'a' = "))
+    #   b=float(input("Enter the value of 'b' = "))
       while(1):
           NormalEq=input("Enter g(x), press QUIT if you want to terminate here : ")
           if(NormalEq=='QUIT'):
@@ -186,8 +195,11 @@ def FixedPointIteration(equation,MainVar):
               p=PInFunc
 
 
-MainWindow=tk.Tk()
+#MainWindow=tk.Tk()
 eq=input("Enter the equation :")
+tolerance=float(input("Enter the tolerance value = "))
+a=float(input("Enter the value of 'a' = "))
+b=float(input("Enter the value of 'b' = "))
 
 i=0
 for x in eq:
@@ -196,15 +208,15 @@ for x in eq:
         break
     i=i+1
 
-print(MainVar)
-NewVar=symbols(MainVar)
+print("The variable has been recognized as: " + MainVar)
+NewVar=symbols(MainVar) #Creates a sympy symbol named NewVar
 NewStr=MakeStringReady(eq)
-NewStr=sympify(NewStr)
+NewStr=sympify(NewStr)  #makes a sympy expression/equation
 #FixedPointIteration(NewStr,MainVar)
+Bisection(NewStr,MainVar)
+RegularFalsi(NewStr,MainVar)
 NewtonRaphson(NewStr,MainVar)
 Secant(NewStr,MainVar)
-RegularFalsi(NewStr,MainVar)
-Bisection(NewStr,MainVar)
 i=0
 # while i!=5:
 #     TempStr=NewStr
@@ -214,4 +226,4 @@ i=0
 #     print('\n')
 #     i=i+1
 
-MainWindow.mainloop();
+#MainWindow.mainloop();
