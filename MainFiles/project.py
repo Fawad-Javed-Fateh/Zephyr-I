@@ -185,7 +185,11 @@ def FixedPointIteration(equation,MainVar):
     errors = array('d',[a,a,a,a,a])
     #CummulativeAbsError=0
     while(AbsoluteError>tolerance):
-        PInFunc=float(ReadyEq.evalf(subs={MainVar:p}))
+        try:
+            PInFunc=float(ReadyEq.evalf(subs={MainVar:p}))
+        except:
+            print("The value of the function became complex at P = " + str(p))
+            return
         AbsoluteError=math.fabs(PInFunc-PrevP)
         print(str(i)+'.) '+str(PInFunc)+"                                                                              "+str(AbsoluteError))
         errors.append(AbsoluteError)
