@@ -7,6 +7,7 @@ from sympy import Eq
 import math
 from sympy import *
 import tkinter as tk
+from array import *
 
 def MakeStringReady(equation):
     ParsableEq=''
@@ -171,29 +172,42 @@ def FixedPointIteration(equation,MainVar):
     #   b=float(input("Enter the value of 'b' = "))
     #print("Fixed Point is working under the assumption that you have entered a function G(x) instead of the original F(x)!")
 
-    NormalEq=input("Enter g(x), press QUIT if you want to terminate here : ")
-    if(NormalEq=='QUIT'):
-        return
-    ReadyEq=MakeStringReady(NormalEq)
-    ReadyEq=sympify(ReadyEq)
+    # NormalEq=input("Enter g(x), press QUIT if you want to terminate here : ")
+    # if(NormalEq=='QUIT'):
+    #     return
+    # ReadyEq=MakeStringReady(NormalEq)
+    # ReadyEq=sympify(ReadyEq)
+    ReadyEq=equation
     AbsoluteError=1
     PrevP=0
     i=1
     p=a
-    CummulativeAbsError=0
-    while(AbsoluteError>tolerance or CheckFlag==0):
+    errors = array('d',[a,a,a,a,a])
+    #CummulativeAbsError=0
+    while(AbsoluteError>tolerance):
         PInFunc=float(ReadyEq.evalf(subs={MainVar:p}))
         AbsoluteError=math.fabs(PInFunc-PrevP)
         print(str(i)+'.) '+str(PInFunc)+"                                                                              "+str(AbsoluteError))
+        errors.append(AbsoluteError)
+        errors.pop(0)
         if(AbsoluteError<tolerance):
-        print("A sutibale root within the given tolerance value is = "+str(PInFunc))
-        break
+            print("A sutibale root within the given tolerance value is = "+str(PInFunc))
+            break
+        elif errors[4]==errors[2]:
+            print("The function entered in bouncing between two values and is not convergent!")
+            break
+        elif (math.fabs(errors[4]-errors[3]) > math.fabs(errors[3]-errors[2])) and (math.fabs(errors[3]-errors[2]) > math.fabs(errors[2]-errors[1])) and math.fabs((errors[2]-errors[1]) > math.fabs(errors[1]-errors[0])):
+            print("The function enetered is divergent!")
+            break
+        elif i>300:
+            print("The function did not reach the tolerance value after 300 iterations! Stopping calculation...")
+            break
         i=i+1
         PrevP=PInFunc
-        CummulativeAbsError=math.fabs(AbsoluteError+AbsoluteError)
-        if(CummulativeAbsError>20):
-            print("The function is divergent so a solution wont exist here ")
-            break
+        #CummulativeAbsError=math.fabs(AbsoluteError+AbsoluteError)
+        # if(CummulativeAbsError>20):
+        #     print("The function is divergent so a solution wont exist here ")
+        #     break
         p=PInFunc
 
 
