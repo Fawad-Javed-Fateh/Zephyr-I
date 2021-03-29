@@ -7,6 +7,16 @@ from sympy import Eq
 import math
 from sympy import *
 import tkinter as tk
+import numpy as np
+
+def FindMainVar(equation):
+    i=0
+    for x in eq:
+        if eq[i]>='x' and eq[i]<='z':
+            MainVar=eq[i]
+            break
+        i=i+1
+    return MainVar
 
 def MakeStringReady(equation):
     ParsableEq=''
@@ -185,6 +195,41 @@ def FixedPointIteration(equation,MainVar):
                   break
               p=PInFunc
 
+def LagrangeInterpolation():
+    n=int(input("Enter the total number of data points : "))
+    x=np.zeros(n,dtype=float)
+    y=np.zeros(n,dtype=float)
+    i=0
+    while i!=n:
+        x[i]=float(input("Enter the value of x"+str(i)+" : "))
+        i=i+1
+    InterPol=float(input("Enter the interpolation value : "))
+    eq=input("Enter the equation (Press QUIT to directly input y values): ")
+    if eq!="QUIT":
+        ReadyEq=MakeStringReady(eq)
+        MainVar=FindMainVar(eq)
+        MainVar=symbols(MainVar)
+        ReadyEq=sympify(ReadyEq)
+        i=0
+        while i!=n:
+            y[i]=float(ReadyEq.evalf(subs={MainVar:x[i]}))
+            i=i+1
+    else:
+        i=0
+        while i!=n:
+            y[i]=float(input("Enter the value of y"+str(i)+" : "))
+            i=i+1
+
+    result=0
+    for i in range(n):
+        temp=1
+        for j in range(n):
+            if i!=j:
+                temp=temp*(InterPol-x[j])/(x[i]-x[j])
+        result=result+(temp*y[i])
+    print("The result of interpolation is = "+str(result))
+
+
 
 MainWindow=tk.Tk()
 eq=input("Enter the equation :")
@@ -200,18 +245,11 @@ print(MainVar)
 NewVar=symbols(MainVar)
 NewStr=MakeStringReady(eq)
 NewStr=sympify(NewStr)
+LagrangeInterpolation()
 #FixedPointIteration(NewStr,MainVar)
 NewtonRaphson(NewStr,MainVar)
 Secant(NewStr,MainVar)
 RegularFalsi(NewStr,MainVar)
 Bisection(NewStr,MainVar)
 i=0
-# while i!=5:
-#     TempStr=NewStr
-#     print("The value of "+eq+" At x = "+ str(i) +" is:")
-#     NewStr=sympify(NewStr)
-#     print(NewStr.evalf(subs={MainVar:i}))
-#     print('\n')
-#     i=i+1
-
 MainWindow.mainloop();
