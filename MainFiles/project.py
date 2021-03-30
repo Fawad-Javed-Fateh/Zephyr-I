@@ -8,6 +8,16 @@ import math
 from sympy import *
 import tkinter as tk
 from array import *
+import numpy as np
+
+def FindMainVar(equation):
+    i=0
+    for x in equation:
+        if eq[i]>='x' and eq[i]<='z':
+            MainVar=eq[i]
+            break
+        i=i+1
+    return MainVar
 
 def MakeStringReady(equation):
     ParsableEq=''
@@ -164,7 +174,43 @@ def NewtonRaphson(equation,MainVar):
         i=i+1
         PrevP=PNext
         p=PNext 
-    print("A sutibale root within the given tolerance value is = "+str(PNext))           
+    print("A sutibale root within the given tolerance value is = "+str(PNext))    
+
+def LagrangeInterpolation():
+    n=int(input("Enter the total number of data points : "))
+    x=np.zeros(n,dtype=float)
+    y=np.zeros(n,dtype=float)
+    i=0
+    while i!=n:
+        x[i]=float(input("Enter the value of x"+str(i)+" : "))
+        i=i+1
+    InterPol=float(input("Enter the interpolation value : "))
+    eq=input("Enter the equation (Press QUIT to directly input y values): ")
+    if eq!="QUIT":
+        ReadyEq=MakeStringReady(eq)
+        MainVar=FindMainVar(eq)
+        MainVar=symbols(MainVar)
+        ReadyEq=sympify(ReadyEq)
+        i=0
+        while i!=n:
+            y[i]=float(ReadyEq.evalf(subs={MainVar:x[i]}))
+            i=i+1
+    else:
+        i=0
+        while i!=n:
+            y[i]=float(input("Enter the value of y"+str(i)+" : "))
+            i=i+1
+
+    result=0
+    for i in range(n):
+        temp=1
+        for j in range(n):
+            if i!=j:
+                temp=temp*(InterPol-x[j])/(x[i]-x[j])
+        result=result+(temp*y[i])
+    print("The result of interpolation is = "+str(result))
+
+     
 
 def FixedPointIteration(equation,MainVar):
     #   tolerance=float(input("Enter the tolerance value = "))
@@ -232,6 +278,7 @@ print("The variable has been recognized as: " + MainVar)
 NewVar=symbols(MainVar) #Creates a sympy symbol named NewVar
 NewStr=MakeStringReady(eq)
 NewStr=sympify(NewStr)  #makes a sympy expression/equation
+LagrangeInterpolation()
 FixedPointIteration(NewStr,MainVar)
 # Bisection(NewStr,MainVar)
 # RegularFalsi(NewStr,MainVar)
