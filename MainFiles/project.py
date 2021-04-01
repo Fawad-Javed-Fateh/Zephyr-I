@@ -214,13 +214,14 @@ def DividedDifference():
     n=int(input("Enter the total number of data points : "))
     Xpoints=np.zeros(n,dtype=float)
     #Ypoints=np.zeros(n,dtype=float)
-    Ypoints = []
+    Ypoint = []
     i=0
     while i!=n:
         Xpoints[i]=float(input("Enter the value of X"+str(i)+" : "))
         i=i+1
     InterPol=float(input("Enter the interpolation value : "))
     eq=input("Enter the equation or enter 0 to enter the values of y directly: ")
+    
     if eq!="0":
         ReadyEq=MakeStringReady(eq)
         MainVar=FindMainVar(eq)
@@ -228,17 +229,43 @@ def DividedDifference():
         ReadyEq=sympify(ReadyEq)
         i=0
         while i!=n:
-            Ypoints.append(float(ReadyEq.evalf(subs={MainVar:x[i]})))
+            Ypoint.append(float(ReadyEq.evalf(subs={MainVar:x[i]})))
             i=i+1
     else:
         i=0
         while i!=n:
-            Ypoints.append(input("Enter the value of y"+str(i)+" : "))
+            Ypoint.append(input("Enter the value of y"+str(i)+" : "))
             i=i+1
+    i=0
+    Ypoints = []
+    Ypoints.append(Ypoint)
+    while i<(n-1):
+        j=0
+        y=[None]*(n-i-1)
+        while j<(n-i-1):
+            y[j]= (float(Ypoints[i][j+1])-float(Ypoints[i][j]))/(float(Xpoints[j+i+1])-float(Xpoints[j]))
+            j=j+1
+        Ypoints.append(y)
+        i=i+1
+
+    Answer=0
+    Diff=0
+    i=0
+    while i<n:
+        j=0
+        Aval=float(Ypoints[i][0])
+        while j<i:
+            Diff=InterPol-Xpoints[j]
+            Aval=Aval*Diff
+            j=j+1
+        Answer=Answer+Aval
+        i=i+1
+    print(str(Answer))
+
+            
 
 
-    
-    
+
 
     
 
