@@ -210,7 +210,40 @@ def LagrangeInterpolation():
         result=result+(temp*y[i])
     print("The result of interpolation is = "+str(result))
 
-     
+def DividedDifference():
+    n=int(input("Enter the total number of data points : "))
+    Xpoints=np.zeros(n,dtype=float)
+    #Ypoints=np.zeros(n,dtype=float)
+    Ypoints = []
+    i=0
+    while i!=n:
+        Xpoints[i]=float(input("Enter the value of X"+str(i)+" : "))
+        i=i+1
+    InterPol=float(input("Enter the interpolation value : "))
+    eq=input("Enter the equation or enter 0 to enter the values of y directly: ")
+    if eq!="0":
+        ReadyEq=MakeStringReady(eq)
+        MainVar=FindMainVar(eq)
+        MainVar=symbols(MainVar)
+        ReadyEq=sympify(ReadyEq)
+        i=0
+        while i!=n:
+            Ypoints.append(float(ReadyEq.evalf(subs={MainVar:x[i]})))
+            i=i+1
+    else:
+        i=0
+        while i!=n:
+            Ypoints.append(input("Enter the value of y"+str(i)+" : "))
+            i=i+1
+
+
+    
+    
+
+    
+
+
+
 
 def FixedPointIteration(equation,MainVar):
     #   tolerance=float(input("Enter the tolerance value = "))
@@ -262,28 +295,29 @@ def FixedPointIteration(equation,MainVar):
 
 
 #MainWindow=tk.Tk()
-eq=input("Enter the equation :")
-tolerance=float(input("Enter the tolerance value = "))
-a=float(input("Enter the value of 'a' = "))
-b=float(input("Enter the value of 'b' = "))
+# eq=input("Enter the equation :")
+# tolerance=float(input("Enter the tolerance value = "))
+# a=float(input("Enter the value of 'a' = "))
+# b=float(input("Enter the value of 'b' = "))
 
-i=0
-for x in eq:
-    if eq[i]>='x' and eq[i]<='z':
-        MainVar=eq[i]
-        break
-    i=i+1
+# i=0
+# for x in eq:
+#     if eq[i]>='x' and eq[i]<='z':
+#         MainVar=eq[i]
+#         break
+#     i=i+1
 
-print("The variable has been recognized as: " + MainVar)
-NewVar=symbols(MainVar) #Creates a sympy symbol named NewVar
-NewStr=MakeStringReady(eq)
-NewStr=sympify(NewStr)  #makes a sympy expression/equation
-LagrangeInterpolation()
-FixedPointIteration(NewStr,MainVar)
+# print("The variable has been recognized as: " + MainVar)
+# NewVar=symbols(MainVar) #Creates a sympy symbol named NewVar
+# NewStr=MakeStringReady(eq)
+# NewStr=sympify(NewStr)  #makes a sympy expression/equation
+# LagrangeInterpolation()
+# FixedPointIteration(NewStr,MainVar)
 # Bisection(NewStr,MainVar)
 # RegularFalsi(NewStr,MainVar)
 # NewtonRaphson(NewStr,MainVar)
 # Secant(NewStr,MainVar)
+DividedDifference()
 i=0
 # while i!=5:
 #     TempStr=NewStr
