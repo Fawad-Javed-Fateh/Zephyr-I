@@ -13,8 +13,8 @@ import numpy as np
 def FindMainVar(equation):
     i=0
     for x in equation:
-        if eq[i]>='x' and eq[i]<='z':
-            MainVar=eq[i]
+        if equation[i]>='x' and equation[i]<='z':
+            MainVar=equation[i]
             break
         i=i+1
     return MainVar
@@ -200,15 +200,60 @@ def LagrangeInterpolation():
         while i!=n:
             y[i]=float(input("Enter the value of y"+str(i)+" : "))
             i=i+1
+            
+    for z in range(n+1):
+        result=0
+        if z!=0 and z!=1:
+            k=0
+            RangeShifterX=np.zeros(n,dtype=float)
+            RangeShifterY=np.zeros(n,dtype=float)
+            while(InterPol>x[k]):
+                k=k+1
+            index=k-1
+            BackIndex=k-1
+            # while(BackIndex>=0):
+            #      RangeShifterX[BackIndex]=x[k]
+            #      RangeShifterY[BackIndex]=y[k]
+            #      BackIndex=BackIndex-1
+            #      k=k-1
+            RangeShifterX[0]=x[k-1]
+            RangeShifterX[1]=x[k]
+            RangeShifterY[0]=y[k-1]
+            RangeShifterY[1]=y[k] 
+            k=2
+            ForwardIndex=k
+            SortIndex=k
+            for a in range(n):
+                flag=0
+                for u in range(n):
+                    if(x[a]==RangeShifterX[u] and x[a]!=0):
+                        flag=flag+1
+                if flag==0:
+                    RangeShifterX[ForwardIndex]=x[a]
+                    RangeShifterY[ForwardIndex]=y[a]
+                    ForwardIndex=ForwardIndex+1
+                if ForwardIndex>=n:
+                    break 
+            while(SortIndex<n):
+                Iterator=SortIndex+1
+                while(Iterator<n):
+                    if RangeShifterX[SortIndex]<RangeShifterX[Iterator]:
+                        tempvarx=RangeShifterX[SortIndex]
+                        RangeShifterX[SortIndex]=RangeShifterX[Iterator]
+                        RangeShifterX[Iterator]=tempvarx
+                        tempvary=RangeShifterY[SortIndex]
+                        RangeShifterY[SortIndex]=RangeShifterY[Iterator]
+                        RangeShifterY[Iterator]=tempvary
+                    Iterator=Iterator+1
+                SortIndex=SortIndex+1
 
-    result=0
-    for i in range(n):
-        temp=1
-        for j in range(n):
-            if i!=j:
-                temp=temp*(InterPol-x[j])/(x[i]-x[j])
-        result=result+(temp*y[i])
-    print("The result of interpolation is = "+str(result))
+            for i in range(z):
+                temp=1
+                for j in range(z):
+                    if i!=j:                       
+                        temp=temp*(InterPol-RangeShifterX[j])/(RangeShifterX[i]-RangeShifterX[j])
+                result=result+(temp*RangeShifterY[i])
+            print("The result of interpolation of degree " +str(z-1)+ " is = " +str(result))
 
 def DividedDifference():
     n=int(input("Enter the total number of data points : "))
@@ -338,13 +383,13 @@ def FixedPointIteration(equation,MainVar):
 # NewVar=symbols(MainVar) #Creates a sympy symbol named NewVar
 # NewStr=MakeStringReady(eq)
 # NewStr=sympify(NewStr)  #makes a sympy expression/equation
-# LagrangeInterpolation()
+LagrangeInterpolation()
 # FixedPointIteration(NewStr,MainVar)
 # Bisection(NewStr,MainVar)
 # RegularFalsi(NewStr,MainVar)
 # NewtonRaphson(NewStr,MainVar)
 # Secant(NewStr,MainVar)
-DividedDifference()
+#DividedDifference()
 i=0
 # while i!=5:
 #     TempStr=NewStr
