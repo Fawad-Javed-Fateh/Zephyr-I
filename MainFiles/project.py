@@ -339,7 +339,10 @@ def ForwardDifference():
         while i!=n:
             Ypoint.append(input("Enter the value of y"+str(i)+" : "))
             i=i+1
-
+    f=Ypoint[0]
+    Rounder=f[::-1].find('.')
+    if Rounder<0:
+        Rounder=0
     i=0
     Ypoints = []
     Ypoints.append(Ypoint)
@@ -347,12 +350,12 @@ def ForwardDifference():
         j=0
         y=[None]*(n-i-1)
         while j<(n-i-1):
-            y[j]= round((float(Ypoints[i][j+1])-float(Ypoints[i][j]))/(float(Xpoints[j+i+1])-float(Xpoints[j])),6)
+            y[j]= round((float(Ypoints[i][j+1])-float(Ypoints[i][j]))/(float(Xpoints[j+i+1])-float(Xpoints[j])),Rounder)
             j=j+1
         Ypoints.append(y)
         i=i+1
     
-    Var_S=(InterPol-Xpoints[0])/height
+    Var_S=round((InterPol-Xpoints[0])/height,Rounder)
 
     Answer=0
     Prod=0
@@ -360,18 +363,91 @@ def ForwardDifference():
     while i<n:
         j=0
         Aval=float(Ypoints[i][0])
-        Prod=height**i
+        Prod=1
         while j<i:
             k=0
-            while k<=j:
-                Prod=round(Prod*(Var_S-j),6)
-                k=k+1
-            Aval=round(Aval*Prod,6)
+            if j==0:
+                Prod=Prod*(Var_S)
+            if k<j:
+                Prod=Prod*(Var_S-j)
             j=j+1
+        Aval=Aval*Prod*height**i
+        print(Aval)
         Answer=Answer+Aval
         i=i+1
-    print(str(Answer))
+    # print(str(Var_S))
+    print(str(round(Answer,Rounder+1)))
 
+def BackwardDifference():
+    n=int(input("Enter the total number of data points : "))
+    Xpoints=np.zeros(n,dtype=float)
+    #Ypoints=np.zeros(n,dtype=float)
+    Ypoint = []
+    height=0
+    i=0
+    while i!=n:
+        Xpoints[i]=float(input("Enter the value of X"+str(i)+" : "))
+        i=i+1
+        if i==2:
+            height = round(Xpoints[1]-Xpoints[0],5)
+        elif i>2 and round((Xpoints[i-1]-Xpoints[i-2]),6)!=height:
+            print("Equal spacing is required for Backward differnce!\n")
+            return
+    InterPol=float(input("Enter the interpolation value : "))
+    eq=input("Enter the equation or enter 0 to enter the values of y directly: ")
+    
+    if eq!="0":
+        ReadyEq=MakeStringReady(eq)
+        MainVar=FindMainVar(eq)
+        MainVar=symbols(MainVar)
+        ReadyEq=sympify(ReadyEq)
+        i=0
+        while i!=n:
+            Ypoint.append(float(ReadyEq.evalf(subs={MainVar:x[i]})))
+            i=i+1
+    else:
+        i=0
+        while i!=n:
+            Ypoint.append(input("Enter the value of y"+str(i)+" : "))
+            i=i+1
+    f=Ypoint[0]
+    Rounder=f[::-1].find('.')
+    if Rounder<0:
+        Rounder=0
+    i=0
+    Ypoints = []
+    Ypoints.append(Ypoint)
+    while i<(n-1):
+        j=0
+        y=[None]*(n-i-1)
+        while j<(n-i-1):
+            y[j]= round((float(Ypoints[i][j+1])-float(Ypoints[i][j]))/(float(Xpoints[j+i+1])-float(Xpoints[j])),Rounder)
+            j=j+1
+        Ypoints.append(y)
+        i=i+1
+    
+    Var_S=round((Xpoints[Xpoints.__len__()-1]-InterPol)/height,Rounder)
+
+    Answer=0
+    Prod=0
+    i=0
+    while i<n:
+        j=0
+        Aval=float(Ypoints[i][Ypoints[i].__len__() -1])
+        Prod=1
+        while j<i:
+            k=0
+            if j==0:
+                Prod=Prod*(Var_S)
+            if k<j:
+                Prod=Prod*(Var_S+j)
+            j=j+1
+        Aval=Aval*Prod*height**i
+        print(Aval)
+        Answer=Answer+Aval
+        i=i+1
+    # print(str(Var_S))
+    print(str(round(Answer,Rounder+1)))
 
 
 def FixedPointIteration(equation,MainVar):
@@ -441,7 +517,8 @@ def FixedPointIteration(equation,MainVar):
 # NewStr=MakeStringReady(eq)
 # NewStr=sympify(NewStr)  #makes a sympy expression/equation
 #LagrangeInterpolation()
-ForwardDifference()
+#ForwardDifference()
+BackwardDifference()
 # FixedPointIteration(NewStr,MainVar)
 # Bisection(NewStr,MainVar)
 # RegularFalsi(NewStr,MainVar)
