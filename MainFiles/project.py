@@ -450,6 +450,54 @@ def BackwardDifference():
     print(str(round(Answer,Rounder+1)))
 
 
+def StirlingsMethod():
+    #Rounder=f[::-1].find('.')
+    n=int(input("Enter total number of data points "))
+    x=np.zeros(n,dtype=float)
+    y=np.zeros(n,dtype=float)
+    SimpleDifferenceTable=np.zeros((n,n),dtype=float)
+    print("Start entering x values, they must have equal spacing for simple difference ")
+    for i in range(n):
+        x[i]=input("Enter x"+str(i)+" = ")
+    SimpleDifferenceTable[0][0]=0.23967
+    SimpleDifferenceTable[1][0]=0.2806
+    SimpleDifferenceTable[2][0]=0.31768
+    SimpleDifferenceTable[3][0]=0.35204
+    SimpleDifferenceTable[4][0]=0.36308
+
+    # for i in range(n):
+    #     SimpleDifferenceTable[i][0]=input("Enter y"+str(i)+" = ") 
+    for i in range(1,n):
+        for j in range(n-1):
+            SimpleDifferenceTable[j][i]=SimpleDifferenceTable[j+1][i-1]-SimpleDifferenceTable[j][i-1]
+    for i in range(n-1):
+        for j in range(n-1):
+            print(str(SimpleDifferenceTable[i][j])+" ")
+        print("\n")
+    InterPolVal=float(input("Enter the interpolation value "))
+    diff=float(1)
+    for i in range(n):
+        if x[i]>InterPolVal:
+            MidTerm=i-1
+            p=float((-x[i-1]+InterPolVal)/diff)
+            break
+    if n==5:
+        t1=float(SimpleDifferenceTable[MidTerm][0])
+        t2=float(p*((SimpleDifferenceTable[MidTerm][1]+SimpleDifferenceTable[MidTerm-1][1])/2))
+        t3=float(((p*p)/2)*SimpleDifferenceTable[MidTerm][2])
+        t4p1=(p*p)*(p*p-1)/6
+        t4=t4p1*((SimpleDifferenceTable[MidTerm][3]+SimpleDifferenceTable[MidTerm-1][3])/2)
+        t5=float((p*p)*(p*p-1)/24)*(SimpleDifferenceTable[MidTerm][4])
+        A=float(t1+t2+t3+t4+t5)
+        A+round(A,4)
+        print("The answers is = "+str(A))
+        #t2=float(p*(SimpleDifferenceTable[]))        
+
+
+    
+
+
+
 def FixedPointIteration(equation,MainVar):
     #   tolerance=float(input("Enter the tolerance value = "))
     #   a=float(input("Enter the value of 'a' = "))
@@ -518,6 +566,7 @@ def FixedPointIteration(equation,MainVar):
 # NewStr=sympify(NewStr)  #makes a sympy expression/equation
 #LagrangeInterpolation()
 #ForwardDifference()
+StirlingsMethod();
 BackwardDifference()
 # FixedPointIteration(NewStr,MainVar)
 # Bisection(NewStr,MainVar)
