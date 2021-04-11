@@ -553,7 +553,7 @@ def ForWardsSDT():
             ans = ans + (p*SimpleDifferenceTable[j][i+1])
             print(" At n = "+str(i)+" the value is = " + str(ans))
         else :
-            p=p*(permap-1)
+            p=p*(permap-i)
             q=p
             trp=SimpleDifferenceTable[j][i+1]
             termer  = (q*(SimpleDifferenceTable[j][i+1])/math.factorial(i+1))
