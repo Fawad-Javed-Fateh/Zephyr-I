@@ -426,7 +426,7 @@ def BackwardDifference():
         Ypoints.append(y)
         i=i+1
     
-    Var_S=round((Xpoints[Xpoints.__len__()-1]-InterPol)/height,Rounder)
+    Var_S=round((InterPol-Xpoints[Xpoints.__len__()-1])/height,Rounder)
 
     Answer=0
     Prod=0
