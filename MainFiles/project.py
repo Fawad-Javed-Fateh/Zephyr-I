@@ -82,6 +82,39 @@ def Bisection(equation,MainVar,a,b,tolerance):
         i=i+1
     print("A suitable root within the given tolerance value is = "+str(c))
 
+def Bisection2(equation,MainVar,a,b,tolerance):
+    decider=equation.evalf(subs={MainVar:a}) #substitute a as value of mainvar. then evaluate and give value to decider
+    decider=float(decider)
+    if decider<0:
+        negative=a
+        positive=b
+    else: 
+        positive=a
+        negative=b
+    AbsoluteError=1
+    prevc=0
+    i=1
+    while (AbsoluteError>tolerance):
+        PosinFunc=float(equation.evalf(subs={MainVar:positive}))
+        NeginFunc=float(equation.evalf(subs={MainVar:negative}))
+        if PosinFunc*NeginFunc>0:
+            print("IVT failed , aborting iterations!")
+            return 
+        c=(negative+positive)/2
+        AbsoluteError=math.fabs(c-prevc)
+        print(str(i)+'.) '+str(c)+"                                                                                      "+str(AbsoluteError))
+        if AbsoluteError<tolerance:
+            break
+        
+        CinFunc=float(equation.evalf(subs={MainVar:c}))
+        if CinFunc<0:
+            negative=c
+        else :
+            positive=c
+        prevc=c
+        i=i+1
+    print("A suitable root within the given tolerance value is = "+str(c))
+
 def RegularFalsi(equation,MainVar):
     # tolerance=float(input("Enter the tolerance value = "))
     # a=float(input("Enter the value of 'a' = "))
