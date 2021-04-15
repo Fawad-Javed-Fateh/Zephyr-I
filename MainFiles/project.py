@@ -49,9 +49,7 @@ def MakeStringReady(equation):
         i=i+1
     return ParsableEq
 
-def Bisection(equation,MainVar):
-    global a
-    global b
+def Bisection(equation,MainVar,a,b,tolerance):
     decider=equation.evalf(subs={MainVar:a}) #substitute a as value of mainvar. then evaluate and give value to decider
     decider=float(decider)
     if decider<0:
@@ -449,7 +447,6 @@ def BackwardDifference():
     # print(str(Var_S))
     print(str(round(Answer,Rounder+1)))
 
-
 def StirlingsMethod():
     #Rounder=f[::-1].find('.')
     n=int(input("Enter total number of data points "))
@@ -492,7 +489,6 @@ def StirlingsMethod():
         A+round(A,4)
         print("The answers is = "+str(A))
         #t2=float(p*(SimpleDifferenceTable[]))        
-
 
 def BackWardsSDT():
     n=int(input("Enter total number of data points "))
@@ -632,17 +628,17 @@ def FixedPointIteration(equation,MainVar):
 # NewStr=sympify(NewStr)  #makes a sympy expression/equation
 #LagrangeInterpolation()
 #ForwardDifference()
-ForWardsSDT();
+#ForWardsSDT();
 #BackWardsSDT()
-StirlingsMethod();
-BackwardDifference()
+#StirlingsMethod();
+#BackwardDifference()
 # FixedPointIteration(NewStr,MainVar)
 # Bisection(NewStr,MainVar)
 # RegularFalsi(NewStr,MainVar)
 # NewtonRaphson(NewStr,MainVar)
 # Secant(NewStr,MainVar)
 #DividedDifference()
-i=0
+#i=0
 # while i!=5:
 #     TempStr=NewStr
 #     print("The value of "+eq+" At x = "+ str(i) +" is:")

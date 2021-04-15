@@ -225,7 +225,7 @@
      <widget class="QLineEdit" name="Chp2FuncInput">
       <property name="geometry">
        <rect>
-        <x>110</x>
+        <x>20</x>
         <y>250</y>
         <width>271</width>
         <height>31</height>
@@ -238,7 +238,7 @@
      <widget class="QLineEdit" name="Chp2Ainput">
       <property name="geometry">
        <rect>
-        <x>420</x>
+        <x>300</x>
         <y>250</y>
         <width>113</width>
         <height>31</height>
@@ -257,7 +257,7 @@
      <widget class="QLineEdit" name="Chp2Binput">
       <property name="geometry">
        <rect>
-        <x>560</x>
+        <x>430</x>
         <y>250</y>
         <width>113</width>
         <height>31</height>
@@ -313,12 +313,31 @@
  Start the Interpolation</string>
       </property>
      </widget>
+     <widget class="QLineEdit" name="Chp2tolinput">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>250</y>
+        <width>113</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Ex: 0.000001</string>
+      </property>
+      <property name="maxLength">
+       <number>32767</number>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="Chapter2iterTab">
      <attribute name="title">
       <string>Page</string>
      </attribute>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="Chp2Itertablabel">
       <property name="geometry">
        <rect>
         <x>190</x>
