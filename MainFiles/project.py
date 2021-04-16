@@ -9,6 +9,8 @@ from sympy import *
 import tkinter as tk
 from array import *
 import numpy as np
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import *
 
 def FindMainVar(equation):
     i=0
@@ -49,7 +51,12 @@ def MakeStringReady(equation):
         i=i+1
     return ParsableEq
 
-def Bisection(equation,MainVar,a,b,tolerance):
+def Bisection(equation,MainVar,a,b,tolerance,Chp2Table):
+    f=str(tolerance)
+    Rounder=f[::-1].find('.')
+    if Rounder<0:
+        Rounder=0
+    Rounder=5
     decider=equation.evalf(subs={MainVar:a}) #substitute a as value of mainvar. then evaluate and give value to decider
     decider=float(decider)
     if decider<0:
@@ -60,20 +67,26 @@ def Bisection(equation,MainVar,a,b,tolerance):
         negative=b
     AbsoluteError=1
     prevc=0
-    i=1
+    i=0
     while (AbsoluteError>tolerance):
+        Chp2Table.insertRow(Chp2Table.rowCount())
         PosinFunc=float(equation.evalf(subs={MainVar:positive}))
         NeginFunc=float(equation.evalf(subs={MainVar:negative}))
         if PosinFunc*NeginFunc>0:
             print("IVT failed , aborting iterations!")
             return 
-        c=(negative+positive)/2
-        AbsoluteError=math.fabs(c-prevc)
-        print(str(i)+'.) '+str(c)+"                                                                                      "+str(AbsoluteError))
+        c=round((negative+positive)/2,Rounder)
+        AbsoluteError=round(math.fabs(c-prevc),Rounder)
+        # print(str(i)+'.) '+str(c)+"                                                                                      "+str(AbsoluteError))
+        Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
+        Chp2Table.setItem(i, 1, QTableWidgetItem(str(negative)))
+        Chp2Table.setItem(i, 2, QTableWidgetItem(str(positive)))
+        Chp2Table.setItem(i, 3, QTableWidgetItem(str(c)))
         if AbsoluteError<tolerance:
             break
-        
-        CinFunc=float(equation.evalf(subs={MainVar:c}))
+        Chp2Table.setItem(i, 5, QTableWidgetItem(str(AbsoluteError)))
+        CinFunc=round(float(equation.evalf(subs={MainVar:c})),Rounder)
+        Chp2Table.setItem(i, 4, QTableWidgetItem(str(CinFunc)))
         if CinFunc<0:
             negative=c
         else :
