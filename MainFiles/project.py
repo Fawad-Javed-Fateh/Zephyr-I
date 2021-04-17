@@ -69,21 +69,20 @@ def Bisection(equation,MainVar,a,b,tolerance,Chp2Table):
     prevc=0
     i=0
     while (AbsoluteError>tolerance):
-        Chp2Table.insertRow(Chp2Table.rowCount())
         PosinFunc=float(equation.evalf(subs={MainVar:positive}))
         NeginFunc=float(equation.evalf(subs={MainVar:negative}))
         if PosinFunc*NeginFunc>0:
             print("IVT failed , aborting iterations!")
-            return 
+            return "None"
         c=round((negative+positive)/2,Rounder)
         AbsoluteError=round(math.fabs(c-prevc),Rounder)
-        # print(str(i)+'.) '+str(c)+"                                                                                      "+str(AbsoluteError))
+        if AbsoluteError<tolerance:
+            break
+        Chp2Table.insertRow(Chp2Table.rowCount())
         Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
         Chp2Table.setItem(i, 1, QTableWidgetItem(str(negative)))
         Chp2Table.setItem(i, 2, QTableWidgetItem(str(positive)))
         Chp2Table.setItem(i, 3, QTableWidgetItem(str(c)))
-        if AbsoluteError<tolerance:
-            break
         Chp2Table.setItem(i, 5, QTableWidgetItem(str(AbsoluteError)))
         CinFunc=round(float(equation.evalf(subs={MainVar:c})),Rounder)
         Chp2Table.setItem(i, 4, QTableWidgetItem(str(CinFunc)))
@@ -93,7 +92,14 @@ def Bisection(equation,MainVar,a,b,tolerance,Chp2Table):
             positive=c
         prevc=c
         i=i+1
-    print("A suitable root within the given tolerance value is = "+str(c))
+    Chp2Table.insertRow(Chp2Table.rowCount())
+    Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
+    Chp2Table.setItem(i, 1, QTableWidgetItem(str(negative)))
+    Chp2Table.setItem(i, 2, QTableWidgetItem(str(positive)))
+    Chp2Table.setItem(i, 3, QTableWidgetItem(str(c)))
+    Chp2Table.setItem(i, 4, QTableWidgetItem(str(CinFunc)))
+    Chp2Table.setItem(i, 5, QTableWidgetItem(str(AbsoluteError)))
+    return c
 
 def Bisection2(equation,MainVar,a,b,tolerance):
     decider=equation.evalf(subs={MainVar:a}) #substitute a as value of mainvar. then evaluate and give value to decider

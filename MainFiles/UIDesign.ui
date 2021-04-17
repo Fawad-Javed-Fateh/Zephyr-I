@@ -356,11 +356,11 @@
         <x>60</x>
         <y>130</y>
         <width>771</width>
-        <height>411</height>
+        <height>361</height>
        </rect>
       </property>
       <property name="rowCount">
-       <number>2</number>
+       <number>0</number>
       </property>
       <property name="columnCount">
        <number>6</number>
@@ -383,14 +383,25 @@
       <attribute name="verticalHeaderCascadingSectionResizes">
        <bool>false</bool>
       </attribute>
-      <row/>
-      <row/>
       <column/>
       <column/>
       <column/>
       <column/>
       <column/>
       <column/>
+     </widget>
+     <widget class="QLabel" name="Chp2Anslabel">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>510</y>
+        <width>461</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
      </widget>
     </widget>
    </widget>
