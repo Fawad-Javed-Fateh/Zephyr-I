@@ -126,7 +126,7 @@ class Ui_MainWindow(object):
         self.Chp2Table.setRowCount(0)
         self.Chp2Table.setColumnCount(6)
         self.Chp2Table.setObjectName("Chp2Table")
-        self.Chp2Table.horizontalHeader().setVisible(False)
+        self.Chp2Table.horizontalHeader().setVisible(True)
         self.Chp2Table.horizontalHeader().setDefaultSectionSize(128)
         self.Chp2Table.horizontalHeader().setSortIndicatorShown(False)
         self.Chp2Table.horizontalHeader().setStretchLastSection(False)
@@ -192,7 +192,8 @@ class Ui_MainWindow(object):
 
     def MovetoChapter2(self, MainWindow):
         self.tabWidget.setCurrentIndex(1)
-
+    def MovetoMain(self, MainWindow):
+        self.tabWidget.setCurrentIndex(0)
     def Chapter2Start(self, Mainwindow):
         try:
             equation = self.Chp2FuncInput.text()
@@ -236,4 +237,6 @@ if __name__ == "__main__":
     MainWindow.show()
     ui.Chapter2Button.clicked.connect(lambda: ui.MovetoChapter2(MainWindow))
     ui.Chp2startbutton.clicked.connect(lambda: ui.Chapter2Start(MainWindow))
+    ui.Chp2mainback.clicked.connect(lambda: ui.MovetoMain(MainWindow))
+    ui.Chp2iterback.clicked.connect(lambda: ui.MovetoChapter2(MainWindow))
     sys.exit(app.exec_())

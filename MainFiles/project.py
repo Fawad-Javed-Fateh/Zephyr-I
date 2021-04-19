@@ -52,6 +52,7 @@ def MakeStringReady(equation):
     return ParsableEq
 
 def Bisection(equation,MainVar,a,b,tolerance,Chp2Table):
+    Chp2Table.setRowCount(0)
     f=str(tolerance)
     Rounder=f[::-1].find('.')
     if Rounder<0:
