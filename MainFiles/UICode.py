@@ -233,11 +233,21 @@ class Ui_MainWindow(object):
                 x=dialoguebox.exec_()
                 return
         elif(method=="Regulai Falsi Method"):
-            regulai
+            Ans=RegularFalsi(Newstr, Newvar, a, b, tolerance, self.Chp2Table)
+            self.Chp2Anslabel.setText("The Root of the equation " + str(equation) + " is: " + str(Ans))
+            if(Ans=="None"):
+                dialoguebox = QMessageBox(QMessageBox.Warning, "Error", "The Entry points provided Failed the Intermediate Value Theorum")
+                x=dialoguebox.exec_()
+                return
         elif(method=="Newton - Raphson Method"):
             newton
         elif(method=="Secant Method"):
-            secant
+            Ans=Secant(Newstr, Newvar, a, b, tolerance, self.Chp2Table)
+            self.Chp2Anslabel.setText("The Root of the equation " + str(equation) + " is: " + str(Ans))
+            if(Ans=="None"):
+                dialoguebox = QMessageBox(QMessageBox.Warning, "Error", "The Entry points provided Failed the Intermediate Value Theorum")
+                x=dialoguebox.exec_()
+                return
         elif(method=="Fixed Point Iteration Method"):
             pass
 

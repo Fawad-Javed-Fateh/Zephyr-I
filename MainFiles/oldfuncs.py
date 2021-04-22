@@ -1,63 +1,4 @@
-#import sympy as sp
-from sympy.solvers import solveset
-from sympy import Symbol
-from sympy import var
-from sympy import sympify
-from sympy import Eq
-import math
-from sympy import *
-import tkinter as tk
-from array import *
-import numpy as np
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import *
-
-def FindMainVar(equation):
-    i=0
-    for x in equation:
-        if equation[i]>='x' and equation[i]<='z':
-            MainVar=equation[i]
-            break
-        i=i+1
-    return MainVar
-
-def MakeStringReady(equation):
-    ParsableEq=''
-    i=0
-    for x in equation:
-        if equation[i]=='=':
-            break
-        elif equation[i]=='^':
-            ParsableEq=ParsableEq+"**"
-        elif (equation[i]>='0' and equation[i]<='9') and (equation[i+1]>='a' and equation[i+1]<='z'):
-            ParsableEq=ParsableEq+equation[i]
-            ParsableEq=ParsableEq+'*'
-        elif equation[i] == 'e' and equation[i+1]=='^':
-            ParsableEq=ParsableEq+"exp("
-            i=i+2
-            for x in equation:
-                if (equation[i]>='0' and equation[i]<='9') and (equation[i+1]>='a' and equation[i+1]<='z'):
-                    ParsableEq=ParsableEq+equation[i]
-                    ParsableEq=ParsableEq+'*'
-                elif equation[i]>='a' and equation[i]<='z':
-                    ParsableEq=ParsableEq+equation[i]
-                else:
-                    break
-                i=i+1
-            ParsableEq=ParsableEq+')'
-            i=i-1
-        else:         
-            ParsableEq=ParsableEq+equation[i]
-        i=i+1
-    return ParsableEq
-
-def Bisection(equation,MainVar,a,b,tolerance,Chp2Table):
-    Chp2Table.setRowCount(0)
-    f=str(tolerance)
-    Rounder=f[::-1].find('.')
-    if Rounder<0:
-        Rounder=0
-    Rounder=5
+def Bisection2(equation,MainVar,a,b,tolerance):
     decider=equation.evalf(subs={MainVar:a}) #substitute a as value of mainvar. then evaluate and give value to decider
     decider=float(decider)
     if decider<0:
@@ -68,46 +9,33 @@ def Bisection(equation,MainVar,a,b,tolerance,Chp2Table):
         negative=b
     AbsoluteError=1
     prevc=0
-    i=0
+    i=1
     while (AbsoluteError>tolerance):
         PosinFunc=float(equation.evalf(subs={MainVar:positive}))
         NeginFunc=float(equation.evalf(subs={MainVar:negative}))
         if PosinFunc*NeginFunc>0:
-            return "None"
-        c=round((negative+positive)/2,Rounder)
-        AbsoluteError=round(math.fabs(c-prevc),Rounder)
+            print("IVT failed , aborting iterations!")
+            return 
+        c=(negative+positive)/2
+        AbsoluteError=math.fabs(c-prevc)
+        print(str(i)+'.) '+str(c)+"                                                                                      "+str(AbsoluteError))
         if AbsoluteError<tolerance:
             break
-        Chp2Table.insertRow(Chp2Table.rowCount())
-        Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
-        Chp2Table.setItem(i, 1, QTableWidgetItem(str(negative)))
-        Chp2Table.setItem(i, 2, QTableWidgetItem(str(positive)))
-        Chp2Table.setItem(i, 3, QTableWidgetItem(str(c)))
-        Chp2Table.setItem(i, 5, QTableWidgetItem(str(AbsoluteError)))
-        CinFunc=round(float(equation.evalf(subs={MainVar:c})),Rounder)
-        Chp2Table.setItem(i, 4, QTableWidgetItem(str(CinFunc)))
+        
+        CinFunc=float(equation.evalf(subs={MainVar:c}))
         if CinFunc<0:
             negative=c
         else :
             positive=c
         prevc=c
         i=i+1
-    Chp2Table.insertRow(Chp2Table.rowCount())
-    Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
-    Chp2Table.setItem(i, 1, QTableWidgetItem(str(negative)))
-    Chp2Table.setItem(i, 2, QTableWidgetItem(str(positive)))
-    Chp2Table.setItem(i, 3, QTableWidgetItem(str(c)))
-    Chp2Table.setItem(i, 4, QTableWidgetItem(str(CinFunc)))
-    Chp2Table.setItem(i, 5, QTableWidgetItem(str(AbsoluteError)))
-    return c
-
-def RegularFalsi(equation,MainVar,a,b,tolerance,Chp2Table):
-    Chp2Table.setRowCount(0)
-    f=str(tolerance)
-    Rounder=f[::-1].find('.')
-    if Rounder<0:
-        Rounder=0
-    Rounder=5
+    print("A suitable root within the given tolerance value is = "+str(c))
+def RegularFalsi(equation,MainVar):
+    # tolerance=float(input("Enter the tolerance value = "))
+    # a=float(input("Enter the value of 'a' = "))
+    # b=float(input("Enter the value of 'b' = "))
+    global a
+    global b
     decider=equation.evalf(subs={MainVar:a})
     decider=float(decider)
     if decider<0:
@@ -120,25 +48,20 @@ def RegularFalsi(equation,MainVar,a,b,tolerance,Chp2Table):
         A_Status='Positive'
     AbsoluteError=1
     prevc=0
-    i=0
+    i=1
     while (AbsoluteError>tolerance):
           PosInFunc=float(equation.evalf(subs={MainVar:positive}))
           NegInFunc=float(equation.evalf(subs={MainVar:negative}))
           if (PosInFunc*NegInFunc>0):
-              return "None"
-          c=round((a*float(equation.evalf(subs={MainVar:b}))-b*float(equation.evalf(subs={MainVar:a}))),Rounder)
-          c=round(c/(float(equation.evalf(subs={MainVar:b}))-float(equation.evalf(subs={MainVar:a}))),Rounder)
-          AbsoluteError=round(math.fabs(c-prevc),Rounder)
+              print("IVT failed, aborting iterations ")
+              return
+          c=(a*float(equation.evalf(subs={MainVar:b}))-b*float(equation.evalf(subs={MainVar:a})))
+          c=c/(float(equation.evalf(subs={MainVar:b}))-float(equation.evalf(subs={MainVar:a})))
+          AbsoluteError=math.fabs(c-prevc)
+          print(str(i)+'.) '+str(c)+"                                                                              "+str(AbsoluteError))
           if AbsoluteError<tolerance:
             break
-          Chp2Table.insertRow(Chp2Table.rowCount())
-          Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
-          Chp2Table.setItem(i, 1, QTableWidgetItem(str(a)))
-          Chp2Table.setItem(i, 2, QTableWidgetItem(str(b)))
-          Chp2Table.setItem(i, 3, QTableWidgetItem(str(c)))
-          Chp2Table.setItem(i, 5, QTableWidgetItem(str(AbsoluteError)))
-          CinFunc=round(float(equation.evalf(subs={MainVar:c})),Rounder)
-          Chp2Table.setItem(i, 4, QTableWidgetItem(str(CinFunc)))
+          CinFunc=float(equation.evalf(subs={MainVar:c}))
           if (CinFunc<0):
               if (A_Status=='Positive'):
                   b=c 
@@ -151,52 +74,29 @@ def RegularFalsi(equation,MainVar,a,b,tolerance,Chp2Table):
                   b=c            
           prevc=c
           i=i+1
-    Chp2Table.insertRow(Chp2Table.rowCount())
-    Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
-    Chp2Table.setItem(i, 1, QTableWidgetItem(str(a)))
-    Chp2Table.setItem(i, 2, QTableWidgetItem(str(b)))
-    Chp2Table.setItem(i, 3, QTableWidgetItem(str(c)))
-    Chp2Table.setItem(i, 4, QTableWidgetItem(str(CinFunc)))
-    Chp2Table.setItem(i, 5, QTableWidgetItem(str(AbsoluteError)))  
-    return c 
+    print("A suitable root within the given tolerance value is = "+str(c))     
 
-def Secant(equation,MainVar,a,b,tolerance,Chp2Table):
-    Chp2Table.setRowCount(0)
-    f=str(tolerance)
-    Rounder=f[::-1].find('.')
-    if Rounder<0:
-        Rounder=0
-    Rounder=5
+def Secant(equation,MainVar):
+    #   tolerance=float(input("Enter the tolerance value = "))
+    #   a=float(input("Enter the value of 'a' = "))
+    #   b=float(input("Enter the value of 'b' = "))
+    global a
+    global b
     AbsoluteError=1
     prevc=0
-    i=0
+    i=1
     while(AbsoluteError>tolerance):
-        c=round((a*float(equation.evalf(subs={MainVar:b}))-b*float(equation.evalf(subs={MainVar:a}))),Rounder)
-        c=round(c/(float(equation.evalf(subs={MainVar:b}))-float(equation.evalf(subs={MainVar:a}))),Rounder)
-        AbsoluteError=round(math.fabs(c-prevc),Rounder)
+        c=(a*float(equation.evalf(subs={MainVar:b}))-b*float(equation.evalf(subs={MainVar:a})))
+        c=c/(float(equation.evalf(subs={MainVar:b}))-float(equation.evalf(subs={MainVar:a})))
+        AbsoluteError=math.fabs(c-prevc)
         print(str(i)+'.) '+str(c)+"                                                                              "+str(AbsoluteError))
-        Chp2Table.insertRow(Chp2Table.rowCount())
-        Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
-        Chp2Table.setItem(i, 1, QTableWidgetItem(str(a)))
-        Chp2Table.setItem(i, 2, QTableWidgetItem(str(b)))
-        Chp2Table.setItem(i, 3, QTableWidgetItem(str(c)))
-        Chp2Table.setItem(i, 5, QTableWidgetItem(str(AbsoluteError)))
-        CinFunc=round(float(equation.evalf(subs={MainVar:c})),Rounder)
-        Chp2Table.setItem(i, 4, QTableWidgetItem(str(CinFunc)))
         a=b
         b=c 
         i=i+1
         if(AbsoluteError<tolerance):
             break
         prevc=c 
-    Chp2Table.insertRow(Chp2Table.rowCount())
-    Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
-    Chp2Table.setItem(i, 1, QTableWidgetItem(str(a)))
-    Chp2Table.setItem(i, 2, QTableWidgetItem(str(b)))
-    Chp2Table.setItem(i, 3, QTableWidgetItem(str(c)))
-    Chp2Table.setItem(i, 4, QTableWidgetItem(str(CinFunc)))
-    Chp2Table.setItem(i, 5, QTableWidgetItem(str(AbsoluteError)))  
-    return c
+    print("A suitable root within the given tolerance value is = "+str(c))      
 
 def NewtonRaphson(equation,MainVar):
     #   tolerance=float(input("Enter the tolerance value = "))
@@ -655,44 +555,3 @@ def FixedPointIteration(equation,MainVar):
         #     print("The function is divergent so a solution wont exist here ")
         #     break
         p=PInFunc
-
-
-#MainWindow=tk.Tk()
-# eq=input("Enter the equation :")
-# tolerance=float(input("Enter the tolerance value = "))
-# a=float(input("Enter the value of 'a' = "))
-# b=float(input("Enter the value of 'b' = "))
-
-# i=0
-# for x in eq:
-#     if eq[i]>='x' and eq[i]<='z':
-#         MainVar=eq[i]
-#         break
-#     i=i+1
-
-# print("The variable has been recognized as: " + MainVar)
-# NewVar=symbols(MainVar) #Creates a sympy symbol named NewVar
-# NewStr=MakeStringReady(eq)
-# NewStr=sympify(NewStr)  #makes a sympy expression/equation
-#LagrangeInterpolation()
-#ForwardDifference()
-#ForWardsSDT();
-#BackWardsSDT()
-#StirlingsMethod();
-#BackwardDifference()
-# FixedPointIteration(NewStr,MainVar)
-# Bisection(NewStr,MainVar)
-# RegularFalsi(NewStr,MainVar)
-# NewtonRaphson(NewStr,MainVar)
-# Secant(NewStr,MainVar)
-#DividedDifference()
-#i=0
-# while i!=5:
-#     TempStr=NewStr
-#     print("The value of "+eq+" At x = "+ str(i) +" is:")
-#     NewStr=sympify(NewStr)
-#     print(NewStr.evalf(subs={MainVar:i}))
-#     print('\n')
-#     i=i+1
-
-#MainWindow.mainloop();
