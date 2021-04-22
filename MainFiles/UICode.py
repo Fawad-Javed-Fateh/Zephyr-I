@@ -126,7 +126,7 @@ class Ui_MainWindow(object):
         self.Chp2Table.setRowCount(0)
         self.Chp2Table.setColumnCount(6)
         self.Chp2Table.setObjectName("Chp2Table")
-        self.Chp2Table.horizontalHeader().setVisible(True)
+        self.Chp2Table.horizontalHeader().setVisible(False)
         self.Chp2Table.horizontalHeader().setDefaultSectionSize(128)
         self.Chp2Table.horizontalHeader().setSortIndicatorShown(False)
         self.Chp2Table.horizontalHeader().setStretchLastSection(False)
@@ -174,8 +174,7 @@ class Ui_MainWindow(object):
         self.Chp2FuncInput.setText(_translate("MainWindow", "Example: 2x - 5x^2 = 0"))
         self.Chp2Ainput.setText(_translate("MainWindow", "Ex: 2.6897"))
         self.Chp2Binput.setText(_translate("MainWindow", "Ex: 2.6897"))
-        self.Chp2formulalabel.setText(_translate("MainWindow", "1<sup>1</sup>&frasl;<sub>2</sub>\n"
-        ""))
+        self.Chp2formulalabel.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Bisection Method Formula:</span></p><p align=\"center\">Root: c = (a+b)/2</p></body></html>"))
         self.Chp2startbutton.setText(_translate("MainWindow", "Click Here to \n"
         " Start the Interpolation"))
         self.Chp2tolinput.setText(_translate("MainWindow", "Ex: 0.000001"))
@@ -192,6 +191,20 @@ class Ui_MainWindow(object):
 
     def MovetoChapter2(self, MainWindow):
         self.tabWidget.setCurrentIndex(1)
+    def Chp2ChoiceChanged(self, MainWindow):
+        method = self.Chp2choicebox.currentText()
+        if(method=="Bisection Method"):
+            self.Chp2formulalabel.setText("<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Bisection Method Formula:</span></p><p align=\"center\">Root: c = (a+b)/2</p></body></html>")
+        elif(method=="Regulai Falsi Method"):
+            self.Chp2formulalabel.setText("<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Regulai Falsi Method Formula:</span></p><p align=\"center\">Root: c = af(b) - bf(a) / f(b) - f(a)</p></body></html>")
+        elif(method=="Newton - Raphson Method"):
+            self.Chp2formulalabel.setText("<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Newton - Raphson Method Formula:</span></p><p align=\"center\">Root: P = P<sub>n-1</sub> - f(P<sub>n-1</sub>) / f`(P<sub>n-1</sub>)</p></body></html>")
+        elif(method=="Secant Method"):
+            self.Chp2formulalabel.setText("<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Secant Method Formula:</span></p><p align=\"center\">Root: x<sub>n+1</sub> = x<sub>n-1</sub>f(x<sub>n</sub>) - x<sub>n</sub>f(x<sub>n-1</sub>) / f(x<sub>n</sub>) - f(x<sub>n-1</sub>) </p></body></html>")
+        elif(method=="Fixed Point Iteration Method"):
+            self.Chp2funclabel.setText("<html><b>Input your equation G(x) below:</b></html>")
+            self.Chp2formulalabel.setText("<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Fixed Point Iteration Method Formula:</span></p><p align=\"center\">The Root will be based on the equation input by you!</p></body></html>")
+
     def MovetoMain(self, MainWindow):
         self.tabWidget.setCurrentIndex(0)
     def Chapter2Start(self, Mainwindow):
@@ -239,4 +252,5 @@ if __name__ == "__main__":
     ui.Chp2startbutton.clicked.connect(lambda: ui.Chapter2Start(MainWindow))
     ui.Chp2mainback.clicked.connect(lambda: ui.MovetoMain(MainWindow))
     ui.Chp2iterback.clicked.connect(lambda: ui.MovetoChapter2(MainWindow))
+    ui.Chp2choicebox.currentIndexChanged.connect(lambda: ui.Chp2ChoiceChanged(MainWindow))
     sys.exit(app.exec_())

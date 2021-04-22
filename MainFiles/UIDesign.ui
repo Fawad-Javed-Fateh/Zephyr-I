@@ -283,8 +283,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>1&lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;2&lt;/sub&gt;
-</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Bisection Method Formula:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Root: c = (a+b)/2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QPushButton" name="Chp2startbutton">
