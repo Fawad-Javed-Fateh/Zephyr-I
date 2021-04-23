@@ -240,7 +240,9 @@ class Ui_MainWindow(object):
                 x=dialoguebox.exec_()
                 return
         elif(method=="Newton - Raphson Method"):
-            newton
+            self.Chp2Table.setColumnCount(5)
+            Ans=Secant(Newstr, Newvar, a, b, tolerance, self.Chp2Table)
+            self.Chp2Anslabel.setText("The Root of the equation " + str(equation) + " is: " + str(Ans))
         elif(method=="Secant Method"):
             Ans=Secant(Newstr, Newvar, a, b, tolerance, self.Chp2Table)
             self.Chp2Anslabel.setText("The Root of the equation " + str(equation) + " is: " + str(Ans))

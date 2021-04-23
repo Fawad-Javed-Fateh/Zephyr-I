@@ -198,29 +198,41 @@ def Secant(equation,MainVar,a,b,tolerance,Chp2Table):
     Chp2Table.setItem(i, 5, QTableWidgetItem(str(AbsoluteError)))  
     return c
 
-def NewtonRaphson(equation,MainVar):
-    #   tolerance=float(input("Enter the tolerance value = "))
-    #   a=float(input("Enter the value of 'a' = "))
-    #   b=float(input("Enter the value of 'b' = "))
-    global a
-    global b
+def NewtonRaphson(equation,MainVar,a,b,tolerance,Chp2Table):
+    Chp2Table.setRowCount(0)
+    f=str(tolerance)
+    Rounder=f[::-1].find('.')
+    if Rounder<0:
+        Rounder=0
+    Rounder=5
     AbsoluteError=1
     PrevP=0
-    i=1
+    i=0
     p=float(a+b/2)
     while(AbsoluteError>tolerance):
-        PInFunc=float(equation.evalf(subs={MainVar:p}))
+        PInFunc=round(float(equation.evalf(subs={MainVar:p})),Rounder)
         DerEq=diff(equation,MainVar)
-        PInDer=float(DerEq.evalf(subs={MainVar:p}))
-        PNext=float(p-(PInFunc/PInDer))
-        AbsoluteError=math.fabs(PNext-PrevP)
-        print(str(i)+'.) '+str(PNext)+"                                                                              "+str(AbsoluteError))
+        PInDer=round(float(DerEq.evalf(subs={MainVar:p})),Rounder)
+        PNext=round(float(p-(PInFunc/PInDer)),Rounder)
+        AbsoluteError=round(math.fabs(PNext-PrevP),Rounder)
+        Chp2Table.insertRow(Chp2Table.rowCount())
+        Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
+        Chp2Table.setItem(i, 1, QTableWidgetItem(str(p)))
+        Chp2Table.setItem(i, 2, QTableWidgetItem(str(PNext)))
+        Chp2Table.setItem(i, 4, QTableWidgetItem(str(AbsoluteError)))
+        Chp2Table.setItem(i, 3, QTableWidgetItem(str(PInFunc)))
         if(AbsoluteError<tolerance):
             break
         i=i+1
         PrevP=PNext
         p=PNext 
-    print("A sutibale root within the given tolerance value is = "+str(PNext))    
+    Chp2Table.insertRow(Chp2Table.rowCount())
+    Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
+    Chp2Table.setItem(i, 1, QTableWidgetItem(str(p)))
+    Chp2Table.setItem(i, 2, QTableWidgetItem(str(PNext)))
+    Chp2Table.setItem(i, 4, QTableWidgetItem(str(AbsoluteError)))
+    Chp2Table.setItem(i, 3, QTableWidgetItem(str(PInFunc)))    
+    return p
 
 def LagrangeInterpolation():
     n=int(input("Enter the total number of data points : "))
