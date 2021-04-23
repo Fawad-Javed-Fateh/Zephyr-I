@@ -190,6 +190,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Chapter2iterTab), _translate("MainWindow", "Page"))
 
     def MovetoChapter2(self, MainWindow):
+        self.Chp2Table.setColumnCount(6)
+        self.Chp2Table.setHorizontalHeaderLabels(["Iteration","a","b","c","f(c)","Error"])
         self.tabWidget.setCurrentIndex(1)
     def Chp2ChoiceChanged(self, MainWindow):
         method = self.Chp2choicebox.currentText()
@@ -208,6 +210,7 @@ class Ui_MainWindow(object):
     def MovetoMain(self, MainWindow):
         self.tabWidget.setCurrentIndex(0)
     def Chapter2Start(self, Mainwindow):
+        self.Chp2Table.horizontalHeader().setVisible(True)
         try:
             equation = self.Chp2FuncInput.text()
             Newstr = MakeStringReady(equation)
@@ -241,17 +244,36 @@ class Ui_MainWindow(object):
                 return
         elif(method=="Newton - Raphson Method"):
             self.Chp2Table.setColumnCount(5)
-            Ans=Secant(Newstr, Newvar, a, b, tolerance, self.Chp2Table)
+            self.Chp2Table.setHorizontalHeaderLabels(["Iteration","a","c","f(c)","Error"])
+            self.Chp2Table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+            Ans=NewtonRaphson(Newstr, Newvar, a, b, tolerance, self.Chp2Table)
             self.Chp2Anslabel.setText("The Root of the equation " + str(equation) + " is: " + str(Ans))
         elif(method=="Secant Method"):
             Ans=Secant(Newstr, Newvar, a, b, tolerance, self.Chp2Table)
             self.Chp2Anslabel.setText("The Root of the equation " + str(equation) + " is: " + str(Ans))
-            if(Ans=="None"):
-                dialoguebox = QMessageBox(QMessageBox.Warning, "Error", "The Entry points provided Failed the Intermediate Value Theorum")
+        elif(method=="Fixed Point Iteration Method"):
+            self.Chp2Table.setColumnCount(4)
+            self.Chp2Table.setHorizontalHeaderLabels(["Iteration","x","f(x)","Error"])
+            self.Chp2Table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+            Ans=FixedPointIteration(Newstr, Newvar, a, b, tolerance, self.Chp2Table)
+            self.Chp2Anslabel.setText("The Root of the equation " + str(equation) + " is: " + str(Ans))
+            if(Ans=="Complex"):
+                dialoguebox = QMessageBox(QMessageBox.Warning, "Error", "The function provided returns a complex value!")
                 x=dialoguebox.exec_()
                 return
-        elif(method=="Fixed Point Iteration Method"):
-            pass
+            elif(Ans=="Bouncing"):
+                dialoguebox = QMessageBox(QMessageBox.Warning, "Error", "The function provided bounces between two values!")
+                x=dialoguebox.exec_()
+                return
+            elif(Ans=="Divergent"):
+                dialoguebox = QMessageBox(QMessageBox.Warning, "Error", "The function provided is a divergent function!")
+                x=dialoguebox.exec_()
+                return
+            elif(Ans=="200 iterations"):
+                dialoguebox = QMessageBox(QMessageBox.Warning, "Error", "The function provided did not reach the tolerance value even after 200 iterations! Execution terminated to save resources.")
+                x=dialoguebox.exec_()
+                return
+
 
 if __name__ == "__main__":
     import sys

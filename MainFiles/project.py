@@ -174,7 +174,6 @@ def Secant(equation,MainVar,a,b,tolerance,Chp2Table):
         c=round((a*float(equation.evalf(subs={MainVar:b}))-b*float(equation.evalf(subs={MainVar:a}))),Rounder)
         c=round(c/(float(equation.evalf(subs={MainVar:b}))-float(equation.evalf(subs={MainVar:a}))),Rounder)
         AbsoluteError=round(math.fabs(c-prevc),Rounder)
-        print(str(i)+'.) '+str(c)+"                                                                              "+str(AbsoluteError))
         Chp2Table.insertRow(Chp2Table.rowCount())
         Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
         Chp2Table.setItem(i, 1, QTableWidgetItem(str(a)))
@@ -221,9 +220,9 @@ def NewtonRaphson(equation,MainVar,a,b,tolerance,Chp2Table):
         Chp2Table.setItem(i, 2, QTableWidgetItem(str(PNext)))
         Chp2Table.setItem(i, 4, QTableWidgetItem(str(AbsoluteError)))
         Chp2Table.setItem(i, 3, QTableWidgetItem(str(PInFunc)))
+        i=i+1
         if(AbsoluteError<tolerance):
             break
-        i=i+1
         PrevP=PNext
         p=PNext 
     Chp2Table.insertRow(Chp2Table.rowCount())
@@ -232,6 +231,54 @@ def NewtonRaphson(equation,MainVar,a,b,tolerance,Chp2Table):
     Chp2Table.setItem(i, 2, QTableWidgetItem(str(PNext)))
     Chp2Table.setItem(i, 4, QTableWidgetItem(str(AbsoluteError)))
     Chp2Table.setItem(i, 3, QTableWidgetItem(str(PInFunc)))    
+    return p
+
+def FixedPointIteration(equation,MainVar,a,b,tolerance,Chp2Table):
+    Chp2Table.setRowCount(0)
+    f=str(tolerance)
+    Rounder=f[::-1].find('.')
+    if Rounder<0:
+        Rounder=0
+    Rounder=5
+    ReadyEq=equation
+    AbsoluteError=1
+    PrevP=0
+    i=0
+    p=a
+    errors = array('d',[a,a,a,a,a])
+    #CummulativeAbsError=0
+    while(AbsoluteError>tolerance):
+        try:
+            PInFunc=round(float(ReadyEq.evalf(subs={MainVar:p})),Rounder)
+        except:
+            return "Complex"
+        AbsoluteError=round(math.fabs(PInFunc-PrevP),Rounder)
+        Chp2Table.insertRow(Chp2Table.rowCount())
+        Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
+        Chp2Table.setItem(i, 1, QTableWidgetItem(str(p)))
+        Chp2Table.setItem(i, 3, QTableWidgetItem(str(AbsoluteError)))
+        Chp2Table.setItem(i, 2, QTableWidgetItem(str(PInFunc)))
+        errors.append(AbsoluteError)
+        errors.pop(0)
+        if(AbsoluteError<tolerance):
+            break
+        elif errors[4]==errors[2]:
+            return "Bouncing"
+            break
+        elif (math.fabs(errors[4]-errors[3]) > math.fabs(errors[3]-errors[2])) and (math.fabs(errors[3]-errors[2]) > math.fabs(errors[2]-errors[1])) and math.fabs((errors[2]-errors[1]) > math.fabs(errors[1]-errors[0])):
+            return "Divergent"
+            break
+        elif i>200:
+            return "200 iterations"
+            break
+        i=i+1
+        PrevP=PInFunc
+        p=PInFunc
+    Chp2Table.insertRow(Chp2Table.rowCount())
+    Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
+    Chp2Table.setItem(i, 1, QTableWidgetItem(str(p)))
+    Chp2Table.setItem(i, 3, QTableWidgetItem(str(AbsoluteError)))
+    Chp2Table.setItem(i, 2, QTableWidgetItem(str(PInFunc)))
     return p
 
 def LagrangeInterpolation():
@@ -620,53 +667,6 @@ def ForWardsSDT():
 
 
 
-def FixedPointIteration(equation,MainVar):
-    #   tolerance=float(input("Enter the tolerance value = "))
-    #   a=float(input("Enter the value of 'a' = "))
-    #   b=float(input("Enter the value of 'b' = "))
-    #print("Fixed Point is working under the assumption that you have entered a function G(x) instead of the original F(x)!")
-
-    # NormalEq=input("Enter g(x), press QUIT if you want to terminate here : ")
-    # if(NormalEq=='QUIT'):
-    #     return
-    # ReadyEq=MakeStringReady(NormalEq)
-    # ReadyEq=sympify(ReadyEq)
-    ReadyEq=equation
-    AbsoluteError=1
-    PrevP=0
-    i=1
-    p=a
-    errors = array('d',[a,a,a,a,a])
-    #CummulativeAbsError=0
-    while(AbsoluteError>tolerance):
-        try:
-            PInFunc=float(ReadyEq.evalf(subs={MainVar:p}))
-        except:
-            print("The value of the function became complex at P = " + str(p))
-            return
-        AbsoluteError=math.fabs(PInFunc-PrevP)
-        print(str(i)+'.) '+str(PInFunc)+"                                                                              "+str(AbsoluteError))
-        errors.append(AbsoluteError)
-        errors.pop(0)
-        if(AbsoluteError<tolerance):
-            print("A sutibale root within the given tolerance value is = "+str(PInFunc))
-            break
-        elif errors[4]==errors[2]:
-            print("The function entered in bouncing between two values and is not convergent!")
-            break
-        elif (math.fabs(errors[4]-errors[3]) > math.fabs(errors[3]-errors[2])) and (math.fabs(errors[3]-errors[2]) > math.fabs(errors[2]-errors[1])) and math.fabs((errors[2]-errors[1]) > math.fabs(errors[1]-errors[0])):
-            print("The function enetered is divergent!")
-            break
-        elif i>300:
-            print("The function did not reach the tolerance value after 300 iterations! Stopping calculation...")
-            break
-        i=i+1
-        PrevP=PInFunc
-        #CummulativeAbsError=math.fabs(AbsoluteError+AbsoluteError)
-        # if(CummulativeAbsError>20):
-        #     print("The function is divergent so a solution wont exist here ")
-        #     break
-        p=PInFunc
 
 
 #MainWindow=tk.Tk()
