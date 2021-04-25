@@ -9,6 +9,7 @@ from tkinter import ttk
 import math
 from sympy import *
 
+print(math.floor(0.5))
 def switch():
     Tabs.select(SecondTab)
 
