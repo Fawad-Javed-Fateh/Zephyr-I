@@ -504,7 +504,82 @@ def ForWardsSDT():
             ans = ans + (q*(SimpleDifferenceTable[j][i+1])/math.factorial(i+1))    
             print(" At n = "+str(i)+" the value is = " + str(ans))
 
-    
+def StirlingsMethod():
+    #Rounder=f[::-1].find('.')
+    n=int(input("Enter total number of data points "))
+    x=np.zeros(n,dtype=float)
+    y=np.zeros(n,dtype=float)
+    SimpleDifferenceTable=np.zeros((n,n),dtype=float)
+    print("Start entering x values, they must have equal spacing for simple difference ")
+    for i in range(n):
+         x[i]=input("Enter x"+str(i)+" = ")
+    # SimpleDifferenceTable[0][0]=0.7651977
+    # SimpleDifferenceTable[1][0]=0.6200860
+    # SimpleDifferenceTable[2][0]=0.4554022
+    # SimpleDifferenceTable[3][0]=0.2818186
+    # SimpleDifferenceTable[4][0]=0.1103623
+    # x[0]=1.0
+    # x[1]=1.3
+    # x[2]=1.6
+    # x[3]=1.9
+    # x[4]=2.2
+
+
+    for i in range(n):
+        SimpleDifferenceTable[i][0]=input("Enter y"+str(i)+" = ") 
+    for i in range(1,n):
+        for j in range(0,n-i):
+            SimpleDifferenceTable[j][i]=SimpleDifferenceTable[j+1][i-1]-SimpleDifferenceTable[j][i-1]
+    for i in range(n-1):
+        for j in range(n-1):
+            print(str(SimpleDifferenceTable[i][j])+" ")
+        print("\n")
+    InterPolVal=float(input("Enter the interpolation value "))
+    diff=x[1]-x[0]  
+    MidTerm=math.floor(n/2)  
+    p=float((InterPolVal-x[MidTerm])/diff) 
+    ans=float(SimpleDifferenceTable[MidTerm][0])
+    ans=ans+float(p*((SimpleDifferenceTable[MidTerm][1]+SimpleDifferenceTable[MidTerm-1][1])/2))
+    MidTerm=MidTerm-1
+    ans=round(ans,5)
+    padder=2;
+    oddcump=1;
+    for i in range(2,n,1):
+        if i%2==0:
+            if i!=2:
+                for j in range(1,padder,1):
+                    oddcump=oddcump*((p**2)-(j**2))
+            oddcump=(p**2)*oddcump
+            oddcump=round(oddcump,5)
+            tmid=int(0)
+            for k in range(n):
+                if(SimpleDifferenceTable[k][i]!=0):
+                    tmid=tmid+1
+            tmid=math.floor(tmid/2)
+            ans=ans+((oddcump/math.factorial(i))*SimpleDifferenceTable[tmid][i])
+            ans=round(ans,5)
+            if MidTerm!=0:
+                MidTerm=MidTerm-1
+            oddcump=1
+            if i!=2:
+                padder=padder+1
+        if i%2!=0:
+            for j in range(1,padder,1):
+                oddcump=oddcump*((p**2)-(j**2))
+            oddcump=p*oddcump;
+            oddcump=round(oddcump,5)
+            tmid=int(0)
+            for k in range(n):
+                if(SimpleDifferenceTable[k][i]!=0):
+                    tmid=tmid+1
+            tmid=int(tmid/2)
+            ans=ans+((oddcump/math.factorial(i))*((SimpleDifferenceTable[tmid][i]+SimpleDifferenceTable[tmid-1][i])/2))
+            oddcump=1
+            ans=round(ans,5)
+            padder=padder+1
+            if MidTerm!=0:
+                MidTerm=MidTerm-1
+    print("The generic ans = "+ str(ans))
 
 
 
