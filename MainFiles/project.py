@@ -51,55 +51,7 @@ def MakeStringReady(equation):
         i=i+1
     return ParsableEq
 
-def Bisection(equation,MainVar,a,b,tolerance,Chp2Table):
-    Chp2Table.setRowCount(0)
-    f=str(tolerance)
-    Rounder=f[::-1].find('.')
-    if Rounder<0:
-        Rounder=0
-    Rounder=5
-    decider=equation.evalf(subs={MainVar:a}) #substitute a as value of mainvar. then evaluate and give value to decider
-    decider=float(decider)
-    if decider<0:
-        negative=a
-        positive=b
-    else: 
-        positive=a
-        negative=b
-    AbsoluteError=1
-    prevc=0
-    i=0
-    while (AbsoluteError>tolerance):
-        PosinFunc=float(equation.evalf(subs={MainVar:positive}))
-        NeginFunc=float(equation.evalf(subs={MainVar:negative}))
-        if PosinFunc*NeginFunc>0:
-            return "None"
-        c=round((negative+positive)/2,Rounder)
-        AbsoluteError=round(math.fabs(c-prevc),Rounder)
-        if AbsoluteError<tolerance:
-            break
-        Chp2Table.insertRow(Chp2Table.rowCount())
-        Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
-        Chp2Table.setItem(i, 1, QTableWidgetItem(str(negative)))
-        Chp2Table.setItem(i, 2, QTableWidgetItem(str(positive)))
-        Chp2Table.setItem(i, 3, QTableWidgetItem(str(c)))
-        Chp2Table.setItem(i, 5, QTableWidgetItem(str(AbsoluteError)))
-        CinFunc=round(float(equation.evalf(subs={MainVar:c})),Rounder)
-        Chp2Table.setItem(i, 4, QTableWidgetItem(str(CinFunc)))
-        if CinFunc<0:
-            negative=c
-        else :
-            positive=c
-        prevc=c
-        i=i+1
-    Chp2Table.insertRow(Chp2Table.rowCount())
-    Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
-    Chp2Table.setItem(i, 1, QTableWidgetItem(str(negative)))
-    Chp2Table.setItem(i, 2, QTableWidgetItem(str(positive)))
-    Chp2Table.setItem(i, 3, QTableWidgetItem(str(c)))
-    Chp2Table.setItem(i, 4, QTableWidgetItem(str(CinFunc)))
-    Chp2Table.setItem(i, 5, QTableWidgetItem(str(AbsoluteError)))
-    return c
+
 
 def RegularFalsi(equation,MainVar,a,b,tolerance,Chp2Table):
     Chp2Table.setRowCount(0)
@@ -554,15 +506,67 @@ def BackwardDifference():
     # print(str(Var_S))
     print(str(round(Answer,Rounder+1)))
 
-def StirlingsMethod():
+def Bisection(equation,MainVar,a,b,tolerance,Chp2Table):
+    Chp2Table.setRowCount(0)
+    f=str(tolerance)
+    Rounder=f[::-1].find('.')
+    if Rounder<0:
+        Rounder=0
+    Rounder=5
+    decider=equation.evalf(subs={MainVar:a}) #substitute a as value of mainvar. then evaluate and give value to decider
+    decider=float(decider)
+    if decider<0:
+        negative=a
+        positive=b
+    else: 
+        positive=a
+        negative=b
+    AbsoluteError=1
+    prevc=0
+    i=0
+    while (AbsoluteError>tolerance):
+        PosinFunc=float(equation.evalf(subs={MainVar:positive}))
+        NeginFunc=float(equation.evalf(subs={MainVar:negative}))
+        if PosinFunc*NeginFunc>0:
+            return "None"
+        c=round((negative+positive)/2,Rounder)
+        AbsoluteError=round(math.fabs(c-prevc),Rounder)
+        if AbsoluteError<tolerance:
+            break
+        Chp2Table.insertRow(Chp2Table.rowCount())
+        Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
+        Chp2Table.setItem(i, 1, QTableWidgetItem(str(negative)))
+        Chp2Table.setItem(i, 2, QTableWidgetItem(str(positive)))
+        Chp2Table.setItem(i, 3, QTableWidgetItem(str(c)))
+        Chp2Table.setItem(i, 5, QTableWidgetItem(str(AbsoluteError)))
+        CinFunc=round(float(equation.evalf(subs={MainVar:c})),Rounder)
+        Chp2Table.setItem(i, 4, QTableWidgetItem(str(CinFunc)))
+        if CinFunc<0:
+            negative=c
+        else :
+            positive=c
+        prevc=c
+        i=i+1
+    Chp2Table.insertRow(Chp2Table.rowCount())
+    Chp2Table.setItem(i, 0, QTableWidgetItem(str(i)))
+    Chp2Table.setItem(i, 1, QTableWidgetItem(str(negative)))
+    Chp2Table.setItem(i, 2, QTableWidgetItem(str(positive)))
+    Chp2Table.setItem(i, 3, QTableWidgetItem(str(c)))
+    Chp2Table.setItem(i, 4, QTableWidgetItem(str(CinFunc)))
+    Chp2Table.setItem(i, 5, QTableWidgetItem(str(AbsoluteError)))
+    return c
+
+def StirlingsMethod(InterPolVal,n,argx,argy,DifferenceTable):
     #Rounder=f[::-1].find('.')
-    n=int(input("Enter total number of data points "))
+    DifferenceTable.setRowCount(5)
     x=np.zeros(n,dtype=float)
     y=np.zeros(n,dtype=float)
     SimpleDifferenceTable=np.zeros((n,n),dtype=float)
-    print("Start entering x values, they must have equal spacing for simple difference ")
     for i in range(n):
-         x[i]=input("Enter x"+str(i)+" = ")
+        x[i]=argx[i]
+        SimpleDifferenceTable[i][0]=argy[i]
+        DifferenceTable.setItem(i,0, QTableWidgetItem(str(SimpleDifferenceTable[i][0])))
+
     # SimpleDifferenceTable[0][0]=0.7651977
     # SimpleDifferenceTable[1][0]=0.6200860
     # SimpleDifferenceTable[2][0]=0.4554022
@@ -573,18 +577,10 @@ def StirlingsMethod():
     # x[2]=1.6
     # x[3]=1.9
     # x[4]=2.2
-
-
-    for i in range(n):
-        SimpleDifferenceTable[i][0]=input("Enter y"+str(i)+" = ") 
     for i in range(1,n):
         for j in range(0,n-i):
             SimpleDifferenceTable[j][i]=SimpleDifferenceTable[j+1][i-1]-SimpleDifferenceTable[j][i-1]
-    for i in range(n-1):
-        for j in range(n-1):
-            print(str(SimpleDifferenceTable[i][j])+" ")
-        print("\n")
-    InterPolVal=float(input("Enter the interpolation value "))
+            DifferenceTable.setItem(j,i, QTableWidgetItem(str(SimpleDifferenceTable[j][i])))
     diff=x[1]-x[0]  
     MidTerm=math.floor(n/2)  
     p=float((InterPolVal-x[MidTerm])/diff) 
@@ -630,6 +626,7 @@ def StirlingsMethod():
             if MidTerm!=0:
                 MidTerm=MidTerm-1
     print("The generic ans = "+ str(ans))
+    return ans
      
 
 def BackWardsSDT():
