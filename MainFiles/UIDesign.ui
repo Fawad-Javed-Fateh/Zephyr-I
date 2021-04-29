@@ -993,7 +993,7 @@
       <property name="geometry">
        <rect>
         <x>270</x>
-        <y>20</y>
+        <y>-10</y>
         <width>351</width>
         <height>71</height>
        </rect>
@@ -1016,17 +1016,17 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>80</y>
+        <y>50</y>
         <width>811</width>
-        <height>271</height>
+        <height>411</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="InterpolAnsLabel">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>375</y>
+        <x>30</x>
+        <y>480</y>
         <width>431</width>
         <height>31</height>
        </rect>
@@ -1045,10 +1045,10 @@
      <widget class="QPushButton" name="InterPolMainMenu">
       <property name="geometry">
        <rect>
-        <x>630</x>
+        <x>740</x>
         <y>490</y>
-        <width>241</width>
-        <height>61</height>
+        <width>131</width>
+        <height>81</height>
        </rect>
       </property>
       <property name="font">
@@ -1059,7 +1059,8 @@
        </font>
       </property>
       <property name="text">
-       <string>Back To Main Menu</string>
+       <string>Back To 
+ Main Menu</string>
       </property>
      </widget>
     </widget>

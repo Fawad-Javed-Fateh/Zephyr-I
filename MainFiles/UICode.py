@@ -304,7 +304,7 @@ class Ui_MainWindow(object):
         self.InterpolationTab = QtWidgets.QWidget()
         self.InterpolationTab.setObjectName("InterpolationTab")
         self.InterPolHeadinglabel = QtWidgets.QLabel(self.InterpolationTab)
-        self.InterPolHeadinglabel.setGeometry(QtCore.QRect(270, 20, 351, 71))
+        self.InterPolHeadinglabel.setGeometry(QtCore.QRect(270, -10, 351, 71))
         font = QtGui.QFont()
         font.setPointSize(20)
         font.setBold(True)
@@ -313,12 +313,12 @@ class Ui_MainWindow(object):
         self.InterPolHeadinglabel.setAlignment(QtCore.Qt.AlignCenter)
         self.InterPolHeadinglabel.setObjectName("InterPolHeadinglabel")
         self.DifferenceTable = QtWidgets.QTableWidget(self.InterpolationTab)
-        self.DifferenceTable.setGeometry(QtCore.QRect(40, 80, 811, 271))
+        self.DifferenceTable.setGeometry(QtCore.QRect(40, 50, 811, 411))
         self.DifferenceTable.setObjectName("DifferenceTable")
         self.DifferenceTable.setColumnCount(0)
         self.DifferenceTable.setRowCount(0)
         self.InterpolAnsLabel = QtWidgets.QLabel(self.InterpolationTab)
-        self.InterpolAnsLabel.setGeometry(QtCore.QRect(40, 375, 431, 31))
+        self.InterpolAnsLabel.setGeometry(QtCore.QRect(30, 480, 431, 31))
         font = QtGui.QFont()
         font.setPointSize(15)
         font.setBold(True)
@@ -326,7 +326,7 @@ class Ui_MainWindow(object):
         self.InterpolAnsLabel.setFont(font)
         self.InterpolAnsLabel.setObjectName("InterpolAnsLabel")
         self.InterPolMainMenu = QtWidgets.QPushButton(self.InterpolationTab)
-        self.InterPolMainMenu.setGeometry(QtCore.QRect(630, 490, 241, 61))
+        self.InterPolMainMenu.setGeometry(QtCore.QRect(740, 490, 131, 81))
         font = QtGui.QFont()
         font.setPointSize(15)
         font.setBold(True)
@@ -428,9 +428,10 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Chapter3Tab), _translate("MainWindow", "Page"))
         self.InterPolHeadinglabel.setText(_translate("MainWindow", "DIFFERENCE TABLE"))
         self.InterpolAnsLabel.setText(_translate("MainWindow", "The Interpolated value is :"))
-        self.InterPolMainMenu.setText(_translate("MainWindow", "Back To Main Menu"))
+        self.InterPolMainMenu.setText(_translate("MainWindow", "Back To \n"
+        " Main Menu"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.InterpolationTab), _translate("MainWindow", "Page"))
-
+    
     def MovetoChapter2(self, MainWindow):
         self.Chp2Table.setColumnCount(6)
         self.Chp2Table.setHorizontalHeaderLabels(["Iteration","a","b","c","f(c)","Error"])
@@ -520,6 +521,16 @@ class Ui_MainWindow(object):
 
     def MovetoChapter3(self,MainWindow):
         self.tabWidget.setCurrentIndex(3)
+        self.x2input.setDisabled(True)
+        self.x3input.setDisabled(True)
+        self.x4input.setDisabled(True)
+        self.x5input.setDisabled(True)
+        self.x6input.setDisabled(True)
+        self.y2input.setDisabled(True)
+        self.y3input.setDisabled(True)
+        self.y4input.setDisabled(True)
+        self.y5input.setDisabled(True)
+        self.y6input.setDisabled(True)
 
     def Chp3pointschanged(self,MainWindow):
         count = int(self.Chp3pointsbox.currentText())
@@ -549,9 +560,13 @@ class Ui_MainWindow(object):
                 xpoints[i].setDisabled(False)
                 ypoints[i].setDisabled(False)
                 i=i+1
+    
     def Chapter3Start(self,MainWindow):
-        self.DifferenceTable.setColumnCount(6)
         self.tabWidget.setCurrentIndex(3)
+        countofpoints=int(self.Chp3pointsbox.currentText())
+        self.DifferenceTable.setColumnCount(int(countofpoints+1))
+        self.DifferenceTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.DifferenceTable.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
         try:
                 xpoints = []
                 ypoints = []
@@ -569,14 +584,14 @@ class Ui_MainWindow(object):
                 ypoints.append(float(self.y3input.text()))
                 ypoints.append(float(self.y4input.text()))
                 ypoints.append(float(self.y5input.text()))
-                ypoints.append(float(self.y6input.text()))
+                ypoints.append(float(self.y6input.text())) 
         except:
                 dialoguebox = QMessageBox(QMessageBox.Critical, "Error", "Please provide Valid Input.")
                 x=dialoguebox.exec_()
                 return
         method= str(self.Ch3choicebox.currentText())
         if method=="Stirling Central Difference":
-                Ans=StirlingsMethod(InterPolVal,5,xpoints,ypoints,self.DifferenceTable)
+                Ans=StirlingsMethod(InterPolVal,countofpoints,xpoints,ypoints,self.DifferenceTable)
                 self.tabWidget.setCurrentIndex(4)
                 self.InterpolAnsLabel.setText("The Interpolated value is = "+ str(Ans))
         return
