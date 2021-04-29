@@ -629,21 +629,20 @@ def StirlingsMethod(InterPolVal,n,argx,argy,DifferenceTable):
     return ans
      
 
-def BackWardsSDT():
-    n=int(input("Enter total number of data points "))
+def BackWardsSDT(InterPolVal,n,argx,argy,DifferenceTable):
+    DifferenceTable.setRowCount(n)
     x=np.zeros(n,dtype=float)
     y=np.zeros(n,dtype=float)
     SimpleDifferenceTable=np.zeros((n,n),dtype=float)
-    print("Start entering x values, they must have equal spacing for simple difference ")
     for i in range(n):
-        x[i]=input("Enter x"+str(i)+" = ")
+        x[i]=argx[i]
     for i in range(n):
-         SimpleDifferenceTable[i][0]=input("Enter y"+str(i)+" = ")
+         SimpleDifferenceTable[i][0]=argy[i]
     for i in range(1,n):
-        for j in range(n-i):
+        for j in range(0,n-i):
             SimpleDifferenceTable[j][i]=SimpleDifferenceTable[j+1][i-1]-SimpleDifferenceTable[j][i-1]
+            DifferenceTable.setItem(j,i, QTableWidgetItem(str(SimpleDifferenceTable[j][i])))
     
-    InterPolVal=float(input("Enter the interpolation value : "))
     p= ((InterPolVal-x[n-1])/(x[1]-x[0]))
     permap=p
     j=n-2 
@@ -662,22 +661,22 @@ def BackWardsSDT():
             ans = ans + (q*(SimpleDifferenceTable[j][i+1])/math.factorial(i+1))
             j=j-1    
             print(" At n = "+str(i)+" the value is = " + str(ans))
+    return ans 
 
-def ForWardsSDT():
-    n=int(input("Enter total number of data points "))
+def ForWardsSDT(InterPolVal,n,argx,argy,DifferenceTable):
+    DifferenceTable.setRowCount(n)
     x=np.zeros(n,dtype=float)
     y=np.zeros(n,dtype=float)
     SimpleDifferenceTable=np.zeros((n,n),dtype=float)
-    print("Start entering x values, they must have equal spacing for simple difference ")
     for i in range(n):
-        x[i]=input("Enter x"+str(i)+" = ")
+        x[i]=argx[i]
     for i in range(n):
-         SimpleDifferenceTable[i][0]=input("Enter y"+str(i)+" = ")
+         SimpleDifferenceTable[i][0]=argy[i]
     for i in range(1,n):
-        for j in range(n-i):
+        for j in range(0,n-i):
             SimpleDifferenceTable[j][i]=SimpleDifferenceTable[j+1][i-1]-SimpleDifferenceTable[j][i-1]
+            DifferenceTable.setItem(j,i, QTableWidgetItem(str(SimpleDifferenceTable[j][i])))
     
-    InterPolVal=float(input("Enter the interpolation value : "))
     p= ((InterPolVal-x[0])/(x[1]-x[0]))
     permap=p
     j=0 
@@ -694,8 +693,34 @@ def ForWardsSDT():
             termer  = (q*(SimpleDifferenceTable[j][i+1])/math.factorial(i+1))
             ans = ans + (q*(SimpleDifferenceTable[j][i+1])/math.factorial(i+1))    
             print(" At n = "+str(i)+" the value is = " + str(ans))
-
-    
+    return ans 
+def ForwardsDifferentiation():
+    n=int(input("Enter the total number of data points "))
+    eq=str(input("Enter the equation "))
+    eq=MakeStringReady(eq)
+    MainVar=FindMainVar(eq)
+    eq=sympify(eq)
+    MainVar=symbols(MainVar)
+    x=np.zeros(n,dtype=float)    
+    y=np.zeros(n,dtype=float)
+    h=float(x[1]-x[0])
+    for i in range(n):
+        y[i]=float(eq.evalf(subs={MainVar:x[i]}))
+    for i in range(n):
+        if i != n-1:
+            val=float(x[i]+h)
+            p1=float(eq.evalf(subs={MainVar:val}))
+            p2=float(eq.evalf(subs={MainVar:x[i]}))
+            ans=float(p1-p2)
+            ans=float(ans/h)
+            print("dx/dy(" +str(x[i]) + ") = " + str(ans))
+        elif i == n-1:
+            val=float(x[i]-h)
+            p1=float(eq.evalf(subs={MainVar:val}))
+            p2=float(eq.evalf(subs={MainVar:x[i]}))
+            ans=float(p2-p1)
+            ans=float(ans/h)
+            print("dx/dy(" +str(x[i]) + ") = " + str(ans))
 
 
 
@@ -706,7 +731,7 @@ def ForWardsSDT():
 # tolerance=float(input("Enter the tolerance value = "))
 # a=float(input("Enter the value of 'a' = "))
 # b=float(input("Enter the value of 'b' = "))
-
+#ForwardsDifferentiation()
 # i=0
 # for x in eq:
 #     if eq[i]>='x' and eq[i]<='z':
