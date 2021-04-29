@@ -694,6 +694,7 @@ def ForWardsSDT(InterPolVal,n,argx,argy,DifferenceTable):
             ans = ans + (q*(SimpleDifferenceTable[j][i+1])/math.factorial(i+1))    
             print(" At n = "+str(i)+" the value is = " + str(ans))
     return ans 
+
 def ForwardsDifferentiation():
     n=int(input("Enter the total number of data points "))
     eq=str(input("Enter the equation "))
