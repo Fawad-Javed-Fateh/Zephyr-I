@@ -355,19 +355,16 @@ def LagrangeInterpolation():
                 result=result+(temp*RangeShifterY[i])
             print("The result of interpolation of degree " +str(z-1)+ " is = " +str(result))
 
-def DividedDifference():
-    n=int(input("Enter the total number of data points : "))
-    Xpoints=np.zeros(n,dtype=float)
-    #Ypoints=np.zeros(n,dtype=float)
+def DividedDifference(n,Xpoints,ypoints,eq,InterPol,DifferenceTable):
+    DifferenceTable.setColumnCount(n+1)
+    DifferenceTable.setRowCount(2*n-1)
     Ypoint = []
-    i=0
-    while i!=n:
-        Xpoints[i]=float(input("Enter the value of X"+str(i)+" : "))
-        i=i+1
-    InterPol=float(input("Enter the interpolation value : "))
-    eq=input("Enter the equation or enter 0 to enter the values of y directly: ")
-    
-    if eq!="0":
+    f=str(ypoints[0])
+    Rounder=f[::-1].find('.')
+    if Rounder<0:
+        Rounder=0
+    i=0    
+    if (ypoints[0]==0 and ypoints[1]==0):
         ReadyEq=MakeStringReady(eq)
         MainVar=FindMainVar(eq)
         MainVar=symbols(MainVar)
@@ -379,7 +376,7 @@ def DividedDifference():
     else:
         i=0
         while i!=n:
-            Ypoint.append(input("Enter the value of y"+str(i)+" : "))
+            Ypoint.append(ypoints[i])
             i=i+1
     i=0
     Ypoints = []
@@ -388,11 +385,18 @@ def DividedDifference():
         j=0
         y=[None]*(n-i-1)
         while j<(n-i-1):
-            y[j]= (float(Ypoints[i][j+1])-float(Ypoints[i][j]))/(float(Xpoints[j+i+1])-float(Xpoints[j]))
+            y[j]= round((float(Ypoints[i][j+1])-float(Ypoints[i][j]))/(float(Xpoints[j+i+1])-float(Xpoints[j])),Rounder)
             j=j+1
         Ypoints.append(y)
         i=i+1
+    i=0
+    for i in range(n):
+        DifferenceTable.setItem(2*i,0, QTableWidgetItem(str(Xpoints[i])))
+        DifferenceTable.setItem(2*i,1, QTableWidgetItem(str(Ypoints[0][i])))
 
+    for i in range(1,n):
+        for j in range(0,n-i):
+            DifferenceTable.setItem(2*j+i,i+1, QTableWidgetItem(str(Ypoints[i][j])))
     Answer=0
     Diff=0
     i=0
@@ -405,7 +409,7 @@ def DividedDifference():
             j=j+1
         Answer=Answer+Aval
         i=i+1
-    print(str(Answer))
+    return Answer
 
 def ForwardDifference():
     n=int(input("Enter the total number of data points : "))

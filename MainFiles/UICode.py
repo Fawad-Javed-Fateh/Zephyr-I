@@ -255,6 +255,7 @@ class Ui_MainWindow(object):
         self.Ch3choicebox.addItem("")
         self.Ch3choicebox.addItem("")
         self.Ch3choicebox.addItem("")
+        self.Ch3choicebox.addItem("")
         self.Ch3pointslabel = QtWidgets.QLabel(self.Chapter3Tab)
         self.Ch3pointslabel.setGeometry(QtCore.QRect(10, 180, 401, 31))
         font = QtGui.QFont()
@@ -407,11 +408,12 @@ class Ui_MainWindow(object):
         self.Chp3mainback.setText(_translate("MainWindow", "Back To Main Menu"))
         self.Ch3choicebox.setCurrentText(_translate("MainWindow", "Lagrange Interpolation"))
         self.Ch3choicebox.setItemText(0, _translate("MainWindow", "Lagrange Interpolation"))
-        self.Ch3choicebox.setItemText(1, _translate("MainWindow", "Forwards-SDT"))
-        self.Ch3choicebox.setItemText(2, _translate("MainWindow", "Backwards-SDT"))
-        self.Ch3choicebox.setItemText(3, _translate("MainWindow", "Forwards-DDT"))
-        self.Ch3choicebox.setItemText(4, _translate("MainWindow", "Backwards-DDT"))
-        self.Ch3choicebox.setItemText(5, _translate("MainWindow", "Stirling Central Difference"))
+        self.Ch3choicebox.setItemText(1, _translate("MainWindow", "Divided Difference"))
+        self.Ch3choicebox.setItemText(2, _translate("MainWindow", "Forwards-SDT"))
+        self.Ch3choicebox.setItemText(3, _translate("MainWindow", "Backwards-SDT"))
+        self.Ch3choicebox.setItemText(4, _translate("MainWindow", "Forwards-DDT"))
+        self.Ch3choicebox.setItemText(5, _translate("MainWindow", "Backwards-DDT"))
+        self.Ch3choicebox.setItemText(6, _translate("MainWindow", "Stirling Central Difference"))
         self.Ch3pointslabel.setText(_translate("MainWindow", "<html><head/><body><p>Enter the amount of points for input:</p></body></html>"))
         self.Chp3pointsbox.setItemText(0, _translate("MainWindow", "2"))
         self.Chp3pointsbox.setItemText(1, _translate("MainWindow", "3"))
@@ -431,7 +433,7 @@ class Ui_MainWindow(object):
         self.InterPolMainMenu.setText(_translate("MainWindow", "Back To \n"
         " Main Menu"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.InterpolationTab), _translate("MainWindow", "Page"))
-    
+
     def MovetoChapter2(self, MainWindow):
         self.Chp2Table.setColumnCount(6)
         self.Chp2Table.setHorizontalHeaderLabels(["Iteration","a","b","c","f(c)","Error"])
@@ -567,35 +569,39 @@ class Ui_MainWindow(object):
         self.DifferenceTable.setColumnCount(int(countofpoints+1))
         self.DifferenceTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.DifferenceTable.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.DifferenceTable.verticalHeader().setVisible(False)
+        equation = str(self.Chp3FuncInput.text())
         try:
-                xpoints = []
-                ypoints = []
-                InterPolVal=float(self.Chp3InterPolVal.text())
-                xpoints.append(float(self.x0input.text()))
-                xpoints.append(float(self.x1input.text()))
-                xpoints.append(float(self.x2input.text()))
-                xpoints.append(float(self.x3input.text()))
-                xpoints.append(float(self.x4input.text()))
-                xpoints.append(float(self.x5input.text()))
-                xpoints.append(float(self.x6input.text()))
-                ypoints.append(float(self.y0input.text()))
-                ypoints.append(float(self.y1input.text()))
-                ypoints.append(float(self.y2input.text()))
-                ypoints.append(float(self.y3input.text()))
-                ypoints.append(float(self.y4input.text()))
-                ypoints.append(float(self.y5input.text()))
-                ypoints.append(float(self.y6input.text())) 
+            xpoints = []
+            ypoints = []
+            InterPolVal=float(self.Chp3InterPolVal.text())
+            xpoints.append(float(self.x0input.text()))
+            xpoints.append(float(self.x1input.text()))
+            xpoints.append(float(self.x2input.text()))
+            xpoints.append(float(self.x3input.text()))
+            xpoints.append(float(self.x4input.text()))
+            xpoints.append(float(self.x5input.text()))
+            xpoints.append(float(self.x6input.text()))
+            ypoints.append(float(self.y0input.text()))
+            ypoints.append(float(self.y1input.text()))
+            ypoints.append(float(self.y2input.text()))
+            ypoints.append(float(self.y3input.text()))
+            ypoints.append(float(self.y4input.text()))
+            ypoints.append(float(self.y5input.text()))
+            ypoints.append(float(self.y6input.text())) 
         except:
-                dialoguebox = QMessageBox(QMessageBox.Critical, "Error", "Please provide Valid Input.")
-                x=dialoguebox.exec_()
-                return
+            dialoguebox = QMessageBox(QMessageBox.Critical, "Error", "Please provide Valid Input.")
+            x=dialoguebox.exec_()
+            return
         method= str(self.Ch3choicebox.currentText())
         if method=="Stirling Central Difference":
-                Ans=StirlingsMethod(InterPolVal,countofpoints,xpoints,ypoints,self.DifferenceTable)
-                self.tabWidget.setCurrentIndex(4)
-                self.InterpolAnsLabel.setText("The Interpolated value is = "+ str(Ans))
-        return
-
+            Ans=StirlingsMethod(InterPolVal,countofpoints,xpoints,ypoints,self.DifferenceTable)
+            self.tabWidget.setCurrentIndex(4)
+            self.InterpolAnsLabel.setText("The Interpolated value is = "+ str(Ans))
+        elif (method=="Divided Difference"):
+            Ans=DividedDifference(countofpoints,xpoints,ypoints,equation,InterPolVal,self.DifferenceTable)
+            self.tabWidget.setCurrentIndex(4)
+            self.InterpolAnsLabel.setText("The Interpolated value is = "+ str(Ans))
    
 
 

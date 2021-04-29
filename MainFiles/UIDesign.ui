@@ -808,6 +808,11 @@
       </item>
       <item>
        <property name="text">
+        <string>Divided Difference</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
         <string>Forwards-SDT</string>
        </property>
       </item>
