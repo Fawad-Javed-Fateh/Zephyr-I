@@ -630,3 +630,69 @@ def FixedPointIteration(equation,MainVar):
         #     print("The function is divergent so a solution wont exist here ")
         #     break
         p=PInFunc
+
+def BackWardsSDT():
+    n=int(input("Enter total number of data points "))
+    x=np.zeros(n,dtype=float)
+    y=np.zeros(n,dtype=float)
+    SimpleDifferenceTable=np.zeros((n,n),dtype=float)
+    print("Start entering x values, they must have equal spacing for simple difference ")
+    for i in range(n):
+        x[i]=input("Enter x"+str(i)+" = ")
+    for i in range(n):
+         SimpleDifferenceTable[i][0]=input("Enter y"+str(i)+" = ")
+    for i in range(1,n):
+        for j in range(n-i):
+            SimpleDifferenceTable[j][i]=SimpleDifferenceTable[j+1][i-1]-SimpleDifferenceTable[j][i-1]
+    
+    InterPolVal=float(input("Enter the interpolation value : "))
+    p= ((InterPolVal-x[n-1])/(x[1]-x[0]))
+    permap=p
+    j=n-2 
+    ans = float(SimpleDifferenceTable[n-1][0])      
+    for i in range(n-1):
+        if i == 0:
+            trp=SimpleDifferenceTable[j][i+1]
+            ans = ans + (p*SimpleDifferenceTable[j][i+1])
+            print(" At n = "+str(i)+" the value is = " + str(ans))
+            j=j-1
+        else :
+            p=p*(permap+i)
+            q=p
+            trp=SimpleDifferenceTable[j][i+1]
+            termer  = (q*(SimpleDifferenceTable[j][i+1])/math.factorial(i+1))
+            ans = ans + (q*(SimpleDifferenceTable[j][i+1])/math.factorial(i+1))
+            j=j-1    
+            print(" At n = "+str(i)+" the value is = " + str(ans))
+
+def ForWardsSDT():
+    n=int(input("Enter total number of data points "))
+    x=np.zeros(n,dtype=float)
+    y=np.zeros(n,dtype=float)
+    SimpleDifferenceTable=np.zeros((n,n),dtype=float)
+    print("Start entering x values, they must have equal spacing for simple difference ")
+    for i in range(n):
+        x[i]=input("Enter x"+str(i)+" = ")
+    for i in range(n):
+         SimpleDifferenceTable[i][0]=input("Enter y"+str(i)+" = ")
+    for i in range(1,n):
+        for j in range(n-i):
+            SimpleDifferenceTable[j][i]=SimpleDifferenceTable[j+1][i-1]-SimpleDifferenceTable[j][i-1]
+    
+    InterPolVal=float(input("Enter the interpolation value : "))
+    p= ((InterPolVal-x[0])/(x[1]-x[0]))
+    permap=p
+    j=0 
+    ans = float(SimpleDifferenceTable[0][0])      
+    for i in range(n-1):
+        if i == 0:
+            trp=SimpleDifferenceTable[j][i+1]
+            ans = ans + (p*SimpleDifferenceTable[j][i+1])
+            print(" At n = "+str(i)+" the value is = " + str(ans))
+        else :
+            p=p*(permap-i)
+            q=p
+            trp=SimpleDifferenceTable[j][i+1]
+            termer  = (q*(SimpleDifferenceTable[j][i+1])/math.factorial(i+1))
+            ans = ans + (q*(SimpleDifferenceTable[j][i+1])/math.factorial(i+1))    
+            print(" At n = "+str(i)+" the value is = " + str(ans))
