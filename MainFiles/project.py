@@ -355,7 +355,7 @@ def LagrangeInterpolation():
                 result=result+(temp*RangeShifterY[i])
             print("The result of interpolation of degree " +str(z-1)+ " is = " +str(result))
 
-def DividedDifference(n,Xpoints,ypoints,eq,InterPol,DifferenceTable):
+def DividedDifference(n,Xpoints,ypoints,eq,InterPol,DifferenceTable,Chp3interpolans):
     DifferenceTable.setColumnCount(n+1)
     DifferenceTable.setRowCount(2*n-1)
     Ypoint = []
@@ -408,8 +408,9 @@ def DividedDifference(n,Xpoints,ypoints,eq,InterPol,DifferenceTable):
             Aval=Aval*Diff
             j=j+1
         Answer=Answer+Aval
+        Chp3interpolans.append("\nThe " + str(i) + " Degree Polynomial is: " + str(round(Answer,Rounder)))
         i=i+1
-    return Answer
+    return round(Answer,Rounder)
 
 def ForwardDifference():
     n=int(input("Enter the total number of data points : "))
@@ -616,7 +617,6 @@ def StirlingsMethod(InterPolVal,n,argx,argy,DifferenceTable):
             padder=padder+1
             if MidTerm!=0:
                 MidTerm=MidTerm-1
-    print("The generic ans = "+ str(ans))
     return ans
      
 

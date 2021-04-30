@@ -994,11 +994,11 @@
      <attribute name="title">
       <string>Page</string>
      </attribute>
-     <widget class="QLabel" name="InterPolHeadinglabel">
+     <widget class="QLabel" name="Chp3interpolheading">
       <property name="geometry">
        <rect>
         <x>270</x>
-        <y>-10</y>
+        <y>-20</y>
         <width>351</width>
         <height>71</height>
        </rect>
@@ -1021,33 +1021,13 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>50</y>
+        <y>30</y>
         <width>811</width>
         <height>411</height>
        </rect>
       </property>
      </widget>
-     <widget class="QLabel" name="InterpolAnsLabel">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>480</y>
-        <width>431</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>15</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>The Interpolated value is :</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="InterPolMainMenu">
+     <widget class="QPushButton" name="Chp3iterback">
       <property name="geometry">
        <rect>
         <x>740</x>
@@ -1066,6 +1046,16 @@
       <property name="text">
        <string>Back To 
  Main Menu</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="Chp3interpolans">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>450</y>
+        <width>691</width>
+        <height>131</height>
+       </rect>
       </property>
      </widget>
     </widget>
