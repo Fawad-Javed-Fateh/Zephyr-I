@@ -596,6 +596,22 @@ class Ui_MainWindow(object):
             Ans=DividedDifference(countofpoints,xpoints,ypoints,equation,InterPolVal,self.DifferenceTable,self.Chp3interpolans)
             self.tabWidget.setCurrentIndex(4)
             self.Chp3interpolans.append("\nThe Interpolated value is = "+ str(Ans))
+        elif (method=="Forwards-DDT"):
+            Ans=ForwardDifference(countofpoints,xpoints,ypoints,equation,InterPolVal,self.DifferenceTable,self.Chp3interpolans)
+            if(Ans=="Unequal Heights"):
+                dialoguebox = QMessageBox(QMessageBox.Warning, "Unequal Distancing", "The values of x provided should have Equal Distancing! Please use generalized Divided Difference for Unequal Distancing!")
+                x=dialoguebox.exec_()
+                return
+            self.tabWidget.setCurrentIndex(4)
+            self.Chp3interpolans.append("\nThe Interpolated value is = "+ str(Ans))
+        elif (method=="Backwards-DDT"):
+            Ans=BackwardDifference(countofpoints,xpoints,ypoints,equation,InterPolVal,self.DifferenceTable,self.Chp3interpolans)
+            if(Ans=="Unequal Heights"):
+                dialoguebox = QMessageBox(QMessageBox.Warning, "Unequal Distancing", "The values of x provided should have Equal Distancing! Please use generalized Divided Difference for Unequal Distancing!")
+                x=dialoguebox.exec_()
+                return
+            self.tabWidget.setCurrentIndex(4)
+            self.Chp3interpolans.append("\nThe Interpolated value is = "+ str(Ans))
    
 
 

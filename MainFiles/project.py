@@ -12,6 +12,18 @@ import numpy as np
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 
+def HeightChecker(height,n,points):
+    f=str(points[0])
+    Rounder=f[::-1].find('.')
+    if Rounder<0:
+        Rounder=0
+    i=0
+    while(i<n-1):
+        if(round(points[i+1]-points[i],Rounder)!=height):
+            return "Unequal Heights"
+        i=i+1
+    return "None"
+
 def FindMainVar(equation):
     i=0
     for x in equation:
@@ -356,6 +368,7 @@ def LagrangeInterpolation():
             print("The result of interpolation of degree " +str(z-1)+ " is = " +str(result))
 
 def DividedDifference(n,Xpoints,ypoints,eq,InterPol,DifferenceTable,Chp3interpolans):
+    Chp3interpolans.setPlainText("")
     DifferenceTable.setColumnCount(n+1)
     DifferenceTable.setRowCount(2*n-1)
     Ypoint = []
@@ -412,25 +425,21 @@ def DividedDifference(n,Xpoints,ypoints,eq,InterPol,DifferenceTable,Chp3interpol
         i=i+1
     return round(Answer,Rounder)
 
-def ForwardDifference():
-    n=int(input("Enter the total number of data points : "))
-    Xpoints=np.zeros(n,dtype=float)
-    #Ypoints=np.zeros(n,dtype=float)
+def ForwardDifference(n,Xpoints,ypoints,eq,InterPol,DifferenceTable,Chp3interpolans):
+    Chp3interpolans.setPlainText("")
+    DifferenceTable.setColumnCount(n+1)
+    DifferenceTable.setRowCount(2*n-1)
     Ypoint = []
-    height=0
+    f=str(Xpoints[0])
+    Rounder=f[::-1].find('.')
+    if Rounder<0:
+        Rounder=0
+    height=round(Xpoints[1]-Xpoints[0],Rounder)
+    status=HeightChecker(height,n,Xpoints)
+    if(status=="Unequal Heights"):
+        return status
     i=0
-    while i!=n:
-        Xpoints[i]=float(input("Enter the value of X"+str(i)+" : "))
-        i=i+1
-        if i==2:
-            height = round(Xpoints[1]-Xpoints[0],5)
-        elif i>2 and round((Xpoints[i-1]-Xpoints[i-2]),6)!=height:
-            print("Equal spacing is required for Forward differnce!\n")
-            return
-    InterPol=float(input("Enter the interpolation value : "))
-    eq=input("Enter the equation or enter 0 to enter the values of y directly: ")
-    
-    if eq!="0":
+    if (ypoints[0]==0 and ypoints[1]==0):
         ReadyEq=MakeStringReady(eq)
         MainVar=FindMainVar(eq)
         MainVar=symbols(MainVar)
@@ -442,9 +451,9 @@ def ForwardDifference():
     else:
         i=0
         while i!=n:
-            Ypoint.append(input("Enter the value of y"+str(i)+" : "))
+            Ypoint.append(ypoints[i])
             i=i+1
-    f=Ypoint[0]
+    f=str(Ypoint[0])
     Rounder=f[::-1].find('.')
     if Rounder<0:
         Rounder=0
@@ -459,7 +468,15 @@ def ForwardDifference():
             j=j+1
         Ypoints.append(y)
         i=i+1
-    
+    i=0
+    for i in range(n):
+        DifferenceTable.setItem(2*i,0, QTableWidgetItem(str(Xpoints[i])))
+        DifferenceTable.setItem(2*i,1, QTableWidgetItem(str(Ypoints[0][i])))
+
+    for i in range(1,n):
+        for j in range(0,n-i):
+            DifferenceTable.setItem(2*j+i,i+1, QTableWidgetItem(str(Ypoints[i][j])))
+            
     Var_S=round((InterPol-Xpoints[0])/height,Rounder)
 
     Answer=0
@@ -477,31 +494,26 @@ def ForwardDifference():
                 Prod=Prod*(Var_S-j)
             j=j+1
         Aval=Aval*Prod*height**i
-        print(Aval)
         Answer=Answer+Aval
+        Chp3interpolans.append("\nThe " + str(i) + " Degree Polynomial is: " + str(round(Answer,Rounder)))
         i=i+1
-    # print(str(Var_S))
-    print(str(round(Answer,Rounder+1)))
+    return round(Answer,Rounder)
 
-def BackwardDifference():
-    n=int(input("Enter the total number of data points : "))
-    Xpoints=np.zeros(n,dtype=float)
-    #Ypoints=np.zeros(n,dtype=float)
+def BackwardDifference(n,Xpoints,ypoints,eq,InterPol,DifferenceTable,Chp3interpolans):
+    Chp3interpolans.setPlainText("")
+    DifferenceTable.setColumnCount(n+1)
+    DifferenceTable.setRowCount(2*n-1)
     Ypoint = []
-    height=0
-    i=0
-    while i!=n:
-        Xpoints[i]=float(input("Enter the value of X"+str(i)+" : "))
-        i=i+1
-        if i==2:
-            height = round(Xpoints[1]-Xpoints[0],5)
-        elif i>2 and round((Xpoints[i-1]-Xpoints[i-2]),6)!=height:
-            print("Equal spacing is required for Backward differnce!\n")
-            return
-    InterPol=float(input("Enter the interpolation value : "))
-    eq=input("Enter the equation or enter 0 to enter the values of y directly: ")
-    
-    if eq!="0":
+    f=str(Xpoints[0])
+    Rounder=f[::-1].find('.')
+    if Rounder<0:
+        Rounder=0
+    height=round(Xpoints[1]-Xpoints[0],Rounder)
+    status=HeightChecker(height,n,Xpoints)
+    if(status=="Unequal Heights"):
+        return status
+    i=0   
+    if (ypoints[0]==0 and ypoints[1]==0):
         ReadyEq=MakeStringReady(eq)
         MainVar=FindMainVar(eq)
         MainVar=symbols(MainVar)
@@ -513,9 +525,9 @@ def BackwardDifference():
     else:
         i=0
         while i!=n:
-            Ypoint.append(input("Enter the value of y"+str(i)+" : "))
+            Ypoint.append(ypoints[i])
             i=i+1
-    f=Ypoint[0]
+    f=str(Ypoint[0])
     Rounder=f[::-1].find('.')
     if Rounder<0:
         Rounder=0
@@ -530,8 +542,16 @@ def BackwardDifference():
             j=j+1
         Ypoints.append(y)
         i=i+1
-    
-    Var_S=round((InterPol-Xpoints[Xpoints.__len__()-1])/height,Rounder)
+    i=0
+    for i in range(n):
+        DifferenceTable.setItem(2*i,0, QTableWidgetItem(str(Xpoints[i])))
+        DifferenceTable.setItem(2*i,1, QTableWidgetItem(str(Ypoints[0][i])))
+
+    for i in range(1,n):
+        for j in range(0,n-i):
+            DifferenceTable.setItem(2*j+i,i+1, QTableWidgetItem(str(Ypoints[i][j])))
+
+    Var_S=round((InterPol-Xpoints[n-1])/height,Rounder)
 
     Answer=0
     Prod=0
@@ -548,11 +568,10 @@ def BackwardDifference():
                 Prod=Prod*(Var_S+j)
             j=j+1
         Aval=Aval*Prod*height**i
-        print(Aval)
         Answer=Answer+Aval
+        Chp3interpolans.append("\nThe " + str(i) + " Degree Polynomial is: " + str(round(Answer,Rounder)))
         i=i+1
-    # print(str(Var_S))
-    print(str(round(Answer,Rounder+1)))
+    return round(Answer,Rounder)
 
 def StirlingsMethod(InterPolVal,n,argx,argy,DifferenceTable):
     f=str(argy[0])

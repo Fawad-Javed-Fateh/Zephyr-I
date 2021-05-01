@@ -1,3 +1,14 @@
+from sympy.solvers import solveset
+from sympy import Symbol
+from sympy import var
+from sympy import sympify
+from sympy import Eq
+import math
+from sympy import *
+import tkinter as tk
+from array import *
+import numpy as np
+
 def Bisection2(equation,MainVar,a,b,tolerance):
     decider=equation.evalf(subs={MainVar:a}) #substitute a as value of mainvar. then evaluate and give value to decider
     decider=float(decider)
@@ -389,8 +400,8 @@ def BackwardDifference():
                 Prod=Prod*(Var_S+j)
             j=j+1
         Aval=Aval*Prod*height**i
-        print(Aval)
         Answer=Answer+Aval
+        print(Answer)
         i=i+1
     # print(str(Var_S))
     print(str(round(Answer,Rounder+1)))
@@ -696,3 +707,5 @@ def ForWardsSDT():
             termer  = (q*(SimpleDifferenceTable[j][i+1])/math.factorial(i+1))
             ans = ans + (q*(SimpleDifferenceTable[j][i+1])/math.factorial(i+1))    
             print(" At n = "+str(i)+" the value is = " + str(ans))
+
+BackwardDifference()
