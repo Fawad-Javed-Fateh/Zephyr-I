@@ -288,31 +288,22 @@ def FixedPointIteration(equation,MainVar,a,b,tolerance,Chp2Table):
     Chp2Table.setItem(i, 2, QTableWidgetItem(str(PInFunc)))
     return p
 
-def LagrangeInterpolation():
-    n=int(input("Enter the total number of data points : "))
+def LagrangeInterpolation(InterPolVal,n,argx,argy,Chp3interpolans):
     x=np.zeros(n,dtype=float)
     y=np.zeros(n,dtype=float)
     i=0
-    while i!=n:
-        x[i]=float(input("Enter the value of x"+str(i)+" : "))
-        i=i+1
-    InterPol=float(input("Enter the interpolation value : "))
-    eq=input("Enter the equation (Press QUIT to directly input y values): ")
-    if eq!="QUIT":
-        ReadyEq=MakeStringReady(eq)
-        MainVar=FindMainVar(eq)
-        MainVar=symbols(MainVar)
-        ReadyEq=sympify(ReadyEq)
-        i=0
-        while i!=n:
-            y[i]=float(ReadyEq.evalf(subs={MainVar:x[i]}))
-            i=i+1
-    else:
-        i=0
-        while i!=n:
-            y[i]=float(input("Enter the value of y"+str(i)+" : "))
-            i=i+1
-            
+    for i in range(n):
+        x[i]=argx[i]
+
+    InterPol=InterPolVal
+    for i in range(n):
+        y[i]=argy[i]
+
+    f=str(argy[1])
+    Rounder=f[::-1].find('.')
+    if Rounder<0:
+        Rounder=0
+
     for z in range(n+1):
         result=0
         if z!=0 and z!=1:
@@ -365,7 +356,10 @@ def LagrangeInterpolation():
                     if i!=j:                       
                         temp=temp*(InterPol-RangeShifterX[j])/(RangeShifterX[i]-RangeShifterX[j])
                 result=result+(temp*RangeShifterY[i])
+                result=round(result,Rounder)
             print("The result of interpolation of degree " +str(z-1)+ " is = " +str(result))
+            Chp3interpolans.append("\nThe " + str(i) + " Degree Polynomial is: " + str(round(result,Rounder)))
+    return result   
 
 def DividedDifference(n,Xpoints,ypoints,eq,InterPol,DifferenceTable,Chp3interpolans):
     Chp3interpolans.setPlainText("")
@@ -587,7 +581,11 @@ def StirlingsMethod(InterPolVal,n,argx,argy,DifferenceTable):
         SimpleDifferenceTable[i][0]=argy[i]
         DifferenceTable.setItem(2*i,0, QTableWidgetItem(str(x[i])))
         DifferenceTable.setItem(2*i,1, QTableWidgetItem(str(SimpleDifferenceTable[i][0])))
-
+    height=x[1]-x[0]
+    height=round(height,n)
+    status=HeightChecker(height,n,x)
+    if status=="Unequal Heights":
+        return status
     for i in range(1,n):
         for j in range(0,n-i):
             SimpleDifferenceTable[j][i]=round(SimpleDifferenceTable[j+1][i-1]-SimpleDifferenceTable[j][i-1],Rounder)
@@ -596,9 +594,11 @@ def StirlingsMethod(InterPolVal,n,argx,argy,DifferenceTable):
     MidTerm=math.floor(n/2)  
     p=float((InterPolVal-x[MidTerm])/diff) 
     ans=float(SimpleDifferenceTable[MidTerm][0])
+    ans=round(ans,Rounder)
     ans=ans+float(p*((SimpleDifferenceTable[MidTerm][1]+SimpleDifferenceTable[MidTerm-1][1])/2))
+    ans=round(ans,Rounder)
     MidTerm=MidTerm-1
-    ans=round(ans,5)
+    ans=round(ans,Rounder)
     padder=2
     oddcump=1
     for i in range(2,n,1):
@@ -614,7 +614,7 @@ def StirlingsMethod(InterPolVal,n,argx,argy,DifferenceTable):
                     tmid=tmid+1
             tmid=math.floor(tmid/2)
             ans=ans+((oddcump/math.factorial(i))*SimpleDifferenceTable[tmid][i])
-            ans=round(ans,5)
+            ans=round(ans,Rounder)
             if MidTerm!=0:
                 MidTerm=MidTerm-1
             oddcump=1
@@ -624,7 +624,7 @@ def StirlingsMethod(InterPolVal,n,argx,argy,DifferenceTable):
             for j in range(1,padder,1):
                 oddcump=oddcump*((p**2)-(j**2))
             oddcump=p*oddcump;
-            oddcump=round(oddcump,5)
+            oddcump=round(oddcump,Rounder)
             tmid=int(0)
             for k in range(n):
                 if(SimpleDifferenceTable[k][i]!=0):
@@ -632,14 +632,14 @@ def StirlingsMethod(InterPolVal,n,argx,argy,DifferenceTable):
             tmid=int(tmid/2)
             ans=ans+((oddcump/math.factorial(i))*((SimpleDifferenceTable[tmid][i]+SimpleDifferenceTable[tmid-1][i])/2))
             oddcump=1
-            ans=round(ans,5)
+            ans=round(ans,Rounder)
             padder=padder+1
             if MidTerm!=0:
                 MidTerm=MidTerm-1
     return ans
      
 
-def BackWardsSDT(InterPolVal,n,argx,argy,DifferenceTable):
+def BackWardsSDT(InterPolVal,n,argx,argy,DifferenceTable,Chp3interpolans):
     DifferenceTable.setRowCount(n)
     x=np.zeros(n,dtype=float)
     y=np.zeros(n,dtype=float)
@@ -648,20 +648,34 @@ def BackWardsSDT(InterPolVal,n,argx,argy,DifferenceTable):
         x[i]=argx[i]
     for i in range(n):
          SimpleDifferenceTable[i][0]=argy[i]
+    height=x[1]-x[0]
+    height=round(height,n)
+    status=HeightChecker(height,n,x)
+    if status=="Unequal Heights":
+        return status
+    f=str(argy[0])
+    Rounder=f[::-1].find('.')
+    if Rounder<0:
+        Rounder=0
     for i in range(1,n):
         for j in range(0,n-i):
             SimpleDifferenceTable[j][i]=SimpleDifferenceTable[j+1][i-1]-SimpleDifferenceTable[j][i-1]
+            SimpleDifferenceTable[j][i]=round(SimpleDifferenceTable[j][i],Rounder)
             DifferenceTable.setItem(j,i, QTableWidgetItem(str(SimpleDifferenceTable[j][i])))
     
     p= ((InterPolVal-x[n-1])/(x[1]-x[0]))
+    p=round(p,Rounder)
     permap=p
     j=n-2 
-    ans = float(SimpleDifferenceTable[n-1][0])      
+    ans = float(SimpleDifferenceTable[n-1][0])
+    ans=round(ans,Rounder)      
     for i in range(n-1):
         if i == 0:
             trp=SimpleDifferenceTable[j][i+1]
             ans = ans + (p*SimpleDifferenceTable[j][i+1])
             print(" At n = "+str(i)+" the value is = " + str(ans))
+            ans=round(ans,Rounder)
+            Chp3interpolans.append("\nThe " + str(i) + " Degree Polynomial is: " + str(ans))
             j=j-1
         else :
             p=p*(permap+i)
@@ -669,11 +683,13 @@ def BackWardsSDT(InterPolVal,n,argx,argy,DifferenceTable):
             trp=SimpleDifferenceTable[j][i+1]
             termer  = (q*(SimpleDifferenceTable[j][i+1])/math.factorial(i+1))
             ans = ans + (q*(SimpleDifferenceTable[j][i+1])/math.factorial(i+1))
+            ans=round(ans,Rounder)
             j=j-1    
+            Chp3interpolans.append("\nThe " + str(i) + " Degree Polynomial is: " + str(ans))
             print(" At n = "+str(i)+" the value is = " + str(ans))
     return ans 
 
-def ForWardsSDT(InterPolVal,n,argx,argy,DifferenceTable):
+def ForWardsSDT(InterPolVal,n,argx,argy,DifferenceTable,Chp3interpolans):
     DifferenceTable.setRowCount(n)
     x=np.zeros(n,dtype=float)
     y=np.zeros(n,dtype=float)
@@ -682,19 +698,33 @@ def ForWardsSDT(InterPolVal,n,argx,argy,DifferenceTable):
         x[i]=argx[i]
     for i in range(n):
          SimpleDifferenceTable[i][0]=argy[i]
+    f=str(argy[0])
+    Rounder=f[::-1].find('.')
+    if Rounder<0:
+        Rounder=0
+    height=x[1]-x[0]
+    height=round(height,n)
+    status=HeightChecker(height,n,x)
+    if status=="Unequal Heights":
+        return status
     for i in range(1,n):
         for j in range(0,n-i):
             SimpleDifferenceTable[j][i]=SimpleDifferenceTable[j+1][i-1]-SimpleDifferenceTable[j][i-1]
+            SimpleDifferenceTable[j][i]=round(SimpleDifferenceTable[j][i],Rounder)
             DifferenceTable.setItem(j,i, QTableWidgetItem(str(SimpleDifferenceTable[j][i])))
     
     p= ((InterPolVal-x[0])/(x[1]-x[0]))
+    p=round(p,Rounder)
     permap=p
     j=0 
-    ans = float(SimpleDifferenceTable[0][0])      
+    ans = float(SimpleDifferenceTable[0][0])   
+    ans=round(ans,Rounder)   
     for i in range(n-1):
         if i == 0:
             trp=SimpleDifferenceTable[j][i+1]
             ans = ans + (p*SimpleDifferenceTable[j][i+1])
+            ans=round(ans,Rounder)
+            Chp3interpolans.append("\nThe " + str(i) + " Degree Polynomial is: " + str(ans))
             print(" At n = "+str(i)+" the value is = " + str(ans))
         else :
             p=p*(permap-i)
@@ -702,6 +732,8 @@ def ForWardsSDT(InterPolVal,n,argx,argy,DifferenceTable):
             trp=SimpleDifferenceTable[j][i+1]
             termer  = (q*(SimpleDifferenceTable[j][i+1])/math.factorial(i+1))
             ans = ans + (q*(SimpleDifferenceTable[j][i+1])/math.factorial(i+1))    
+            ans=round(ans,Rounder)
+            Chp3interpolans.append("\nThe " + str(i) + " Degree Polynomial is: " + str(ans))
             print(" At n = "+str(i)+" the value is = " + str(ans))
     return ans 
 
