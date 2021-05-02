@@ -357,7 +357,6 @@ def LagrangeInterpolation(InterPolVal,n,argx,argy,Chp3interpolans):
                         temp=temp*(InterPol-RangeShifterX[j])/(RangeShifterX[i]-RangeShifterX[j])
                 result=result+(temp*RangeShifterY[i])
                 result=round(result,Rounder)
-            print("The result of interpolation of degree " +str(z-1)+ " is = " +str(result))
             Chp3interpolans.append("\nThe " + str(i) + " Degree Polynomial is: " + str(round(result,Rounder)))
     return result   
 

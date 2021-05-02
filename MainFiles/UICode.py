@@ -587,6 +587,15 @@ class Ui_MainWindow(object):
             dialoguebox = QMessageBox(QMessageBox.Critical, "Error", "Please provide Valid Input.")
             x=dialoguebox.exec_()
             return
+        if (ypoints[0]==0 and ypoints[1]==0):
+            ReadyEq=MakeStringReady(equation)
+            MainVar=FindMainVar(equation)
+            MainVar=symbols(MainVar)
+            ReadyEq=sympify(ReadyEq)
+            i=0
+            while i!=countofpoints:
+                ypoints[i]=(float(ReadyEq.evalf(subs={MainVar:xpoints[i]})))
+                i=i+1
         method= str(self.Ch3choicebox.currentText())
         if method=="Stirling Central Difference":
             Ans=StirlingsMethod(InterPolVal,countofpoints,xpoints,ypoints,self.DifferenceTable)
@@ -630,10 +639,6 @@ class Ui_MainWindow(object):
             self.Chp3interpolans.append("\nThe Interpolated value is = "+ str(Ans))
         elif (method=="Lagrange Interpolation"):
             Ans=LagrangeInterpolation(InterPolVal,countofpoints,xpoints,ypoints,self.Chp3interpolans)
-            if Ans=="Unequal Heights":
-                dialoguebox = QMessageBox(QMessageBox.Warning, "Unequal Distancing", "The values of x provided should have Equal Distancing! Simple Difference only works on equal spacing!")
-                x=dialoguebox.exec_()
-                return
             self.tabWidget.setCurrentIndex(4)
             self.Chp3interpolans.append("\nThe Interpolated value is = "+ str(Ans))
 
