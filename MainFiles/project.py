@@ -779,11 +779,6 @@ def ThreePointDifferentiation():
     h=x[1]-x[0]
     for i in range(n):
         y[i]=float(eq.evalf(subs={MainVar:x[i]}))
-    y[0]=10.899365
-    y[1]=12.703199
-    y[2]=14.778112
-    y[3]=17.148957
-    y[4]=19.855030    
     if n%2==0:
         m2=n/2
         m1=m2-1
