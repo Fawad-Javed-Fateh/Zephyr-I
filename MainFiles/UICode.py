@@ -630,10 +630,6 @@ class Ui_MainWindow(object):
             self.Chp3interpolans.append("\nThe Interpolated value is = "+ str(Ans))
         elif (method=="Lagrange Interpolation"):
             Ans=LagrangeInterpolation(InterPolVal,countofpoints,xpoints,ypoints,self.Chp3interpolans)
-            if Ans=="Unequal Heights":
-                dialoguebox = QMessageBox(QMessageBox.Warning, "Unequal Distancing", "The values of x provided should have Equal Distancing! Simple Difference only works on equal spacing!")
-                x=dialoguebox.exec_()
-                return
             self.tabWidget.setCurrentIndex(4)
             self.Chp3interpolans.append("\nThe Interpolated value is = "+ str(Ans))
 
