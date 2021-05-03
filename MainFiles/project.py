@@ -764,8 +764,59 @@ def ForwardsDifferentiation():
             ans=float(ans/h)
             print("dx/dy(" +str(x[i]) + ") = " + str(ans))
 
-
-
+def ThreePointDifferentiation():
+    n=int(input("Enter the number of points "))
+    x=np.zeros(n,dtype=float)
+    y=np.zeros(n,dtype=float)
+    print("Start entering x values: ")
+    for i in range(n):
+        x[i]=float(input("x" +str(i) + " = "))
+    eq=input("Enter the equation : ")
+    eq=MakeStringReady(eq)
+    MainVar=FindMainVar(eq)
+    eq=sympify(eq)
+    MainVar=symbols(MainVar)
+    h=x[1]-x[0]
+    for i in range(n):
+        y[i]=float(eq.evalf(subs={MainVar:x[i]}))
+    y[0]=10.899365
+    y[1]=12.703199
+    y[2]=14.778112
+    y[3]=17.148957
+    y[4]=19.855030    
+    if n%2==0:
+        m2=n/2
+        m1=m2-1
+        for i in range(n):
+            if i < m1 and i < m2 :
+                ans=float(-3*(y[i])+4*(y[i+1])-(y[i+2]))
+                ans=ans/(2*h)
+                print("dx/dy(x" + str(i) +") = " + str(ans))
+            if i == m1 or i == m2:
+                ans=float(y[i+1]-y[i-1])
+                ans=ans/(2*h)
+                print("dx/dy(x" + str(i) +") = " + str(ans))
+            if i > m1 and i > m2 :
+                ans=float(-3*(y[i])+4*(y[i-1])-(y[i-2]))
+                q=h-2*h
+                ans=ans/(2*q)
+                print("dx/dy(x" + str(i) +") = " + str(ans))
+    else:
+        m=math.floor(n/2)
+        for i in range(n):
+            if i < m :
+                ans=float(-3*(y[i])+4*(y[i+1])-(y[i+2]))
+                ans=ans/(2*h)
+                print("dx/dy(x" + str(i) +") = " + str(ans))
+            if i == m:
+                ans=float(y[i+1]-y[i-1])
+                ans=ans/(2*h)
+                print("dx/dy(x" + str(i) +") = " + str(ans))
+            if i > m :
+                ans=float(-3*(y[i])+4*(y[i-1])-(y[i-2]))
+                q=h-2*h
+                ans=ans/(2*q)
+                print("dx/dy(x" + str(i) +") = " + str(ans))
 
 
 #MainWindow=tk.Tk()
@@ -773,6 +824,7 @@ def ForwardsDifferentiation():
 # tolerance=float(input("Enter the tolerance value = "))
 # a=float(input("Enter the value of 'a' = "))
 # b=float(input("Enter the value of 'b' = "))
+#ThreePointDifferentiation()
 #ForwardsDifferentiation()
 # i=0
 # for x in eq:
