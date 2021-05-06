@@ -813,9 +813,97 @@ def ThreePointDifferentiation():
                 ans=ans/(2*q)
                 print("dx/dy(x" + str(i) +") = " + str(ans))
 
+def CompositeTrapezodial():
+    a=float(input("Enter the upper limit : "))
+    b=float(input("Enter the lower limit : "))
+    h=float(input("Enter the value of h (difference) : "))
+    eq=str(input("Enter the equation : "))
+    eq=MakeStringReady(eq)
+    MainVar=FindMainVar(eq)
+    eq=sympify(eq)
+    MainVar=symbols(MainVar)  
+    n=int((a-b)/h)
+    n=n+1
+    x=np.zeros(n,dtype=float)
+    y=np.zeros(n,dtype=float)
+    x[0]=b
+    for i in range(1,n):
+        x[i]=x[i-1]+h
+    for i in range(n):
+        y[i]=float(eq.evalf(subs={MainVar:x[i]}))
+    ans=float(0)
+    ans=float(y[0]+y[n-1])
+    temp=float(0)
+    for i in range(1,n-1):
+        print(str(x[i]))
+        temp=temp+y[i]
+    temp=temp*2
+    ans=ans+temp
+    ans=ans*(h/2)
+    print("The ans is = " + str(ans))
+
+def CompositeSimpson():
+    a=float(input("Enter the upper limit : "))
+    b=float(input("Enter the lower limit : "))
+    h=float(input("Enter the value of h (difference) : "))
+    eq=str(input("Enter the equation : "))
+    eq=MakeStringReady(eq)
+    MainVar=FindMainVar(eq)
+    eq=sympify(eq)
+    MainVar=symbols(MainVar)  
+    n=int((a-b)/h)
+    n=n+1
+    x=np.zeros(n,dtype=float)
+    y=np.zeros(n,dtype=float)
+    x[0]=b
+    for i in range(1,n):
+        x[i]=x[i-1]+h
+    for i in range(n):
+        y[i]=float(eq.evalf(subs={MainVar:x[i]}))
+    ans=float(0)
+    ans=float(y[0]+y[n-1])
+    temp1=float(0)
+    temp2=float(0)
+    for i in range(1,n-1):
+        if i%2==0:
+            temp1=temp1+y[i]
+        else:
+            temp2=temp2+y[i]
+    temp1=temp1*2
+    temp2=temp2*4
+    ans=ans+temp2+temp1
+    ans=ans*(h/3)
+    print("The ans is = " + str(ans))    
+
+def CompositeMidPoint():
+    a=float(input("Enter the upper limit : "))
+    b=float(input("Enter the lower limit : "))
+    h=float(input("Enter the value of h (difference) : "))
+    eq=str(input("Enter the equation : "))
+    eq=MakeStringReady(eq)
+    MainVar=FindMainVar(eq)
+    eq=sympify(eq)
+    MainVar=symbols(MainVar)  
+    n=int((a-b)/h)
+    n=n+1
+    x=np.zeros(n,dtype=float)
+    y=np.zeros(n,dtype=float)
+    x[0]=b
+    for i in range(1,n):
+        x[i]=x[i-1]+h
+    for i in range(n):
+        y[i]=float(eq.evalf(subs={MainVar:x[i]}))
+    ans=float(0)
+    for i in range(1,n,2):
+        print(str(x[i]))
+        ans=ans+y[i]
+    ans=ans*(2*h)
+    print("The ans is = " + str(ans))    
+
 
 #MainWindow=tk.Tk()
 # eq=input("Enter the equation :")
+#CompositeMidPoint()
 # tolerance=float(input("Enter the tolerance value = "))
 # a=float(input("Enter the value of 'a' = "))
 # b=float(input("Enter the value of 'b' = "))
