@@ -58,6 +58,20 @@ def MakeStringReady(equation):
                 i=i+1
             ParsableEq=ParsableEq+')'
             i=i-1
+        elif equation[i]=='l' and equation[i+1]=='n':
+            ParsableEq=ParsableEq+"ln("
+            i=i+2
+            for x in equation:
+                if (equation[i]>='0' and equation[i]<='9') and (equation[i+1]>='a' and equation[i+1]<='z'):
+                    ParsableEq=ParsableEq+equation[i]
+                    ParsableEq=ParsableEq+'*'
+                elif equation[i]>='a' and equation[i]<='z':
+                    ParsableEq=ParsableEq+equation[i]
+                else:
+                    break
+                i=i+1
+            ParsableEq=ParsableEq+')'
+            i=i-1            
         else:         
             ParsableEq=ParsableEq+equation[i]
         i=i+1
@@ -903,6 +917,7 @@ def CompositeMidPoint():
 
 #MainWindow=tk.Tk()
 # eq=input("Enter the equation :")
+#CompositeSimpson()
 #CompositeMidPoint()
 # tolerance=float(input("Enter the tolerance value = "))
 # a=float(input("Enter the value of 'a' = "))
