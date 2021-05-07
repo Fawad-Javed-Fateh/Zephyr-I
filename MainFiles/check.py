@@ -14,7 +14,11 @@ def switch():
     Tabs.select(SecondTab)
 
 MainWindow=Tk()
-
+exp="x+2*y"
+exp=sympify(exp)
+x=symbols('x')
+y=symbols('y')
+print(float(exp.evalf(subs={x:4,y:1})))
 MainWindow.geometry("500x500")
 MainWindow.title("Zephyr-I")
 style=ttk.Style()

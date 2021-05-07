@@ -33,6 +33,17 @@ def FindMainVar(equation):
         i=i+1
     return MainVar
 
+def FindDoubleMainVar(equation):
+    i=0
+    MainVar=[]
+    for x in equation:
+        if equation[i]>='t' and equation[i]<='z':
+            MainVar.append(equation[i])
+        i=i+1
+    MainVar=sorted(MainVar)
+    return MainVar
+
+
 def MakeStringReady(equation):
     ParsableEq=''
     i=0
@@ -914,11 +925,31 @@ def CompositeMidPoint():
     ans=ans*(2*h)
     print("The ans is = " + str(ans))    
 
+def EulerMethod():
+    eq=str(input("Enter the differential equation : y'="))
+    eq=MakeStringReady(eq)
+    MainVars=FindDoubleMainVar(eq)
+    Y=symbols('y')
+    T=symbols('t')
+    eq=sympify(eq)
+    h=float(input("Enter the value of h : "))
+    yi=float(input("Enter the inital value of y : "))
+    ti=float(input("Enter the inital value of t : "))
+    tf=float(input("Enter the final value of t : "))
+    print(str(ti)+ "    "+ str(yi))
+    while ti!=tf:
+        k=h*float(eq.evalf(subs={Y:yi,T:ti}))
+        yi=yi+k
+        ti=ti+h
+        print(str(ti)+ "    "+ str(yi))
+
+
 
 #MainWindow=tk.Tk()
 # eq=input("Enter the equation :")
 #CompositeSimpson()
 #CompositeMidPoint()
+#EulerMethod()
 # tolerance=float(input("Enter the tolerance value = "))
 # a=float(input("Enter the value of 'a' = "))
 # b=float(input("Enter the value of 'b' = "))
