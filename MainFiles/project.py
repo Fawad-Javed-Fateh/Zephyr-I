@@ -838,6 +838,59 @@ def ThreePointDifferentiation():
                 ans=ans/(2*q)
                 print("dx/dy(x" + str(i) +") = " + str(ans))
 
+def FivePointDifferentiation():
+    n=int(input("Enter the number of points "))
+    Xpoints=[]
+    Ypoints=[]
+    print("Start entering x values: ")
+    for i in range(n):
+        Xpoints.append(float(input("x" +str(i) + " = ")))
+    # eq=input("Enter the equation : ")
+    # eq=MakeStringReady(eq)
+    # MainVar=FindMainVar(eq)
+    # eq=sympify(eq)
+    # MainVar=symbols(MainVar)
+    height=Xpoints[1]-Xpoints[0]
+    for i in range(n):
+        # Ypoints.append(float(eq.evalf(subs={MainVar:Xpoints[i]})))
+        Ypoints.append(float(input("Enter point:")))
+    i=0
+    while (i<n):
+        #the endpoint
+        DerivList=[None]*(n)
+        if(i+5<=n):  
+            DerivAns=0
+            DerivAns+=-25*Ypoints[i]
+            DerivAns+=48*Ypoints[i+1]
+            DerivAns+=-36*Ypoints[i+2]
+            DerivAns+=16*Ypoints[i+3]
+            DerivAns+=-3*Ypoints[i+4]
+            DerivAns=DerivAns/(12*height)
+        elif (i-4>=0):
+            DerivAns=0
+            DerivAns+=-25*Ypoints[i]
+            DerivAns+=48*Ypoints[i-1]
+            DerivAns+=-36*Ypoints[i-2]
+            DerivAns+=16*Ypoints[i-3]
+            DerivAns+=-3*Ypoints[i-4]
+            DerivAns=DerivAns/(12*height)
+        else:
+            DerivAns=0
+            DerivAns+=Ypoints[i-2]
+            DerivAns+=-8*Ypoints[i-1]
+            DerivAns+=8*Ypoints[i+1]
+            DerivAns+=-1*Ypoints[i+2]
+            DerivAns=DerivAns/(12*height)
+        print(str(DerivAns))
+        DerivList[i]=DerivAns
+        i=i+1
+
+# def DoubleDerivation():
+
+
+
+    
+
 def CompositeTrapezodial():
     a=float(input("Enter the upper limit : "))
     b=float(input("Enter the lower limit : "))
@@ -986,5 +1039,5 @@ def EulerMethod():
 #     print(NewStr.evalf(subs={MainVar:i}))
 #     print('\n')
 #     i=i+1
-
+FivePointDifferentiation()
 #MainWindow.mainloop();
