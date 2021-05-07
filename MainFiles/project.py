@@ -855,9 +855,9 @@ def FivePointDifferentiation():
         # Ypoints.append(float(eq.evalf(subs={MainVar:Xpoints[i]})))
         Ypoints.append(float(input("Enter point:")))
     i=0
+    DerivList=[None]*(n)
     while (i<n):
         #the endpoint
-        DerivList=[None]*(n)
         if(i+5<=n):  
             DerivAns=0
             DerivAns+=-25*Ypoints[i]
@@ -885,9 +885,34 @@ def FivePointDifferentiation():
         DerivList[i]=DerivAns
         i=i+1
 
-# def DoubleDerivation():
-
-
+def DoubleDerivativeMidpoint():
+    n=int(input("Enter the number of points "))
+    Xpoints=[]
+    Ypoints=[]
+    print("Start entering x values: ")
+    for i in range(n):
+        Xpoints.append(float(input("x" +str(i) + " = ")))
+    # eq=input("Enter the equation : ")
+    # eq=MakeStringReady(eq)
+    # MainVar=FindMainVar(eq)
+    # eq=sympify(eq)
+    # MainVar=symbols(MainVar)
+    height=Xpoints[1]-Xpoints[0]
+    for i in range(n):
+        # Ypoints.append(float(eq.evalf(subs={MainVar:Xpoints[i]})))
+        Ypoints.append(float(input("Enter point:")))
+    Deriv2List=[None]*(n)
+    i=0
+    while(i<n):
+        Derivative2=0
+        if(i>0 and i<(n-1)):
+            Derivative2+=Ypoints[i-1]
+            Derivative2+=-2*Ypoints[i]
+            Derivative2+=Ypoints[i+1]
+            Derivative2=Derivative2/(height*height)
+        print(str(Derivative2))
+        Deriv2List[i]=DerivAns
+        i=i+1
 
     
 
