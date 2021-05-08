@@ -759,34 +759,32 @@ def ForWardsSDT(InterPolVal,n,argx,argy,DifferenceTable,Chp3interpolans):
             print(" At n = "+str(i)+" the value is = " + str(ans))
     return ans 
 
-def ForwardsDifferentiation():
-    n=int(input("Enter the total number of data points "))
-    eq=str(input("Enter the equation "))
-    eq=MakeStringReady(eq)
-    MainVar=FindMainVar(eq)
-    eq=sympify(eq)
-    MainVar=symbols(MainVar)
-    x=np.zeros(n,dtype=float)    
-    y=np.zeros(n,dtype=float)
+def ForwardsDifferentiation(n,x,y,Chp4DerivTable):
     h=float(x[1]-x[0])
-    for i in range(n):
-        y[i]=float(eq.evalf(subs={MainVar:x[i]}))
+    Chp4DerivTable.setRowCount(n)
+    derivatives = [None]*(n)
     for i in range(n):
         if i != n-1:
-            val=float(x[i]+h)
-            p1=float(eq.evalf(subs={MainVar:val}))
-            p2=float(eq.evalf(subs={MainVar:x[i]}))
+            p1=float(y[i+1])
+            p2=float(y[i])
             ans=float(p1-p2)
             ans=float(ans/h)
             print("dx/dy(" +str(x[i]) + ") = " + str(ans))
         elif i == n-1:
-            val=float(x[i]-h)
-            p1=float(eq.evalf(subs={MainVar:val}))
-            p2=float(eq.evalf(subs={MainVar:x[i]}))
+            p1=float(y[i-1])
+            p2=float(y[i])
             ans=float(p2-p1)
             ans=float(ans/h)
             print("dx/dy(" +str(x[i]) + ") = " + str(ans))
+        derivatives[i]=ans
 
+    for i in range(n):
+        Chp4DerivTable.setItem(i,0, QTableWidgetItem(str(x[i])))
+        Chp4DerivTable.setItem(i,1, QTableWidgetItem(str(y[i])))
+        Chp4DerivTable.setItem(i,2, QTableWidgetItem(str(derivatives[i])))
+
+    return derivatives
+    
 def ThreePointDifferentiation():
     n=int(input("Enter the number of points "))
     x=np.zeros(n,dtype=float)
@@ -836,26 +834,12 @@ def ThreePointDifferentiation():
                 ans=ans/(2*q)
                 print("dx/dy(x" + str(i) +") = " + str(ans))
 
-def FivePointDifferentiation():
-    n=int(input("Enter the number of points "))
-    Xpoints=[]
-    Ypoints=[]
-    print("Start entering x values: ")
-    for i in range(n):
-        Xpoints.append(float(input("x" +str(i) + " = ")))
-    # eq=input("Enter the equation : ")
-    # eq=MakeStringReady(eq)
-    # MainVar=FindMainVar(eq)
-    # eq=sympify(eq)
-    # MainVar=symbols(MainVar)
+def FivePointDifferentiation(n,Xpoints,Ypoints,Chp4DerivTable):
+    Chp4DerivTable.setRowCount(n)
     height=Xpoints[1]-Xpoints[0]
-    for i in range(n):
-        # Ypoints.append(float(eq.evalf(subs={MainVar:Xpoints[i]})))
-        Ypoints.append(float(input("Enter point:")))
     i=0
     DerivList=[None]*(n)
     while (i<n):
-        #the endpoint
         if(i+5<=n):  
             DerivAns=0
             DerivAns+=-25*Ypoints[i]
@@ -879,8 +863,11 @@ def FivePointDifferentiation():
             DerivAns+=8*Ypoints[i+1]
             DerivAns+=-1*Ypoints[i+2]
             DerivAns=DerivAns/(12*height)
-        print(str(DerivAns))
         DerivList[i]=DerivAns
+        Chp4DerivTable.setItem(i,0, QTableWidgetItem(str(Xpoints[i])))
+        Chp4DerivTable.setItem(i,1, QTableWidgetItem(str(Ypoints[i])))
+        Chp4DerivTable.setItem(i,2, QTableWidgetItem(str(DerivList[i])))
+        print(str(DerivAns))
         i=i+1
 
 def DoubleDerivativeMidpoint():
@@ -1126,7 +1113,7 @@ def RungeKuttaMethod():
 #CompositeMidPoint()
 #EulerMethod()
 #HeunsMethod()
-RungeKuttaMethod()
+# RungeKuttaMethod()
 #MidpointMethod()
 #ModifiedEulerMethod()
 # tolerance=float(input("Enter the tolerance value = "))
