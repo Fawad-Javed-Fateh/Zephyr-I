@@ -41,7 +41,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="MainTab">
      <attribute name="title">
@@ -1651,75 +1651,6 @@
       </property>
       <property name="text">
        <string>0</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="Chapter4DerivTab">
-     <attribute name="title">
-      <string>Page</string>
-     </attribute>
-     <widget class="QTextBrowser" name="Chp4Derivans">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>450</y>
-        <width>691</width>
-        <height>131</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="Chp4derivback">
-      <property name="geometry">
-       <rect>
-        <x>740</x>
-        <y>490</y>
-        <width>131</width>
-        <height>81</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>15</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Back To 
- Main Menu</string>
-      </property>
-     </widget>
-     <widget class="QTableWidget" name="Chp4DerivTable">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>30</y>
-        <width>811</width>
-        <height>411</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="Ch4derivlabel">
-      <property name="geometry">
-       <rect>
-        <x>270</x>
-        <y>-20</y>
-        <width>351</width>
-        <height>71</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>DERIVATIVE TABLE</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </widget>

@@ -361,7 +361,7 @@ class Ui_MainWindow(object):
         self.Chapter4Tab = QtWidgets.QWidget()
         self.Chapter4Tab.setObjectName("Chapter4Tab")
         self.Ch4YValLabel = QtWidgets.QLabel(self.Chapter4Tab)
-        self.Ch4YValLabel.setGeometry(QtCore.QRect(10, 290, 221, 21))
+        self.Ch4YValLabel.setGeometry(QtCore.QRect(10, 290, 451, 21))
         font = QtGui.QFont()
         font.setPointSize(15)
         font.setBold(True)
@@ -487,7 +487,7 @@ class Ui_MainWindow(object):
         self.Ch4StartButton.setFont(font)
         self.Ch4StartButton.setObjectName("Ch4StartButton")
         self.Ch4funclabel = QtWidgets.QLabel(self.Chapter4Tab)
-        self.Ch4funclabel.setGeometry(QtCore.QRect(10, 380, 251, 31))
+        self.Ch4funclabel.setGeometry(QtCore.QRect(10, 380, 301, 31))
         font = QtGui.QFont()
         font.setPointSize(15)
         font.setBold(True)
@@ -501,7 +501,7 @@ class Ui_MainWindow(object):
         self.Ch4y6input.setGeometry(QtCore.QRect(790, 330, 81, 20))
         self.Ch4y6input.setObjectName("Ch4y6input")
         self.Ch4XValLabel = QtWidgets.QLabel(self.Chapter4Tab)
-        self.Ch4XValLabel.setGeometry(QtCore.QRect(10, 210, 221, 41))
+        self.Ch4XValLabel.setGeometry(QtCore.QRect(10, 210, 481, 41))
         font = QtGui.QFont()
         font.setPointSize(15)
         font.setBold(True)
@@ -512,34 +512,6 @@ class Ui_MainWindow(object):
         self.Ch4y1input.setGeometry(QtCore.QRect(150, 330, 81, 20))
         self.Ch4y1input.setObjectName("Ch4y1input")
         self.tabWidget.addTab(self.Chapter4Tab, "")
-        self.Chapter4DerivTab = QtWidgets.QWidget()
-        self.Chapter4DerivTab.setObjectName("Chapter4DerivTab")
-        self.Chp4Derivans = QtWidgets.QTextBrowser(self.Chapter4DerivTab)
-        self.Chp4Derivans.setGeometry(QtCore.QRect(40, 450, 691, 131))
-        self.Chp4Derivans.setObjectName("Chp4Derivans")
-        self.Chp4derivback = QtWidgets.QPushButton(self.Chapter4DerivTab)
-        self.Chp4derivback.setGeometry(QtCore.QRect(740, 490, 131, 81))
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        font.setBold(True)
-        font.setWeight(75)
-        self.Chp4derivback.setFont(font)
-        self.Chp4derivback.setObjectName("Chp4derivback")
-        self.Chp4DerivTable = QtWidgets.QTableWidget(self.Chapter4DerivTab)
-        self.Chp4DerivTable.setGeometry(QtCore.QRect(40, 30, 811, 411))
-        self.Chp4DerivTable.setObjectName("Chp4DerivTable")
-        self.Chp4DerivTable.setColumnCount(0)
-        self.Chp4DerivTable.setRowCount(0)
-        self.Ch4derivlabel = QtWidgets.QLabel(self.Chapter4DerivTab)
-        self.Ch4derivlabel.setGeometry(QtCore.QRect(270, -20, 351, 71))
-        font = QtGui.QFont()
-        font.setPointSize(20)
-        font.setBold(True)
-        font.setWeight(75)
-        self.Ch4derivlabel.setFont(font)
-        self.Ch4derivlabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.Ch4derivlabel.setObjectName("Ch4derivlabel")
-        self.tabWidget.addTab(self.Chapter4DerivTab, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setEnabled(False)
@@ -666,7 +638,7 @@ class Ui_MainWindow(object):
         self.Ch4choicebox.setItemText(1, _translate("MainWindow", "3 Point Mid & End"))
         self.Ch4choicebox.setItemText(2, _translate("MainWindow", "5 Point Mid & End"))
         self.Ch4choicebox.setItemText(3, _translate("MainWindow", "Midpoint Double Derivation"))
-        self.Ch4choicebox.setItemText(4, _translate("MainWindow", "Trapezoid "))
+        self.Ch4choicebox.setItemText(4, _translate("MainWindow", "Trapezoid"))
         self.Ch4choicebox.setItemText(5, _translate("MainWindow", "Simpson 1/3rd"))
         self.Ch4choicebox.setItemText(6, _translate("MainWindow", "Simpson 3/8th"))
         self.Ch4choicebox.setItemText(7, _translate("MainWindow", "Midpoint "))
@@ -685,11 +657,6 @@ class Ui_MainWindow(object):
         self.Ch4XValLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt;\">Enter the Values of X:</span></p></body></html>"))
         self.Ch4y1input.setText(_translate("MainWindow", "0"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Chapter4Tab), _translate("MainWindow", "Page"))
-        self.Chp4derivback.setText(_translate("MainWindow", "Back To \n"
-" Main Menu"))
-        self.Ch4derivlabel.setText(_translate("MainWindow", "DERIVATIVE TABLE"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.Chapter4DerivTab), _translate("MainWindow", "Page"))
-
     def MovetoChapter2(self, MainWindow):
         self.Chp2Table.setColumnCount(6)
         self.Chp2Table.setHorizontalHeaderLabels(["Iteration","a","b","c","f(c)","Error"])
@@ -977,7 +944,7 @@ class Ui_MainWindow(object):
 
     def Chapter4Start(self, MainWindow):
         self.tabWidget.setCurrentIndex(5)
-        if(self.Chp4choicebox.currentIndex()<=3):
+        if(self.Ch4choicebox.currentIndex()<=3):
             countofpoints=int(self.Chp4pointsbox.currentText())
             self.Chp4DerivTable.setColumnCount(int(3))
             self.Chp4DerivTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -1030,27 +997,28 @@ class Ui_MainWindow(object):
         elif (method == "Midpoint Double Derivation"):
                 DoubleDerivativeMidpoint(countofpoints,xpoints,ypoints,self.Chp4DerivTable)
                 self.tabWidget.setCurrentIndex(6)
-        elif (method == "Trapezoid"):
-                a=self.Ch4x0input.text()
-                b=self.Ch4x1input.text()
-                h=self.Ch4y0input.text()
-                equation = str(self.Chp4FuncInput.text())
-                Ans=CompositeTrapezodial(h,a,b,equation)
-                self.Chp4formulalabel.setText("The answer is: " + str(Ans))
-        elif(method == "Simpson 1/3rd"):
-                a=self.Ch4x0input.text()
-                b=self.Ch4x1input.text()
-                h=self.Ch4y0input.text()
-                equation = str(self.Chp4FuncInput.text())
-                Ans=CompositeSimpson(h,a,b,equation)
-                self.Chp4formulalabel.setText("The answer is: " + str(Ans))
-        elif(method=="Simpson 3/8th"):
-                a=self.Ch4x0input.text()
-                b=self.Ch4x1input.text()
-                h=self.Ch4y0input.text()
-                equation = str(self.Chp4FuncInput.text())
-                CompositeSimp38(h,a,b,eq)
-                self.Chp4formulalabel.setText("The answer is: " + str(Ans))
+        else:
+            try:
+                a=float(self.Ch4x0input.text())
+                b=float(self.Ch4x1input.text())
+                h=float(self.Ch4y0input.text())
+                eq = str(self.Chp4FuncInput.text())
+            except:
+                dialoguebox = QMessageBox(QMessageBox.Critical, "Error", "Please provide Valid Input.")
+                x=dialoguebox.exec_()
+                return
+            if (method == "Trapezoid"):
+                    Ans=CompositeTrapezodial(h,a,b,equation)
+                    self.Chp4formulalabel.setText("The answer is: " + str(Ans))
+            elif(method == "Simpson 1/3rd"):
+                    Ans=CompositeSimpson(h,a,b,equation)
+                    self.Chp4formulalabel.setText("The answer is: " + str(Ans))
+            elif(method=="Simpson 3/8th"):
+                    Ans=CompositeSimp38(h,a,b,eq)
+                    self.Chp4formulalabel.setText("The answer is: " + str(Ans))
+            elif (method=="Midpoint"):
+                    Ans=CompositeMidPoint(h,a,b,eq)
+                    self.Chp4formulalabel.setText("The answer is: " + str(Ans))
 
 
 

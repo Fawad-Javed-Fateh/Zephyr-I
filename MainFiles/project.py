@@ -914,7 +914,8 @@ def CompositeTrapezodial(h,a,b,eq):
     ans=ans+temp
     ans=ans*(h/2)
     # print("The ans is = " + str(ans))
-    return ans
+    return round(ans,7)
+
 
 def CompositeSimpson(h,a,b,eq):
     eq=MakeStringReady(eq)
@@ -943,7 +944,8 @@ def CompositeSimpson(h,a,b,eq):
     temp2=temp2*4
     ans=ans+temp2+temp1
     ans=ans*(h/3)
-    return ans
+    return round(ans,7)
+
     # print("The ans is = " + str(ans))    
 
 def CompositeSimp38(h,a,b,eq):
@@ -967,11 +969,7 @@ def CompositeSimp38(h,a,b,eq):
     Ans=(Ans*3*h)/8
     return round(Ans,7)
 
-def CompositeMidPoint():
-    a=float(input("Enter the upper limit : "))
-    b=float(input("Enter the lower limit : "))
-    h=float(input("Enter the value of h (difference) : "))
-    eq=str(input("Enter the equation : "))
+def CompositeMidPoint(h,a,b,eq):
     eq=MakeStringReady(eq)
     MainVar=FindMainVar(eq)
     eq=sympify(eq)
@@ -990,7 +988,7 @@ def CompositeMidPoint():
         print(str(x[i]))
         ans=ans+y[i]
     ans=ans*(2*h)
-    print("The ans is = " + str(ans))    
+    return round(ans,7)
 
 def EulerMethod():
     eq=str(input("Enter the differential equation : y'="))
@@ -1160,8 +1158,3 @@ def RungeKuttaMethod():
 #     i=i+1
 #FivePointDifferentiation()
 #MainWindow.mainloop();
-a=0
-b=2
-h=1/3
-eq = input("Enter eq:")
-CompositeSimp38(h,a,b,eq)
