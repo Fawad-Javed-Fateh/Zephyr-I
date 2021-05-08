@@ -43,7 +43,6 @@ def FindDoubleMainVar(equation):
     MainVar=sorted(MainVar)
     return MainVar
 
-
 def MakeStringReady(equation):
     ParsableEq=''
     i=0
@@ -662,7 +661,6 @@ def StirlingsMethod(InterPolVal,n,argx,argy,DifferenceTable):
                 MidTerm=MidTerm-1
     return ans
      
-
 def BackWardsSDT(InterPolVal,n,argx,argy,DifferenceTable,Chp3interpolans):
     DifferenceTable.setRowCount(n)
     x=np.zeros(n,dtype=float)
@@ -913,8 +911,6 @@ def DoubleDerivativeMidpoint():
         print(str(Derivative2))
         Deriv2List[i]=DerivAns
         i=i+1
-
-    
 
 def CompositeTrapezodial():
     a=float(input("Enter the upper limit : "))

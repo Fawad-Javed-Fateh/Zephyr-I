@@ -9,6 +9,248 @@ import tkinter as tk
 from array import *
 import numpy as np
 
+def ForwardsDifferentiation():
+    n=int(input("Enter the total number of data points "))
+    eq=str(input("Enter the equation "))
+    eq=MakeStringReady(eq)
+    MainVar=FindMainVar(eq)
+    eq=sympify(eq)
+    MainVar=symbols(MainVar)
+    x=np.zeros(n,dtype=float)    
+    y=np.zeros(n,dtype=float)
+    h=float(x[1]-x[0])
+    for i in range(n):
+        y[i]=float(eq.evalf(subs={MainVar:x[i]}))
+    for i in range(n):
+        if i != n-1:
+            val=float(x[i]+h)
+            p1=float(eq.evalf(subs={MainVar:val}))
+            p2=float(eq.evalf(subs={MainVar:x[i]}))
+            ans=float(p1-p2)
+            ans=float(ans/h)
+            print("dx/dy(" +str(x[i]) + ") = " + str(ans))
+        elif i == n-1:
+            val=float(x[i]-h)
+            p1=float(eq.evalf(subs={MainVar:val}))
+            p2=float(eq.evalf(subs={MainVar:x[i]}))
+            ans=float(p2-p1)
+            ans=float(ans/h)
+            print("dx/dy(" +str(x[i]) + ") = " + str(ans))
+
+def ThreePointDifferentiation():
+    n=int(input("Enter the number of points "))
+    x=np.zeros(n,dtype=float)
+    y=np.zeros(n,dtype=float)
+    print("Start entering x values: ")
+    for i in range(n):
+        x[i]=float(input("x" +str(i) + " = "))
+    eq=input("Enter the equation : ")
+    eq=MakeStringReady(eq)
+    MainVar=FindMainVar(eq)
+    eq=sympify(eq)
+    MainVar=symbols(MainVar)
+    h=x[1]-x[0]
+    for i in range(n):
+        y[i]=float(eq.evalf(subs={MainVar:x[i]}))
+    if n%2==0:
+        m2=n/2
+        m1=m2-1
+        for i in range(n):
+            if i < m1 and i < m2 :
+                ans=float(-3*(y[i])+4*(y[i+1])-(y[i+2]))
+                ans=ans/(2*h)
+                print("dx/dy(x" + str(i) +") = " + str(ans))
+            if i == m1 or i == m2:
+                ans=float(y[i+1]-y[i-1])
+                ans=ans/(2*h)
+                print("dx/dy(x" + str(i) +") = " + str(ans))
+            if i > m1 and i > m2 :
+                ans=float(-3*(y[i])+4*(y[i-1])-(y[i-2]))
+                q=h-2*h
+                ans=ans/(2*q)
+                print("dx/dy(x" + str(i) +") = " + str(ans))
+    else:
+        m=math.floor(n/2)
+        for i in range(n):
+            if i < m :
+                ans=float(-3*(y[i])+4*(y[i+1])-(y[i+2]))
+                ans=ans/(2*h)
+                print("dx/dy(x" + str(i) +") = " + str(ans))
+            if i == m:
+                ans=float(y[i+1]-y[i-1])
+                ans=ans/(2*h)
+                print("dx/dy(x" + str(i) +") = " + str(ans))
+            if i > m :
+                ans=float(-3*(y[i])+4*(y[i-1])-(y[i-2]))
+                q=h-2*h
+                ans=ans/(2*q)
+                print("dx/dy(x" + str(i) +") = " + str(ans))
+
+def FivePointDifferentiation():
+    n=int(input("Enter the number of points "))
+    Xpoints=[]
+    Ypoints=[]
+    print("Start entering x values: ")
+    for i in range(n):
+        Xpoints.append(float(input("x" +str(i) + " = ")))
+    # eq=input("Enter the equation : ")
+    # eq=MakeStringReady(eq)
+    # MainVar=FindMainVar(eq)
+    # eq=sympify(eq)
+    # MainVar=symbols(MainVar)
+    height=Xpoints[1]-Xpoints[0]
+    for i in range(n):
+        # Ypoints.append(float(eq.evalf(subs={MainVar:Xpoints[i]})))
+        Ypoints.append(float(input("Enter point:")))
+    i=0
+    DerivList=[None]*(n)
+    while (i<n):
+        #the endpoint
+        if(i+5<=n):  
+            DerivAns=0
+            DerivAns+=-25*Ypoints[i]
+            DerivAns+=48*Ypoints[i+1]
+            DerivAns+=-36*Ypoints[i+2]
+            DerivAns+=16*Ypoints[i+3]
+            DerivAns+=-3*Ypoints[i+4]
+            DerivAns=DerivAns/(12*height)
+        elif (i-4>=0):
+            DerivAns=0
+            DerivAns+=-25*Ypoints[i]
+            DerivAns+=48*Ypoints[i-1]
+            DerivAns+=-36*Ypoints[i-2]
+            DerivAns+=16*Ypoints[i-3]
+            DerivAns+=-3*Ypoints[i-4]
+            DerivAns=DerivAns/(12*height)
+        else:
+            DerivAns=0
+            DerivAns+=Ypoints[i-2]
+            DerivAns+=-8*Ypoints[i-1]
+            DerivAns+=8*Ypoints[i+1]
+            DerivAns+=-1*Ypoints[i+2]
+            DerivAns=DerivAns/(12*height)
+        print(str(DerivAns))
+        DerivList[i]=DerivAns
+        i=i+1
+
+def DoubleDerivativeMidpoint():
+    n=int(input("Enter the number of points "))
+    Xpoints=[]
+    Ypoints=[]
+    print("Start entering x values: ")
+    for i in range(n):
+        Xpoints.append(float(input("x" +str(i) + " = ")))
+    # eq=input("Enter the equation : ")
+    # eq=MakeStringReady(eq)
+    # MainVar=FindMainVar(eq)
+    # eq=sympify(eq)
+    # MainVar=symbols(MainVar)
+    height=Xpoints[1]-Xpoints[0]
+    for i in range(n):
+        # Ypoints.append(float(eq.evalf(subs={MainVar:Xpoints[i]})))
+        Ypoints.append(float(input("Enter point:")))
+    Deriv2List=[None]*(n)
+    i=0
+    while(i<n):
+        Derivative2=0
+        if(i>0 and i<(n-1)):
+            Derivative2+=Ypoints[i-1]
+            Derivative2+=-2*Ypoints[i]
+            Derivative2+=Ypoints[i+1]
+            Derivative2=Derivative2/(height*height)
+        print(str(Derivative2))
+        Deriv2List[i]=DerivAns
+        i=i+1
+
+def CompositeTrapezodial():
+    a=float(input("Enter the upper limit : "))
+    b=float(input("Enter the lower limit : "))
+    h=float(input("Enter the value of h (difference) : "))
+    eq=str(input("Enter the equation : "))
+    eq=MakeStringReady(eq)
+    MainVar=FindMainVar(eq)
+    eq=sympify(eq)
+    MainVar=symbols(MainVar)  
+    n=int((a-b)/h)
+    n=n+1
+    x=np.zeros(n,dtype=float)
+    y=np.zeros(n,dtype=float)
+    x[0]=b
+    for i in range(1,n):
+        x[i]=x[i-1]+h
+    for i in range(n):
+        y[i]=float(eq.evalf(subs={MainVar:x[i]}))
+    ans=float(0)
+    ans=float(y[0]+y[n-1])
+    temp=float(0)
+    for i in range(1,n-1):
+        print(str(x[i]))
+        temp=temp+y[i]
+    temp=temp*2
+    ans=ans+temp
+    ans=ans*(h/2)
+    print("The ans is = " + str(ans))
+
+def CompositeSimpson():
+    a=float(input("Enter the upper limit : "))
+    b=float(input("Enter the lower limit : "))
+    h=float(input("Enter the value of h (difference) : "))
+    eq=str(input("Enter the equation : "))
+    eq=MakeStringReady(eq)
+    MainVar=FindMainVar(eq)
+    eq=sympify(eq)
+    MainVar=symbols(MainVar)  
+    n=int((a-b)/h)
+    n=n+1
+    x=np.zeros(n,dtype=float)
+    y=np.zeros(n,dtype=float)
+    x[0]=b
+    for i in range(1,n):
+        x[i]=x[i-1]+h
+    for i in range(n):
+        y[i]=float(eq.evalf(subs={MainVar:x[i]}))
+    ans=float(0)
+    ans=float(y[0]+y[n-1])
+    temp1=float(0)
+    temp2=float(0)
+    for i in range(1,n-1):
+        if i%2==0:
+            temp1=temp1+y[i]
+        else:
+            temp2=temp2+y[i]
+    temp1=temp1*2
+    temp2=temp2*4
+    ans=ans+temp2+temp1
+    ans=ans*(h/3)
+    print("The ans is = " + str(ans))    
+
+def CompositeMidPoint():
+    a=float(input("Enter the upper limit : "))
+    b=float(input("Enter the lower limit : "))
+    h=float(input("Enter the value of h (difference) : "))
+    eq=str(input("Enter the equation : "))
+    eq=MakeStringReady(eq)
+    MainVar=FindMainVar(eq)
+    eq=sympify(eq)
+    MainVar=symbols(MainVar)  
+    n=int((a-b)/h)
+    n=n+1
+    x=np.zeros(n,dtype=float)
+    y=np.zeros(n,dtype=float)
+    x[0]=b
+    for i in range(1,n):
+        x[i]=x[i-1]+h
+    for i in range(n):
+        y[i]=float(eq.evalf(subs={MainVar:x[i]}))
+    ans=float(0)
+    for i in range(1,n,2):
+        print(str(x[i]))
+        ans=ans+y[i]
+    ans=ans*(2*h)
+    print("The ans is = " + str(ans))    
+
+
+
 def Bisection2(equation,MainVar,a,b,tolerance):
     decider=equation.evalf(subs={MainVar:a}) #substitute a as value of mainvar. then evaluate and give value to decider
     decider=float(decider)
