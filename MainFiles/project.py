@@ -890,11 +890,7 @@ def DoubleDerivativeMidpoint(n,Xpoints,Ypoints,Chp4DerivTable):
         Chp4DerivTable.setItem(i,2, QTableWidgetItem(str(Deriv2List[i])))
         i=i+1
     
-def CompositeTrapezodial():
-    a=float(input("Enter the upper limit : "))
-    b=float(input("Enter the lower limit : "))
-    h=float(input("Enter the value of h (difference) : "))
-    eq=str(input("Enter the equation : "))
+def CompositeTrapezodial(h,a,b,eq):
     eq=MakeStringReady(eq)
     MainVar=FindMainVar(eq)
     eq=sympify(eq)
@@ -912,18 +908,15 @@ def CompositeTrapezodial():
     ans=float(y[0]+y[n-1])
     temp=float(0)
     for i in range(1,n-1):
-        print(str(x[i]))
+        # print(str(x[i]))
         temp=temp+y[i]
     temp=temp*2
     ans=ans+temp
     ans=ans*(h/2)
-    print("The ans is = " + str(ans))
+    # print("The ans is = " + str(ans))
+    return ans
 
-def CompositeSimpson():
-    a=float(input("Enter the upper limit : "))
-    b=float(input("Enter the lower limit : "))
-    h=float(input("Enter the value of h (difference) : "))
-    eq=str(input("Enter the equation : "))
+def CompositeSimpson(h,a,b,eq):
     eq=MakeStringReady(eq)
     MainVar=FindMainVar(eq)
     eq=sympify(eq)
@@ -950,7 +943,29 @@ def CompositeSimpson():
     temp2=temp2*4
     ans=ans+temp2+temp1
     ans=ans*(h/3)
-    print("The ans is = " + str(ans))    
+    return ans
+    # print("The ans is = " + str(ans))    
+
+def CompositeSimp38(h,a,b,eq):
+    eq=MakeStringReady(eq)
+    MainVar=FindMainVar(eq)
+    eq=sympify(eq)
+    MainVar=symbols(MainVar)  
+    n=int((b-a)/h)
+    n=n+1
+    i=1
+    Ypoints = [None]*n
+    Ans=float(eq.evalf(subs={MainVar:(a)})) + float(eq.evalf(subs={MainVar:(b)}))
+    while(i<n-1):
+        Ypoints[i]=float(eq.evalf(subs={MainVar:(a+h*i)}))
+        if(i%3==0):
+            Ans=Ans + 2*Ypoints[i]
+        if(i%3!=0):
+            Ans=Ans+3*Ypoints[i]
+        i=i+1
+        
+    Ans=(Ans*3*h)/8
+    return round(Ans,7)
 
 def CompositeMidPoint():
     a=float(input("Enter the upper limit : "))
@@ -1145,3 +1160,8 @@ def RungeKuttaMethod():
 #     i=i+1
 #FivePointDifferentiation()
 #MainWindow.mainloop();
+a=0
+b=2
+h=1/3
+eq = input("Enter eq:")
+CompositeSimp38(h,a,b,eq)

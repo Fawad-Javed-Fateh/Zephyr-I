@@ -918,6 +918,10 @@ class Ui_MainWindow(object):
         self.Ch4y6input.setDisabled(True)
    
     def Chapter4MethodChanged(self,Mainwindow):
+        self.Chp4pointsbox.setDisabled(False)
+        self.Ch4XValLabel.setText("Enter the Values of X:")
+        self.Ch4YValLabel.setText("Enter the Values of Y:")
+        self.Ch4funclabel.setText("Enter the Function f(x):")
         method = str(self.Ch4choicebox.currentText())
         if(method=="Forward Difference"):
                 self.Chp4pointsbox.setCurrentIndex(0)
@@ -925,6 +929,22 @@ class Ui_MainWindow(object):
                 self.Chp4pointsbox.setCurrentIndex(1)
         elif (method=="5 Point Mid & End"):
                 self.Chp4pointsbox.setCurrentIndex(3)
+        if(method == "Trapezoid" or method == "Simpson 1/3rd" or method =="Simpson 3/8th" or method == "Midpoint"):
+                self.Chp4pointsbox.setDisabled(True)
+                self.Ch4XValLabel.setText("Enter the value of limits 'a' and 'b':")
+                self.Ch4YValLabel.setText("Enter the value of height 'h':")
+                self.Ch4funclabel.setText("Enter the Expression to Integrate: ")
+                self.Ch4x2input.setDisabled(True)
+                self.Ch4x3input.setDisabled(True)
+                self.Ch4x4input.setDisabled(True)
+                self.Ch4x5input.setDisabled(True)
+                self.Ch4x6input.setDisabled(True)
+                self.Ch4y1input.setDisabled(True)
+                self.Ch4y2input.setDisabled(True)
+                self.Ch4y3input.setDisabled(True)
+                self.Ch4y4input.setDisabled(True)
+                self.Ch4y5input.setDisabled(True)
+                self.Ch4y6input.setDisabled(True)
 
     def Chapter4pointschanged(self,MainWindow):
         count = int(self.Chp4pointsbox.currentText())
@@ -957,45 +977,46 @@ class Ui_MainWindow(object):
 
     def Chapter4Start(self, MainWindow):
         self.tabWidget.setCurrentIndex(5)
-        countofpoints=int(self.Chp4pointsbox.currentText())
-        self.Chp4DerivTable.setColumnCount(int(3))
-        self.Chp4DerivTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.Chp4DerivTable.setHorizontalHeaderLabels(["X","f(x)","f`(X)"])
-        self.Chp4DerivTable.horizontalHeader().setVisible(True)
-        self.Chp4DerivTable.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.Chp4DerivTable.verticalHeader().setVisible(False)
-        equation = str(self.Chp4FuncInput.text())
-        try:
-            xpoints = []
-            ypoints = []
-            InterPolVal=float(self.Chp3InterPolVal.text())
-            xpoints.append(float(self.Ch4x0input.text()))
-            xpoints.append(float(self.Ch4x1input.text()))
-            xpoints.append(float(self.Ch4x2input.text()))
-            xpoints.append(float(self.Ch4x3input.text()))
-            xpoints.append(float(self.Ch4x4input.text()))
-            xpoints.append(float(self.Ch4x5input.text()))
-            xpoints.append(float(self.Ch4x6input.text()))
-            ypoints.append(float(self.Ch4y0input.text()))
-            ypoints.append(float(self.Ch4y1input.text()))
-            ypoints.append(float(self.Ch4y2input.text()))
-            ypoints.append(float(self.Ch4y3input.text()))
-            ypoints.append(float(self.Ch4y4input.text()))
-            ypoints.append(float(self.Ch4y5input.text()))
-            ypoints.append(float(self.Ch4y6input.text())) 
-        except:
-            dialoguebox = QMessageBox(QMessageBox.Critical, "Error", "Please provide Valid Input.")
-            x=dialoguebox.exec_()
-            return
-        if (ypoints[0]==0 and ypoints[1]==0):
-            ReadyEq=MakeStringReady(equation)
-            MainVar=FindMainVar(equation)
-            MainVar=symbols(MainVar)
-            ReadyEq=sympify(ReadyEq)
-            i=0
-            while i!=countofpoints:
-                ypoints[i]=(float(ReadyEq.evalf(subs={MainVar:xpoints[i]})))
-                i=i+1
+        if(self.Chp4choicebox.currentIndex()<=3):
+            countofpoints=int(self.Chp4pointsbox.currentText())
+            self.Chp4DerivTable.setColumnCount(int(3))
+            self.Chp4DerivTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+            self.Chp4DerivTable.setHorizontalHeaderLabels(["X","f(x)","f`(X)"])
+            self.Chp4DerivTable.horizontalHeader().setVisible(True)
+            self.Chp4DerivTable.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
+            self.Chp4DerivTable.verticalHeader().setVisible(False)
+            equation = str(self.Chp4FuncInput.text())
+            try:
+                xpoints = []
+                ypoints = []
+                InterPolVal=float(self.Chp3InterPolVal.text())
+                xpoints.append(float(self.Ch4x0input.text()))
+                xpoints.append(float(self.Ch4x1input.text()))
+                xpoints.append(float(self.Ch4x2input.text()))
+                xpoints.append(float(self.Ch4x3input.text()))
+                xpoints.append(float(self.Ch4x4input.text()))
+                xpoints.append(float(self.Ch4x5input.text()))
+                xpoints.append(float(self.Ch4x6input.text()))
+                ypoints.append(float(self.Ch4y0input.text()))
+                ypoints.append(float(self.Ch4y1input.text()))
+                ypoints.append(float(self.Ch4y2input.text()))
+                ypoints.append(float(self.Ch4y3input.text()))
+                ypoints.append(float(self.Ch4y4input.text()))
+                ypoints.append(float(self.Ch4y5input.text()))
+                ypoints.append(float(self.Ch4y6input.text())) 
+            except:
+                dialoguebox = QMessageBox(QMessageBox.Critical, "Error", "Please provide Valid Input.")
+                x=dialoguebox.exec_()
+                return
+            if (ypoints[0]==0 and ypoints[1]==0):
+                ReadyEq=MakeStringReady(equation)
+                MainVar=FindMainVar(equation)
+                MainVar=symbols(MainVar)
+                ReadyEq=sympify(ReadyEq)
+                i=0
+                while i!=countofpoints:
+                    ypoints[i]=(float(ReadyEq.evalf(subs={MainVar:xpoints[i]})))
+                    i=i+1
         method= str(self.Ch4choicebox.currentText())
         if(method=="Forward Difference"):
                 Ans=ForwardsDifferentiation(countofpoints,xpoints,ypoints,self.Chp4DerivTable)
@@ -1009,6 +1030,31 @@ class Ui_MainWindow(object):
         elif (method == "Midpoint Double Derivation"):
                 DoubleDerivativeMidpoint(countofpoints,xpoints,ypoints,self.Chp4DerivTable)
                 self.tabWidget.setCurrentIndex(6)
+        elif (method == "Trapezoid"):
+                a=self.Ch4x0input.text()
+                b=self.Ch4x1input.text()
+                h=self.Ch4y0input.text()
+                equation = str(self.Chp4FuncInput.text())
+                Ans=CompositeTrapezodial(h,a,b,equation)
+                self.Chp4formulalabel.setText("The answer is: " + str(Ans))
+        elif(method == "Simpson 1/3rd"):
+                a=self.Ch4x0input.text()
+                b=self.Ch4x1input.text()
+                h=self.Ch4y0input.text()
+                equation = str(self.Chp4FuncInput.text())
+                Ans=CompositeSimpson(h,a,b,equation)
+                self.Chp4formulalabel.setText("The answer is: " + str(Ans))
+        elif(method=="Simpson 3/8th"):
+                a=self.Ch4x0input.text()
+                b=self.Ch4x1input.text()
+                h=self.Ch4y0input.text()
+                equation = str(self.Chp4FuncInput.text())
+                CompositeSimp38(h,a,b,eq)
+                self.Chp4formulalabel.setText("The answer is: " + str(Ans))
+
+
+
+                
 
 
 
