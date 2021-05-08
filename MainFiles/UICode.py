@@ -1001,9 +1001,13 @@ class Ui_MainWindow(object):
                 Ans=ForwardsDifferentiation(countofpoints,xpoints,ypoints,self.Chp4DerivTable)
                 self.tabWidget.setCurrentIndex(6)
         elif (method == "3 Point Mid & End"):
-                pass
+                ThreePointDifferentiation(countofpoints,xpoints,ypoints,self.Chp4DerivTable)
+                self.tabWidget.setCurrentIndex(6)
         elif (method == "5 Point Mid & End"):
                 FivePointDifferentiation(countofpoints,xpoints,ypoints,self.Chp4DerivTable)
+                self.tabWidget.setCurrentIndex(6)
+        elif (method == "Midpoint Double Derivation"):
+                DoubleDerivativeMidpoint(countofpoints,xpoints,ypoints,self.Chp4DerivTable)
                 self.tabWidget.setCurrentIndex(6)
 
 

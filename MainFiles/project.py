@@ -785,21 +785,14 @@ def ForwardsDifferentiation(n,x,y,Chp4DerivTable):
 
     return derivatives
     
-def ThreePointDifferentiation():
-    n=int(input("Enter the number of points "))
-    x=np.zeros(n,dtype=float)
-    y=np.zeros(n,dtype=float)
-    print("Start entering x values: ")
-    for i in range(n):
-        x[i]=float(input("x" +str(i) + " = "))
-    eq=input("Enter the equation : ")
-    eq=MakeStringReady(eq)
-    MainVar=FindMainVar(eq)
-    eq=sympify(eq)
-    MainVar=symbols(MainVar)
+def ThreePointDifferentiation(n,x,y,Chp4DerivTable):
     h=x[1]-x[0]
-    for i in range(n):
-        y[i]=float(eq.evalf(subs={MainVar:x[i]}))
+    Chp4DerivTable.setRowCount(n)
+    f=str(y[1])
+    Rounder=f[::-1].find('.')
+    if Rounder<0:
+        Rounder=0
+    answers = [None]*n
     if n%2==0:
         m2=n/2
         m1=m2-1
@@ -817,6 +810,7 @@ def ThreePointDifferentiation():
                 q=h-2*h
                 ans=ans/(2*q)
                 print("dx/dy(x" + str(i) +") = " + str(ans))
+            answers[i]=round(ans,Rounder)
     else:
         m=math.floor(n/2)
         for i in range(n):
@@ -833,11 +827,20 @@ def ThreePointDifferentiation():
                 q=h-2*h
                 ans=ans/(2*q)
                 print("dx/dy(x" + str(i) +") = " + str(ans))
-
+            answers[i]=round(ans,Rounder)
+    for i in range(n):
+        Chp4DerivTable.setItem(i,0, QTableWidgetItem(str(x[i])))
+        Chp4DerivTable.setItem(i,1, QTableWidgetItem(str(y[i])))
+        Chp4DerivTable.setItem(i,2, QTableWidgetItem(str(answers[i])))  
+    
 def FivePointDifferentiation(n,Xpoints,Ypoints,Chp4DerivTable):
     Chp4DerivTable.setRowCount(n)
     height=Xpoints[1]-Xpoints[0]
     i=0
+    f=str(Ypoints[1])
+    Rounder=f[::-1].find('.')
+    if Rounder<0:
+        Rounder=0
     DerivList=[None]*(n)
     while (i<n):
         if(i+5<=n):  
@@ -855,7 +858,7 @@ def FivePointDifferentiation(n,Xpoints,Ypoints,Chp4DerivTable):
             DerivAns+=-36*Ypoints[i-2]
             DerivAns+=16*Ypoints[i-3]
             DerivAns+=-3*Ypoints[i-4]
-            DerivAns=DerivAns/(12*height)
+            DerivAns=DerivAns/(-12*height)
         else:
             DerivAns=0
             DerivAns+=Ypoints[i-2]
@@ -863,29 +866,14 @@ def FivePointDifferentiation(n,Xpoints,Ypoints,Chp4DerivTable):
             DerivAns+=8*Ypoints[i+1]
             DerivAns+=-1*Ypoints[i+2]
             DerivAns=DerivAns/(12*height)
-        DerivList[i]=DerivAns
+        DerivList[i]=round(DerivAns,Rounder)
         Chp4DerivTable.setItem(i,0, QTableWidgetItem(str(Xpoints[i])))
         Chp4DerivTable.setItem(i,1, QTableWidgetItem(str(Ypoints[i])))
         Chp4DerivTable.setItem(i,2, QTableWidgetItem(str(DerivList[i])))
         print(str(DerivAns))
         i=i+1
 
-def DoubleDerivativeMidpoint():
-    n=int(input("Enter the number of points "))
-    Xpoints=[]
-    Ypoints=[]
-    print("Start entering x values: ")
-    for i in range(n):
-        Xpoints.append(float(input("x" +str(i) + " = ")))
-    # eq=input("Enter the equation : ")
-    # eq=MakeStringReady(eq)
-    # MainVar=FindMainVar(eq)
-    # eq=sympify(eq)
-    # MainVar=symbols(MainVar)
-    height=Xpoints[1]-Xpoints[0]
-    for i in range(n):
-        # Ypoints.append(float(eq.evalf(subs={MainVar:Xpoints[i]})))
-        Ypoints.append(float(input("Enter point:")))
+def DoubleDerivativeMidpoint(n,Xpoints,Ypoints,Chp4DerivTable):
     Deriv2List=[None]*(n)
     i=0
     while(i<n):
@@ -896,9 +884,12 @@ def DoubleDerivativeMidpoint():
             Derivative2+=Ypoints[i+1]
             Derivative2=Derivative2/(height*height)
         print(str(Derivative2))
-        Deriv2List[i]=DerivAns
+        Deriv2List[i]=Derivative2
+        Chp4DerivTable.setItem(i,0, QTableWidgetItem(str(Xpoints[i])))
+        Chp4DerivTable.setItem(i,1, QTableWidgetItem(str(Ypoints[i])))
+        Chp4DerivTable.setItem(i,2, QTableWidgetItem(str(Deriv2List[i])))
         i=i+1
-
+    
 def CompositeTrapezodial():
     a=float(input("Enter the upper limit : "))
     b=float(input("Enter the lower limit : "))
