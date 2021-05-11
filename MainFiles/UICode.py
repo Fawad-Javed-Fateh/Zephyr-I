@@ -1167,6 +1167,7 @@ class Ui_MainWindow(object):
             h = float(self.Ch5height.text())
             yi = float(self.Ch5initialyinput.text())
             eq = self.Chp5FuncInput.text()
+            eq=eq+"="
         except:
             dialoguebox = QMessageBox(QMessageBox.Critical, "Error", "Please provide Valid Input.")
             x=dialoguebox.exec_()
