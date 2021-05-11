@@ -989,18 +989,15 @@ def CompositeMidPoint(h,a,b,eq):
     ans=ans*(2*h)
     return round(ans,7)
 
-def EulerMethod():
-    eq=str(input("Enter the differential equation : y'="))
+def EulerMethod(eq,h,yi,ti,tf,Ch5AnsLabel):
+    Ch5AnsLabel.setText("")
     eq=MakeStringReady(eq)
     MainVars=FindDoubleMainVar(eq)
     Y=symbols('y')
     T=symbols('t')
     eq=sympify(eq)
-    h=float(input("Enter the value of h : "))
-    yi=float(input("Enter the inital value of y : "))
-    ti=float(input("Enter the inital value of t : "))
-    tf=float(input("Enter the final value of t : "))
     print(str(ti)+ "    "+ str(yi))
+    Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
     while ti!=tf:
         k=h*float(eq.evalf(subs={Y:yi,T:ti}))
         k=round(k,7)
@@ -1009,19 +1006,17 @@ def EulerMethod():
         ti=ti+h
         ti=round(ti,2)
         print(str(ti)+ "    "+ str(yi))
+        Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
 
-def ModifiedEulerMethod():
-    eq=str(input("Enter the differential equation : y'="))
+def ModifiedEulerMethod(eq,h,yi,ti,tf,Ch5AnsLabel):
+    Ch5AnsLabel.setText("")
     eq=MakeStringReady(eq)
     MainVars=FindDoubleMainVar(eq)
     Y=symbols('y')
     T=symbols('t')
     eq=sympify(eq)
-    h=float(input("Enter the value of h : "))
-    yi=float(input("Enter the inital value of y : "))
-    ti=float(input("Enter the inital value of t : "))
-    tf=float(input("Enter the final value of t : "))
     print(str(ti)+ "              "+ str(yi))
+    Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
     while ti!=tf:
         k1=h*float(eq.evalf(subs={Y:yi,T:ti}))
         k1=round(k1,7)
@@ -1032,19 +1027,17 @@ def ModifiedEulerMethod():
         ti=ti+h
         ti=round(ti,2)
         print(str(ti)+ "    "+ str(yi))
+        Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
 
-def MidpointMethod():
-    eq=str(input("Enter the differential equation : y'="))
+def MidpointMethod(eq,h,yi,ti,tf,Ch5AnsLabel):
+    Ch5AnsLabel.setText("")    
     eq=MakeStringReady(eq)
     MainVars=FindDoubleMainVar(eq)
     Y=symbols('y')
     T=symbols('t')
     eq=sympify(eq)
-    h=float(input("Enter the value of h : "))
-    yi=float(input("Enter the inital value of y : "))
-    ti=float(input("Enter the inital value of t : "))
-    tf=float(input("Enter the final value of t : "))
     print(str(ti)+ "    "+ str(yi))
+    Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
     while ti!=tf:
         k1=float(eq.evalf(subs={Y:yi,T:ti}))
         k1=round(k1,7)
@@ -1055,20 +1048,18 @@ def MidpointMethod():
         ti=ti+h
         ti=round(ti,2)
         print(str(ti)+ "    "+ str(yi))
+        Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
 
-def HeunsMethod():
-    eq=str(input("Enter the differential equation : y'="))
+def HeunsMethod(eq,h,yi,ti,tf,Ch5AnsLabel):
+    Ch5AnsLabel.setText("")    
     eq=MakeStringReady(eq)
     MainVars=FindDoubleMainVar(eq)
     Y=symbols('y')
     T=symbols('t')
     eq=sympify(eq)
-    h=float(input("Enter the value of h : "))
     h=round(h,2)
-    yi=float(input("Enter the inital value of y : "))
-    ti=float(input("Enter the inital value of t : "))
-    tf=float(input("Enter the final value of t : "))
     print(str(ti)+ "    "+ str(yi))
+    Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
     while ti!=tf:
         k1=float(eq.evalf(subs={Y:yi,T:ti}))
         k1=round(k1,7)
@@ -1081,20 +1072,18 @@ def HeunsMethod():
         ti=ti+h
         ti=round(ti,2)
         print(str(ti)+ "    "+ str(yi))
+        Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
 
-def RungeKuttaMethod():
-    eq=str(input("Enter the differential equation : y'="))
+def RungeKuttaMethod(eq,h,yi,ti,tf,Ch5AnsLabel):
+    Ch5AnsLabel.setText("")    
     eq=MakeStringReady(eq)
     MainVars=FindDoubleMainVar(eq)
     Y=symbols('y')
     T=symbols('t')
     eq=sympify(eq)
-    h=float(input("Enter the value of h : "))
     h=round(h,2)
-    yi=float(input("Enter the inital value of y : "))
-    ti=float(input("Enter the inital value of t : "))
-    tf=float(input("Enter the final value of t : "))
     print(str(ti)+ "    "+ str(yi))
+    Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
     while ti!=tf:
         k1=h*float(eq.evalf(subs={Y:yi,T:ti}))
         k1=round(k1,7)
@@ -1109,6 +1098,7 @@ def RungeKuttaMethod():
         ti=ti+h
         ti=round(ti,2)
         print(str(ti)+ "    "+ str(yi))
+        Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
 
 #MainWindow=tk.Tk()
 # eq=input("Enter the equation :")
