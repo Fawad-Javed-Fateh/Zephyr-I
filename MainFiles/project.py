@@ -989,93 +989,148 @@ def CompositeMidPoint(h,a,b,eq):
     ans=ans*(2*h)
     return round(ans,7)
 
-def EulerMethod(eq,h,yi,ti,tf,Ch5AnsLabel):
-    Ch5AnsLabel.setText("")
+def EulerMethod(eq,h,yi,ti,tf,Rounder,Ch5AnsTable):
+    Ch5AnsTable.setColumnCount(2)
+    n=int(tf-ti)
+    n=int(n/h)
+    Ch5AnsTable.setRowCount(n+1)
+    f=str(h)
+    tRounder=f[::-1].find('.')
+    if tRounder<0:
+        tRounder=0
     eq=MakeStringReady(eq)
     MainVars=FindDoubleMainVar(eq)
     Y=symbols('y')
     T=symbols('t')
     eq=sympify(eq)
     print(str(ti)+ "    "+ str(yi))
-    Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
+    #Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
+    i=0
     while ti!=tf:
+        Ch5AnsTable.setItem(i,0,QTableWidgetItem(str(ti)))
+        Ch5AnsTable.setItem(i,1,QTableWidgetItem(str(yi)))
+        i=i+1
         k=h*float(eq.evalf(subs={Y:yi,T:ti}))
-        k=round(k,7)
+        k=round(k,Rounder)
         yi=yi+k
-        yi=round(yi,7)
+        yi=round(yi,Rounder)
         ti=ti+h
-        ti=round(ti,2)
+        ti=round(ti,tRounder)
         print(str(ti)+ "    "+ str(yi))
-        Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
+        #Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
+    Ch5AnsTable.setItem(i,0,QTableWidgetItem(str(ti)))
+    Ch5AnsTable.setItem(i,1,QTableWidgetItem(str(yi)))
 
-def ModifiedEulerMethod(eq,h,yi,ti,tf,Ch5AnsLabel):
-    Ch5AnsLabel.setText("")
+def ModifiedEulerMethod(eq,h,yi,ti,tf,Rounder,Ch5AnsTable):
+    Ch5AnsTable.setColumnCount(2)
+    n=int(tf-ti)
+    n=int(n/h)
+    Ch5AnsTable.setRowCount(n+1)
+    f=str(h)
+    tRounder=f[::-1].find('.')
+    if tRounder<0:
+        tRounder=0
     eq=MakeStringReady(eq)
     MainVars=FindDoubleMainVar(eq)
     Y=symbols('y')
     T=symbols('t')
     eq=sympify(eq)
     print(str(ti)+ "              "+ str(yi))
-    Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
+    i=0
     while ti!=tf:
+        Ch5AnsTable.setItem(i,0,QTableWidgetItem(str(ti)))
+        Ch5AnsTable.setItem(i,1,QTableWidgetItem(str(yi)))
+        i=i+1        
         k1=h*float(eq.evalf(subs={Y:yi,T:ti}))
-        k1=round(k1,7)
+        k1=round(k1,Rounder)
         k2=h*float(eq.evalf(subs={Y:yi+k1,T:ti+h}))
-        k2=round(k2,7)
+        k2=round(k2,Rounder)
         yi=yi+0.5*(k1+k2)
-        yi=round(yi,7)
+        yi=round(yi,Rounder)
         ti=ti+h
-        ti=round(ti,2)
+        ti=round(ti,tRounder)
         print(str(ti)+ "    "+ str(yi))
-        Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
+        Ch5AnsTable.setItem(i,0,QTableWidgetItem(str(ti)))
+        Ch5AnsTable.setItem(i,1,QTableWidgetItem(str(yi)))
 
-def MidpointMethod(eq,h,yi,ti,tf,Ch5AnsLabel):
-    Ch5AnsLabel.setText("")    
+
+def MidpointMethod(eq,h,yi,ti,tf,Rounder,Ch5AnsTable):
+    Ch5AnsTable.setColumnCount(2)
+    n=int(tf-ti)
+    n=int(n/h)
+    Ch5AnsTable.setRowCount(n+1)
+    f=str(h)
+    tRounder=f[::-1].find('.')
+    if tRounder<0:
+        tRounder=0    
     eq=MakeStringReady(eq)
     MainVars=FindDoubleMainVar(eq)
     Y=symbols('y')
     T=symbols('t')
     eq=sympify(eq)
     print(str(ti)+ "    "+ str(yi))
-    Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
+    i=0
     while ti!=tf:
+        Ch5AnsTable.setItem(i,0,QTableWidgetItem(str(ti)))
+        Ch5AnsTable.setItem(i,1,QTableWidgetItem(str(yi)))
+        i=i+1        
         k1=float(eq.evalf(subs={Y:yi,T:ti}))
-        k1=round(k1,7)
+        k1=round(k1,Rounder)
         k2=float(eq.evalf(subs={Y:yi+((h/2)*k1),T:ti+(h/2)}))
-        k2=round(k2,7)
+        k2=round(k2,Rounder)
         yi=yi+h*(k2)
-        yi=round(yi,7)
+        yi=round(yi,Rounder)
         ti=ti+h
-        ti=round(ti,2)
+        ti=round(ti,tRounder)
         print(str(ti)+ "    "+ str(yi))
-        Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
+    Ch5AnsTable.setItem(i,0,QTableWidgetItem(str(ti)))
+    Ch5AnsTable.setItem(i,1,QTableWidgetItem(str(yi)))
+       
 
-def HeunsMethod(eq,h,yi,ti,tf,Ch5AnsLabel):
-    Ch5AnsLabel.setText("")    
+def HeunsMethod(eq,h,yi,ti,tf,Rounder,Ch5AnsTable):
+    Ch5AnsTable.setColumnCount(2)
+    n=int(tf-ti)
+    n=int(n/h)
+    Ch5AnsTable.setRowCount(n+1)       
     eq=MakeStringReady(eq)
     MainVars=FindDoubleMainVar(eq)
+    f=str(h)
+    tRounder=f[::-1].find('.')
+    if tRounder<0:
+        tRounder=0
     Y=symbols('y')
     T=symbols('t')
     eq=sympify(eq)
     h=round(h,2)
     print(str(ti)+ "    "+ str(yi))
-    Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
+    i=0
     while ti!=tf:
+        Ch5AnsTable.setItem(i,0,QTableWidgetItem(str(ti)))
+        Ch5AnsTable.setItem(i,1,QTableWidgetItem(str(yi)))
+        i=i+1        
         k1=float(eq.evalf(subs={Y:yi,T:ti}))
-        k1=round(k1,7)
+        k1=round(k1,Rounder)
         k2=float(eq.evalf(subs={Y:yi+((h/3)*k1),T:ti+(h/3)}))
-        k2=round(k2,7)
+        k2=round(k2,Rounder)
         k3=float(eq.evalf(subs={Y:yi+(((2*h)/3)*k2),T:ti+((2*h)/3)}))
-        k3=round(k3,7)        
+        k3=round(k3,Rounder)        
         yi=yi+(h/4)*(k1+(3*k3))
-        yi=round(yi,7)
+        yi=round(yi,Rounder)
         ti=ti+h
-        ti=round(ti,2)
+        ti=round(ti,tRounder)
         print(str(ti)+ "    "+ str(yi))
-        Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
+    Ch5AnsTable.setItem(i,0,QTableWidgetItem(str(ti)))
+    Ch5AnsTable.setItem(i,1,QTableWidgetItem(str(yi)))
 
-def RungeKuttaMethod(eq,h,yi,ti,tf,Ch5AnsLabel):
-    Ch5AnsLabel.setText("")    
+def RungeKuttaMethod(eq,h,yi,ti,tf,Rounder,Ch5AnsTable):
+    Ch5AnsTable.setColumnCount(2)
+    n=int(tf-ti)
+    n=int(n/h)
+    f=str(h)
+    tRounder=f[::-1].find('.')
+    if tRounder<0:
+        tRounder=0
+    Ch5AnsTable.setRowCount(n+1)           
     eq=MakeStringReady(eq)
     MainVars=FindDoubleMainVar(eq)
     Y=symbols('y')
@@ -1083,22 +1138,27 @@ def RungeKuttaMethod(eq,h,yi,ti,tf,Ch5AnsLabel):
     eq=sympify(eq)
     h=round(h,2)
     print(str(ti)+ "    "+ str(yi))
-    Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
+    i=0
     while ti!=tf:
+        Ch5AnsTable.setItem(i,0,QTableWidgetItem(str(ti)))
+        Ch5AnsTable.setItem(i,1,QTableWidgetItem(str(yi)))
+        i=i+1        
         k1=h*float(eq.evalf(subs={Y:yi,T:ti}))
-        k1=round(k1,7)
+        k1=round(k1,Rounder)
         k2=h*float(eq.evalf(subs={Y:yi+((1/2)*k1),T:ti+(h/2)}))
-        k2=round(k2,7)
+        k2=round(k2,Rounder)
         k3=h*float(eq.evalf(subs={Y:yi+((1/2)*k2),T:ti+((h)/2)}))
-        k3=round(k3,7)        
+        k3=round(k3,Rounder)        
         k4=h*float(eq.evalf(subs={Y:yi+k3,T:ti+h}))
-        k4=round(k4,7)
+        k4=round(k4,Rounder)
         yi=yi+(1/6)*(k1+(2*k2)+(2*k3)+k4)
-        yi=round(yi,7)
+        yi=round(yi,Rounder)
         ti=ti+h
-        ti=round(ti,2)
+        ti=round(ti,tRounder)
         print(str(ti)+ "    "+ str(yi))
-        Ch5AnsLabel.setText(Ch5AnsLabel.text() + "\nAt t/x: " + str(ti) + " Value of y/w: " + str(yi))
+    Ch5AnsTable.setItem(i,0,QTableWidgetItem(str(ti)))
+    Ch5AnsTable.setItem(i,1,QTableWidgetItem(str(yi)))
+        
 
 #MainWindow=tk.Tk()
 # eq=input("Enter the equation :")
