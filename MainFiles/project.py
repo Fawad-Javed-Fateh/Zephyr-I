@@ -916,7 +916,6 @@ def CompositeTrapezodial(h,a,b,eq):
     # print("The ans is = " + str(ans))
     return round(ans,7)
 
-
 def CompositeSimpson(h,a,b,eq):
     eq=MakeStringReady(eq)
     MainVar=FindMainVar(eq)
