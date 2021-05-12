@@ -676,15 +676,15 @@ class Ui_MainWindow(object):
         self.Chapter2label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">Solutions of Equations </span></p><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">in one Variable</span></p><p><span style=\" font-size:12pt;\">1 ) Bisection Method</span></p><p><span style=\" font-size:12pt;\">2 ) Regulai Falsi Method</span></p><p><span style=\" font-size:12pt;\">3 ) Newton - Raphson Method</span></p><p><span style=\" font-size:12pt;\">4 ) Secant Method</span></p><p><span style=\" font-size:12pt;\">5 ) Fixed Point Iteration</span></p><p><span style=\" font-size:12pt;\"><br/></span></p></body></html>"))
         self.Chapter3label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">Interpolation and </span></p><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">Polynomial Approximation</span></p><p><span style=\" font-size:11pt;\">1 ) Lagrange Polynomial</span></p><p><span style=\" font-size:11pt;\">2) Newton Divided Difference</span></p><p><span style=\" font-size:11pt;\">3) Newton Foward Backwards (DDT)</span></p><p><span style=\" font-size:11pt;\">4 ) Newton Forward Backwards (SDT)</span></p><p><span style=\" font-size:11pt;\">5 ) Stirling\'s Method</span></p></body></html>"))
         self.Chapter2Button.setText(_translate("MainWindow", "Click here \n"
-" for Chapter 2"))
+        " for Chapter 2"))
         self.Chapter3Button.setText(_translate("MainWindow", "Click here \n"
-" for Chapter 3"))
+        " for Chapter 3"))
         self.Chapter4label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">Solutions of Equations </span></p><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">in one Variable</span></p><p><span style=\" font-size:12pt;\">1 ) Bisection Method</span></p><p><span style=\" font-size:12pt;\">2 ) Regulai Falsi Method</span></p><p><span style=\" font-size:12pt;\">3 ) Newton - Raphson Method</span></p><p><span style=\" font-size:12pt;\">4 ) Secant Method</span></p><p><span style=\" font-size:12pt;\">5 ) Fixed Point Iteration</span></p><p><span style=\" font-size:12pt;\"><br/></span></p></body></html>"))
         self.Chapter5label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">Interpolation and </span></p><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">Polynomial Approximation</span></p><p><span style=\" font-size:11pt;\">1 ) Lagrange Polynomial</span></p><p><span style=\" font-size:11pt;\">2) Newton Divided Difference</span></p><p><span style=\" font-size:11pt;\">3) Newton Foward Backwards (DDT)</span></p><p><span style=\" font-size:11pt;\">4 ) Newton Forward Backwards (SDT)</span></p><p><span style=\" font-size:11pt;\">5 ) Stirling\'s Method</span></p></body></html>"))
         self.Chapter4Button.setText(_translate("MainWindow", "Click here \n"
-" for Chapter 4"))
+        " for Chapter 4"))
         self.Chapter5Button.setText(_translate("MainWindow", "Click here \n"
-" for Chapter 5"))
+        " for Chapter 5"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.MainTab), _translate("MainWindow", "Tab 1"))
         self.Chapter2Heading.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:28pt; font-weight:600; text-decoration: underline;\">Solutions of Equations </span></p><p align=\"center\"><span style=\" font-size:28pt; font-weight:600; text-decoration: underline;\">in one Variable</span></p></body></html>"))
         self.Chp2choicebox.setItemText(0, _translate("MainWindow", "Bisection Method"))
@@ -699,17 +699,17 @@ class Ui_MainWindow(object):
         self.Chp2Binput.setText(_translate("MainWindow", "Ex: 2.6897"))
         self.Chp2formulalabel.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Bisection Method Formula:</span></p><p align=\"center\">Root: c = (a+b)/2</p></body></html>"))
         self.Chp2startbutton.setText(_translate("MainWindow", "Click Here to \n"
-" Start the Interpolation"))
+        " Start the Interpolation"))
         self.Chp2tolinput.setText(_translate("MainWindow", "Ex: 0.000001"))
         self.Chp2mainback.setText(_translate("MainWindow", "Back to \n"
-" Main Menu"))
+        " Main Menu"))
         self.Chp2pointslabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Input the initial points a and b below:</span></p></body></html>"))
         self.Chp2toleranclabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Input the Tolerance Value below:</span></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Chapter2Tab), _translate("MainWindow", "Page"))
         self.Chp2Itertablabel.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:24pt;\">Performed Iterations for</span></p><p align=\"center\"><span style=\" font-size:24pt;\"> *insert function here*</span></p></body></html>"))
         self.Chp2Anslabel.setText(_translate("MainWindow", "TextLabel"))
         self.Chp2iterback.setText(_translate("MainWindow", "Back to \n"
-" Chapter 2"))
+        " Chapter 2"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Chapter2iterTab), _translate("MainWindow", "Page"))
         self.Chapter3Heading.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:26pt;\">Interpolation and</span></p><p align=\"center\"><span style=\" font-size:26pt;\">Polynomial Approximation</span></p></body></html>"))
         self.Ch3Label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt;\">Select the required Interpolation formula from the combo box :</span></p></body></html>"))
@@ -755,7 +755,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Chapter3Tab), _translate("MainWindow", "Page"))
         self.Chp3interpolheading.setText(_translate("MainWindow", "DIFFERENCE TABLE"))
         self.Chp3iterback.setText(_translate("MainWindow", "Back To \n"
-" Main Menu"))
+        " Main Menu"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.InterpolationTab), _translate("MainWindow", "Page"))
         self.Ch4YValLabel.setText(_translate("MainWindow", "<html><head/><body><p>Enter the Values of Y:</p></body></html>"))
         self.Ch4x0input.setText(_translate("MainWindow", "0"))
@@ -827,6 +827,7 @@ class Ui_MainWindow(object):
         self.Ch5AnsHeadinglabel.setText(_translate("MainWindow", "INITIAL VALUE PROBLEMS"))
         self.Ch5AnsBackButton.setText(_translate("MainWindow", "BACK"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Ch5AnsTab), _translate("MainWindow", "Page"))
+    
     def MovetoChapter2(self, MainWindow):
         self.Chp2Table.setColumnCount(6)
         self.Chp2Table.setHorizontalHeaderLabels(["Iteration","a","b","c","f(c)","Error"])
@@ -1113,7 +1114,7 @@ class Ui_MainWindow(object):
                 i=i+1
 
     def Chapter4Start(self, MainWindow):
-        self.tabWidget.setCurrentIndex(5)
+        self.tabWidget.setCurrentIndex(6)
         if(self.Ch4choicebox.currentIndex()<=3):
             countofpoints=int(self.Chp4pointsbox.currentText())
             self.Chp4DerivTable.setColumnCount(int(3))
@@ -1157,16 +1158,16 @@ class Ui_MainWindow(object):
         method= str(self.Ch4choicebox.currentText())
         if(method=="Forward Difference"):
                 Ans=ForwardsDifferentiation(countofpoints,xpoints,ypoints,self.Chp4DerivTable)
-                self.tabWidget.setCurrentIndex(6)
+                self.tabWidget.setCurrentIndex(5)
         elif (method == "3 Point Mid & End"):
                 ThreePointDifferentiation(countofpoints,xpoints,ypoints,self.Chp4DerivTable)
-                self.tabWidget.setCurrentIndex(6)
+                self.tabWidget.setCurrentIndex(5)
         elif (method == "5 Point Mid & End"):
                 FivePointDifferentiation(countofpoints,xpoints,ypoints,self.Chp4DerivTable)
-                self.tabWidget.setCurrentIndex(6)
+                self.tabWidget.setCurrentIndex(5)
         elif (method == "Midpoint Double Derivation"):
                 DoubleDerivativeMidpoint(countofpoints,xpoints,ypoints,self.Chp4DerivTable)
-                self.tabWidget.setCurrentIndex(6)
+                self.tabWidget.setCurrentIndex(5)
         else:
             try:
                 a=float(self.Ch4x0input.text())
@@ -1191,10 +1192,10 @@ class Ui_MainWindow(object):
                     self.Chp4formulalabel.setText("The answer is: " + str(Ans))
 
     def MovetoChapter5(self,MainWindow):
-        self.tabWidget.setCurrentIndex(6)
+        self.tabWidget.setCurrentIndex(7)
 
     def Chapter5Start(self,Mainwindow):
-        self.tabWidget.setCurrentIndex(6)
+        self.tabWidget.setCurrentIndex(8)
         method = str(self.Ch5choicebox.currentText())
         try:
             ti = float(self.Ch5tlowerint.text())
@@ -1211,19 +1212,19 @@ class Ui_MainWindow(object):
         
         if(method=="Euler Method"):
             EulerMethod(eq,h,yi,ti,tf,Rounder,self.Ch5AnsTable)
-            self.tabWidget.setCurrentIndex(7)
+            self.tabWidget.setCurrentIndex(8)
         elif(method=="Modified Euler"):
             ModifiedEulerMethod(eq,h,yi,ti,tf,Rounder,self.Ch5AnsTable)
-            self.tabWidget.setCurrentIndex(7)
+            self.tabWidget.setCurrentIndex(8)
         elif(method=="Midpoint Method"):
             MidpointMethod(eq,h,yi,ti,tf,Rounder,self.Ch5AnsTable)
-            self.tabWidget.setCurrentIndex(7)
+            self.tabWidget.setCurrentIndex(8)
         elif(method=="Heuns Method"):
             HeunsMethod(eq,h,yi,ti,tf,Rounder,self.Ch5AnsTable)
-            self.tabWidget.setCurrentIndex(7)
+            self.tabWidget.setCurrentIndex(8)
         elif(method=="Runge Kutta Method"):
             RungeKuttaMethod(eq,h,yi,ti,tf,Rounder,self.Ch5AnsTable)
-            self.tabWidget.setCurrentIndex(7)
+            self.tabWidget.setCurrentIndex(8)
 
 
 

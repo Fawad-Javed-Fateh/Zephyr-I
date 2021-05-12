@@ -1,4 +1,5 @@
 #import sympy as sp
+from re import A
 from sympy.solvers import solveset
 from sympy import Symbol
 from sympy import var
@@ -401,7 +402,7 @@ def DividedDifference(n,Xpoints,ypoints,eq,InterPol,DifferenceTable,Chp3interpol
         ReadyEq=sympify(ReadyEq)
         i=0
         while i!=n:
-            Ypoint.append(float(ReadyEq.evalf(subs={MainVar:x[i]})))
+            Ypoint.append(float(ReadyEq.evalf(subs={MainVar:Xpoints[i]})))
             i=i+1
     else:
         i=0
@@ -463,7 +464,7 @@ def ForwardDifference(n,Xpoints,ypoints,eq,InterPol,DifferenceTable,Chp3interpol
         ReadyEq=sympify(ReadyEq)
         i=0
         while i!=n:
-            Ypoint.append(float(ReadyEq.evalf(subs={MainVar:x[i]})))
+            Ypoint.append(float(ReadyEq.evalf(subs={MainVar:Xpoints[i]})))
             i=i+1
     else:
         i=0
@@ -537,7 +538,7 @@ def BackwardDifference(n,Xpoints,ypoints,eq,InterPol,DifferenceTable,Chp3interpo
         ReadyEq=sympify(ReadyEq)
         i=0
         while i!=n:
-            Ypoint.append(float(ReadyEq.evalf(subs={MainVar:x[i]})))
+            Ypoint.append(float(ReadyEq.evalf(subs={MainVar:Xpoints[i]})))
             i=i+1
     else:
         i=0
@@ -875,6 +876,7 @@ def FivePointDifferentiation(n,Xpoints,Ypoints,Chp4DerivTable):
 
 def DoubleDerivativeMidpoint(n,Xpoints,Ypoints,Chp4DerivTable):
     Deriv2List=[None]*(n)
+    height = Xpoints[1]-Xpoints[0]
     i=0
     while(i<n):
         Derivative2=0
@@ -895,11 +897,11 @@ def CompositeTrapezodial(h,a,b,eq):
     MainVar=FindMainVar(eq)
     eq=sympify(eq)
     MainVar=symbols(MainVar)  
-    n=int((a-b)/h)
+    n=int((b-a)/h)
     n=n+1
     x=np.zeros(n,dtype=float)
     y=np.zeros(n,dtype=float)
-    x[0]=b
+    x[0]=a
     for i in range(1,n):
         x[i]=x[i-1]+h
     for i in range(n):
@@ -921,11 +923,11 @@ def CompositeSimpson(h,a,b,eq):
     MainVar=FindMainVar(eq)
     eq=sympify(eq)
     MainVar=symbols(MainVar)  
-    n=int((a-b)/h)
+    n=int((b-a)/h)
     n=n+1
     x=np.zeros(n,dtype=float)
     y=np.zeros(n,dtype=float)
-    x[0]=b
+    x[0]=a
     for i in range(1,n):
         x[i]=x[i-1]+h
     for i in range(n):
@@ -973,11 +975,11 @@ def CompositeMidPoint(h,a,b,eq):
     MainVar=FindMainVar(eq)
     eq=sympify(eq)
     MainVar=symbols(MainVar)  
-    n=int((a-b)/h)
+    n=int((b-a)/h)
     n=n+1
     x=np.zeros(n,dtype=float)
     y=np.zeros(n,dtype=float)
-    x[0]=b
+    x[0]=a
     for i in range(1,n):
         x[i]=x[i-1]+h
     for i in range(n):

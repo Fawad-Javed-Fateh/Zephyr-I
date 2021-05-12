@@ -512,6 +512,31 @@ class Ui_MainWindow(object):
         self.Ch4y1input.setGeometry(QtCore.QRect(150, 330, 81, 20))
         self.Ch4y1input.setObjectName("Ch4y1input")
         self.tabWidget.addTab(self.Chapter4Tab, "")
+        self.Ch4Anstab = QtWidgets.QWidget()
+        self.Ch4Anstab.setObjectName("Ch4Anstab")
+        self.Chp4DerivTable = QtWidgets.QTableWidget(self.Ch4Anstab)
+        self.Chp4DerivTable.setGeometry(QtCore.QRect(50, 40, 811, 451))
+        self.Chp4DerivTable.setObjectName("Chp4DerivTable")
+        self.Chp4DerivTable.setColumnCount(0)
+        self.Chp4DerivTable.setRowCount(0)
+        self.Chp3interpolheading_2 = QtWidgets.QLabel(self.Ch4Anstab)
+        self.Chp3interpolheading_2.setGeometry(QtCore.QRect(280, -10, 351, 71))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setWeight(75)
+        self.Chp3interpolheading_2.setFont(font)
+        self.Chp3interpolheading_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.Chp3interpolheading_2.setObjectName("Chp3interpolheading_2")
+        self.Ch4iterback = QtWidgets.QPushButton(self.Ch4Anstab)
+        self.Ch4iterback.setGeometry(QtCore.QRect(750, 500, 131, 81))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        font.setBold(True)
+        font.setWeight(75)
+        self.Ch4iterback.setFont(font)
+        self.Ch4iterback.setObjectName("Ch4iterback")
+        self.tabWidget.addTab(self.Ch4Anstab, "")
         self.Chapter5Page = QtWidgets.QWidget()
         self.Chapter5Page.setObjectName("Chapter5Page")
         self.Chapter5Heading = QtWidgets.QLabel(self.Chapter5Page)
@@ -573,9 +598,6 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.Ch5Label.setFont(font)
         self.Ch5Label.setObjectName("Ch5Label")
-        self.Chp5AnsLabel = QtWidgets.QLabel(self.Chapter5Page)
-        self.Chp5AnsLabel.setGeometry(QtCore.QRect(10, 430, 611, 141))
-        self.Chp5AnsLabel.setObjectName("Chp5AnsLabel")
         self.Chp5FuncInput = QtWidgets.QLineEdit(self.Chapter5Page)
         self.Chp5FuncInput.setGeometry(QtCore.QRect(300, 380, 271, 31))
         self.Chp5FuncInput.setObjectName("Chp5FuncInput")
@@ -617,7 +639,42 @@ class Ui_MainWindow(object):
         self.label_3 = QtWidgets.QLabel(self.Chapter5Page)
         self.label_3.setGeometry(QtCore.QRect(530, 230, 47, 21))
         self.label_3.setObjectName("label_3")
+        self.DecimalLabel = QtWidgets.QLabel(self.Chapter5Page)
+        self.DecimalLabel.setGeometry(QtCore.QRect(10, 430, 241, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setWeight(75)
+        self.DecimalLabel.setFont(font)
+        self.DecimalLabel.setObjectName("DecimalLabel")
+        self.Ch5DecimalBox = QtWidgets.QLineEdit(self.Chapter5Page)
+        self.Ch5DecimalBox.setGeometry(QtCore.QRect(250, 430, 113, 20))
+        self.Ch5DecimalBox.setObjectName("Ch5DecimalBox")
         self.tabWidget.addTab(self.Chapter5Page, "")
+        self.Ch5AnsTab = QtWidgets.QWidget()
+        self.Ch5AnsTab.setObjectName("Ch5AnsTab")
+        self.Ch5AnsHeadinglabel = QtWidgets.QLabel(self.Ch5AnsTab)
+        self.Ch5AnsHeadinglabel.setGeometry(QtCore.QRect(100, 0, 661, 61))
+        font = QtGui.QFont()
+        font.setPointSize(36)
+        font.setBold(True)
+        font.setUnderline(True)
+        font.setWeight(75)
+        self.Ch5AnsHeadinglabel.setFont(font)
+        self.Ch5AnsHeadinglabel.setObjectName("Ch5AnsHeadinglabel")
+        self.Ch5AnsTable = QtWidgets.QTableWidget(self.Ch5AnsTab)
+        self.Ch5AnsTable.setGeometry(QtCore.QRect(50, 80, 801, 391))
+        self.Ch5AnsTable.setObjectName("Ch5AnsTable")
+        self.Ch5AnsTable.setColumnCount(0)
+        self.Ch5AnsTable.setRowCount(0)
+        self.Ch5AnsBackButton = QtWidgets.QPushButton(self.Ch5AnsTab)
+        self.Ch5AnsBackButton.setGeometry(QtCore.QRect(730, 490, 151, 61))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.Ch5AnsBackButton.setFont(font)
+        self.Ch5AnsBackButton.setObjectName("Ch5AnsBackButton")
+        self.tabWidget.addTab(self.Ch5AnsTab, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setEnabled(False)
@@ -765,7 +822,11 @@ class Ui_MainWindow(object):
         self.Ch4XValLabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt;\">Enter the Values of X:</span></p></body></html>"))
         self.Ch4y1input.setText(_translate("MainWindow", "0"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Chapter4Tab), _translate("MainWindow", "Page"))
-        self.Chapter5Heading.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:26pt;\">Interpolation and</span></p><p align=\"center\"><span style=\" font-size:26pt;\">Polynomial Approximation</span></p></body></html>"))
+        self.Chp3interpolheading_2.setText(_translate("MainWindow", "DIFFERENCE TABLE"))
+        self.Ch4iterback.setText(_translate("MainWindow", "Back To \n"
+        " Main Menu"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.Ch4Anstab), _translate("MainWindow", "Page"))
+        self.Chapter5Heading.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:26pt;\">INITIAL VALUE PROBLEMS</span></p></body></html>"))
         self.Ch5StartButton.setText(_translate("MainWindow", "Start Interpolation"))
         self.Ch5choicebox.setCurrentText(_translate("MainWindow", "Euler Method"))
         self.Ch5choicebox.setItemText(0, _translate("MainWindow", "Euler Method"))
@@ -773,10 +834,9 @@ class Ui_MainWindow(object):
         self.Ch5choicebox.setItemText(2, _translate("MainWindow", "Midpoint Method"))
         self.Ch5choicebox.setItemText(3, _translate("MainWindow", "Heuns Method"))
         self.Ch5choicebox.setItemText(4, _translate("MainWindow", "Runge Kutta Method"))
-        self.Ch5funclabel.setText(_translate("MainWindow", "<html><head/><body><p>Enter the Function f(x):</p></body></html>"))
+        self.Ch5funclabel.setText(_translate("MainWindow", "<html><head/><body><p>Enter the Function dy/dt :</p></body></html>"))
         self.Chp5mainback.setText(_translate("MainWindow", "Back To Main Menu"))
         self.Ch5Label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt;\">Select the required Interpolation formula from the combo box :</span></p></body></html>"))
-        self.Chp5AnsLabel.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Bisection Method Formula:</span></p><p align=\"center\">Root: c = (a+b)/2</p></body></html>"))
         self.Chp5FuncInput.setText(_translate("MainWindow", "Example: 2x - 5x^2 = 0"))
         self.Ch5tlabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Input the interval of t / x with height:</span></p></body></html>"))
         self.Ch5tlowerint.setText(_translate("MainWindow", "0"))
@@ -790,7 +850,11 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">ti:</span></p></body></html>"))
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">tf:</span></p></body></html>"))
         self.label_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">h:</span></p></body></html>"))
+        self.DecimalLabel.setText(_translate("MainWindow", "Number of Decimals :"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Chapter5Page), _translate("MainWindow", "Page"))
+        self.Ch5AnsHeadinglabel.setText(_translate("MainWindow", "INITIAL VALUE PROBLEMS"))
+        self.Ch5AnsBackButton.setText(_translate("MainWindow", "BACK"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.Ch5AnsTab), _translate("MainWindow", "Page"))
 
     def MovetoChapter2(self, MainWindow):
         self.Chp2Table.setColumnCount(6)
@@ -1143,10 +1207,10 @@ class Ui_MainWindow(object):
                 x=dialoguebox.exec_()
                 return
             if (method == "Trapezoid"):
-                    Ans=CompositeTrapezodial(h,a,b,equation)
+                    Ans=CompositeTrapezodial(h,a,b,eq)
                     self.Chp4formulalabel.setText("The answer is: " + str(Ans))
             elif(method == "Simpson 1/3rd"):
-                    Ans=CompositeSimpson(h,a,b,equation)
+                    Ans=CompositeSimpson(h,a,b,eq)
                     self.Chp4formulalabel.setText("The answer is: " + str(Ans))
             elif(method=="Simpson 3/8th"):
                     Ans=CompositeSimp38(h,a,b,eq)
@@ -1156,11 +1220,15 @@ class Ui_MainWindow(object):
                     self.Chp4formulalabel.setText("The answer is: " + str(Ans))
 
     def MovetoChapter5(self,MainWindow):
-        self.tabWidget.setCurrentIndex(6)
+        self.tabWidget.setCurrentIndex(7)
 
     def Chapter5Start(self,Mainwindow):
-        self.tabWidget.setCurrentIndex(6)
+        self.tabWidget.setCurrentIndex(8)
         method = str(self.Ch5choicebox.currentText())
+        self.Ch5AnsTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.Ch5AnsTable.horizontalHeader().setVisible(True)
+        self.Ch5AnsTable.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.Ch5AnsTable.verticalHeader().setVisible(False)
         try:
             ti = float(self.Ch5tlowerint.text())
             tf = float(self.Ch5tupperint.text())
@@ -1168,28 +1236,32 @@ class Ui_MainWindow(object):
             yi = float(self.Ch5initialyinput.text())
             eq = self.Chp5FuncInput.text()
             eq=eq+"="
+            Rounder=int(self.Ch5DecimalBox.text())
         except:
             dialoguebox = QMessageBox(QMessageBox.Critical, "Error", "Please provide Valid Input.")
             x=dialoguebox.exec_()
             return
         
         if(method=="Euler Method"):
-            EulerMethod(eq,h,yi,ti,tf,self.Chp5AnsLabel)
+            EulerMethod(eq,h,yi,ti,tf,Rounder,self.Ch5AnsTable)
+            self.Ch5AnsTable.setHorizontalHeaderLabels(["Tn","Yn"])
+            self.tabWidget.setCurrentIndex(8)
         elif(method=="Modified Euler"):
-            ModifiedEulerMethod(eq,h,yi,ti,tf,self.Chp5AnsLabel)
+            ModifiedEulerMethod(eq,h,yi,ti,tf,Rounder,self.Ch5AnsTable)
+            self.Ch5AnsTable.setHorizontalHeaderLabels(["Tn","Yn"])
+            self.tabWidget.setCurrentIndex(8)
         elif(method=="Midpoint Method"):
-            MidpointMethod(eq,h,yi,ti,tf,self.Chp5AnsLabel)
+            MidpointMethod(eq,h,yi,ti,tf,Rounder,self.Ch5AnsTable)
+            self.Ch5AnsTable.setHorizontalHeaderLabels(["Tn","Yn"])
+            self.tabWidget.setCurrentIndex(8)
         elif(method=="Heuns Method"):
-            HeunsMethod(eq,h,yi,ti,tf,self.Chp5AnsLabel)
+            HeunsMethod(eq,h,yi,ti,tf,Rounder,self.Ch5AnsTable)
+            self.Ch5AnsTable.setHorizontalHeaderLabels(["Tn","Yn"])
+            self.tabWidget.setCurrentIndex(8)
         elif(method=="Runge Kutta Method"):
-            RungeKuttaMethod(eq,h,yi,ti,tf,self.Chp5AnsLabel)
-
-
-
-
-
-
-                
+            RungeKuttaMethod(eq,h,yi,ti,tf,Rounder,self.Ch5AnsTable)
+            self.Ch5AnsTable.setHorizontalHeaderLabels(["Tn","Yn"])
+            self.tabWidget.setCurrentIndex(8)
 
 
 
@@ -1201,6 +1273,7 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
+    ui.tabWidget.setCurrentIndex(0)
     ui.Chapter2Button.clicked.connect(lambda: ui.MovetoChapter2(MainWindow))
     ui.Chp2startbutton.clicked.connect(lambda: ui.Chapter2Start(MainWindow))
     ui.Chp2mainback.clicked.connect(lambda: ui.MovetoMain(MainWindow))
@@ -1217,4 +1290,5 @@ if __name__ == "__main__":
     ui.Ch5StartButton.clicked.connect(lambda: ui.Chapter5Start(MainWindow))
     ui.Chp5mainback.clicked.connect(lambda: ui.MovetoMain(MainWindow))
     ui.Chapter5Button.clicked.connect(lambda: ui.MovetoChapter5(MainWindow))
+    ui.Ch5AnsBackButton.clicked.connect(lambda:ui.MovetoChapter5(MainWindow))
     sys.exit(app.exec_())
