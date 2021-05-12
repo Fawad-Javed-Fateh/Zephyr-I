@@ -31,11 +31,11 @@ class Ui_MainWindow(object):
         self.MainHeadingLabel.setGeometry(QtCore.QRect(20, 20, 851, 81))
         self.MainHeadingLabel.setObjectName("MainHeadingLabel")
         self.Chapter2label = QtWidgets.QLabel(self.MainTab)
-        self.Chapter2label.setGeometry(QtCore.QRect(30, 110, 231, 211))
+        self.Chapter2label.setGeometry(QtCore.QRect(30, 110, 231, 221))
         self.Chapter2label.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.Chapter2label.setObjectName("Chapter2label")
         self.Chapter3label = QtWidgets.QLabel(self.MainTab)
-        self.Chapter3label.setGeometry(QtCore.QRect(600, 110, 261, 211))
+        self.Chapter3label.setGeometry(QtCore.QRect(570, 110, 291, 211))
         self.Chapter3label.setObjectName("Chapter3label")
         self.Chapter2Button = QtWidgets.QPushButton(self.MainTab)
         self.Chapter2Button.setGeometry(QtCore.QRect(280, 130, 141, 61))
@@ -58,14 +58,14 @@ class Ui_MainWindow(object):
         self.Chapter3Button.setMouseTracking(False)
         self.Chapter3Button.setObjectName("Chapter3Button")
         self.Chapter4label = QtWidgets.QLabel(self.MainTab)
-        self.Chapter4label.setGeometry(QtCore.QRect(30, 350, 231, 211))
+        self.Chapter4label.setGeometry(QtCore.QRect(30, 350, 241, 211))
         self.Chapter4label.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.Chapter4label.setObjectName("Chapter4label")
         self.Chapter5label = QtWidgets.QLabel(self.MainTab)
-        self.Chapter5label.setGeometry(QtCore.QRect(610, 350, 261, 211))
+        self.Chapter5label.setGeometry(QtCore.QRect(570, 350, 301, 211))
         self.Chapter5label.setObjectName("Chapter5label")
         self.Chapter4Button = QtWidgets.QPushButton(self.MainTab)
-        self.Chapter4Button.setGeometry(QtCore.QRect(270, 380, 141, 61))
+        self.Chapter4Button.setGeometry(QtCore.QRect(280, 380, 141, 61))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -75,7 +75,7 @@ class Ui_MainWindow(object):
         self.Chapter4Button.setMouseTracking(False)
         self.Chapter4Button.setObjectName("Chapter4Button")
         self.Chapter5Button = QtWidgets.QPushButton(self.MainTab)
-        self.Chapter5Button.setGeometry(QtCore.QRect(410, 460, 141, 61))
+        self.Chapter5Button.setGeometry(QtCore.QRect(410, 480, 141, 61))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(12)
@@ -668,7 +668,7 @@ class Ui_MainWindow(object):
         self.Ch5AnsTable.setColumnCount(0)
         self.Ch5AnsTable.setRowCount(0)
         self.Ch5AnsBackButton = QtWidgets.QPushButton(self.Ch5AnsTab)
-        self.Ch5AnsBackButton.setGeometry(QtCore.QRect(730, 490, 151, 61))
+        self.Ch5AnsBackButton.setGeometry(QtCore.QRect(730, 490, 151, 81))
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
@@ -703,8 +703,8 @@ class Ui_MainWindow(object):
         " for Chapter 2"))
         self.Chapter3Button.setText(_translate("MainWindow", "Click here \n"
         " for Chapter 3"))
-        self.Chapter4label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">Solutions of Equations </span></p><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">in one Variable</span></p><p><span style=\" font-size:12pt;\">1 ) Bisection Method</span></p><p><span style=\" font-size:12pt;\">2 ) Regulai Falsi Method</span></p><p><span style=\" font-size:12pt;\">3 ) Newton - Raphson Method</span></p><p><span style=\" font-size:12pt;\">4 ) Secant Method</span></p><p><span style=\" font-size:12pt;\">5 ) Fixed Point Iteration</span></p><p><span style=\" font-size:12pt;\"><br/></span></p></body></html>"))
-        self.Chapter5label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">Interpolation and </span></p><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">Polynomial Approximation</span></p><p><span style=\" font-size:11pt;\">1 ) Lagrange Polynomial</span></p><p><span style=\" font-size:11pt;\">2) Newton Divided Difference</span></p><p><span style=\" font-size:11pt;\">3) Newton Foward Backwards (DDT)</span></p><p><span style=\" font-size:11pt;\">4 ) Newton Forward Backwards (SDT)</span></p><p><span style=\" font-size:11pt;\">5 ) Stirling\'s Method</span></p></body></html>"))
+        self.Chapter4label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">Numerical Differentiation</span></p><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">and Integration</span></p><p>1 ) Forward Difference</p><p>2 ) 3 Point End &amp; Mid</p><p>3 ) 5 Point End &amp; Mid</p><p>4 ) Trapezoid Method</p><p>5 ) Simpson 1/3rd and 3/8th</p><p><br/></p></body></html>"))
+        self.Chapter5label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">Initial Value Problems for</span></p><p align=\"center\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">Ordinary Differential Equations</span></p><p><span style=\" font-size:11pt;\">1 ) Euler Method</span></p><p><span style=\" font-size:11pt;\">2) Modified Euler</span></p><p><span style=\" font-size:11pt;\">3) Midpoint Method</span></p><p><span style=\" font-size:11pt;\">4 ) Heuns\'s Method</span></p><p><span style=\" font-size:11pt;\">5 ) Runge Kutta Method</span></p></body></html>"))
         self.Chapter4Button.setText(_translate("MainWindow", "Click here \n"
         " for Chapter 4"))
         self.Chapter5Button.setText(_translate("MainWindow", "Click here \n"
@@ -731,7 +731,7 @@ class Ui_MainWindow(object):
         self.Chp2toleranclabel.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">Input the Tolerance Value below:</span></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Chapter2Tab), _translate("MainWindow", "Page"))
         self.Chp2Itertablabel.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:24pt;\">Performed Iterations for</span></p><p align=\"center\"><span style=\" font-size:24pt;\"> *insert function here*</span></p></body></html>"))
-        self.Chp2Anslabel.setText(_translate("MainWindow", "TextLabel"))
+        self.Chp2Anslabel.setText(_translate("MainWindow", "Chapter 2 Answers"))
         self.Chp2iterback.setText(_translate("MainWindow", "Back to \n"
         " Chapter 2"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Chapter2iterTab), _translate("MainWindow", "Page"))
@@ -775,7 +775,7 @@ class Ui_MainWindow(object):
         self.Ch3funclabel.setText(_translate("MainWindow", "<html><head/><body><p>Enter the Function f(x):</p></body></html>"))
         self.Chp3FuncInput.setText(_translate("MainWindow", "Example: 2x - 5x^2 = 0"))
         self.Ch3YValLabel_3.setText(_translate("MainWindow", "<html><head/><body><p>OR</p></body></html>"))
-        self.Chp3formulalabel.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Bisection Method Formula:</span></p><p align=\"center\">Root: c = (a+b)/2</p></body></html>"))
+        self.Chp3formulalabel.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Lagrange Interpolation Formula:</span></p><p align=\"center\"> P<sub>n</sub>(x): (x-x1)(x-x2)...(x-xn)/(x0-x1)(x0-x2)...(x0-xn) x f(x0) + \n (x-x0)(x-x2)...(x-xn)/(x1-x0)(x1-x2)...(x1-xn) x f(x1) + ....  </p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Chapter3Tab), _translate("MainWindow", "Page"))
         self.Chp3interpolheading.setText(_translate("MainWindow", "DIFFERENCE TABLE"))
         self.Chp3iterback.setText(_translate("MainWindow", "Back To \n"
@@ -784,7 +784,7 @@ class Ui_MainWindow(object):
         self.Ch4YValLabel.setText(_translate("MainWindow", "<html><head/><body><p>Enter the Values of Y:</p></body></html>"))
         self.Ch4x0input.setText(_translate("MainWindow", "0"))
         self.Ch4pointslabel.setText(_translate("MainWindow", "<html><head/><body><p>Enter the amount of points for input:</p></body></html>"))
-        self.Chp4formulalabel.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Bisection Method Formula:</span></p><p align=\"center\">Root: c = (a+b)/2</p></body></html>"))
+        self.Chp4formulalabel.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">Choose your method and input correct values to get the appropriate result!</p></body></html>"))
         self.Ch4y0input.setText(_translate("MainWindow", "0"))
         self.Chp4FuncInput.setText(_translate("MainWindow", "Example: 2x - 5x^2 = 0"))
         self.Chp4mainback.setText(_translate("MainWindow", "Back To Main Menu"))
@@ -984,7 +984,24 @@ class Ui_MainWindow(object):
                 xpoints[i].setDisabled(False)
                 ypoints[i].setDisabled(False)
                 i=i+1
-    
+
+    def Chp3ChoiceChanged(self, MainWindow):
+        method = self.Ch3choicebox.currentText()
+        if(method=="Lagrange Interpolation"):
+            self.Chp3formulalabel.setText("<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Lagrange Interpolation Formula:</span></p><p align=\"center\"> P<sub>n</sub>(x): (x-x1)(x-x2)...(x-xn)/(x0-x1)(x0-x2)...(x0-xn) x f(x0) + \n(x-x0)(x-x2)...(x-xn)/(x1-x0)(x1-x2)...(x1-xn) x f(x1) + ....  </p></body></html>")
+        elif(method=="Divided Difference"):
+            self.Chp3formulalabel.setText("<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Divided Difference:</span></p><p align=\"center\"> P<sub>n</sub>(x): a<sub>0</sub> + a<sub>1</sub>(x-x0) + a<sub>2</sub>(x-x0)(x-x1) + ... </p></body></html>")
+        elif(method=="Forwards-SDT"):
+            self.Chp3formulalabel.setText("<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Forwards-SDT:</span></p><p align=\"center\"> f<sub>n</sub>(x) = y<sub>0</sub> + P&Delta;y<sub>0</sub> + P(P-1)&Delta;y<sub>2</sub>/2! + ... </p></body></html>")
+        elif(method=="Backwards-SDT"):
+            self.Chp3formulalabel.setText("<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Backwards-SDT:</span></p><p align=\"center\"> f<sub>n</sub>(x) = y<sub>n</sub> + P&#8711;y<sub>n</sub> + P(P+1)&#8711;y<sub>2</sub>/2! + ... </p></body></html>")
+        elif(method=="Forwards-DDT"):
+            self.Chp3formulalabel.setText("<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Forwards-DDT:</span></p><p align=\"center\"> f<sub>n</sub>(x) = a<sub>0</sub> + a<sub>1</sub>Sh + a<sub>2</sub>S(S-1)h<sup>2</sup> + ...  </p></body></html>")
+        elif(method=="Backwards-DDT"):
+            self.Chp3formulalabel.setText("<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Backwards-DDT:</span></p><p align=\"center\"> f<sub>n</sub>(x) = a<sub>0</sub> + a<sub>1</sub>Sh + a<sub>2</sub>S(S+1)h<sup>2</sup> + ...  </p></body></html>")
+        elif(method=="Stirling Central Difference"):
+            self.Chp3formulalabel.setText("<html><head/><body><p align=\"center\"><span style=\" font-weight:600; text-decoration: underline;\">Stirling Central Difference:</span></p><p align=\"center\"> Stirling's Formula uses a set of complex summations and factorials!  </p></body></html>")
+
     def Chapter3Start(self,MainWindow):
         self.tabWidget.setCurrentIndex(3)
         countofpoints=int(self.Chp3pointsbox.currentText())
@@ -1274,21 +1291,31 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     ui.tabWidget.setCurrentIndex(0)
+
     ui.Chapter2Button.clicked.connect(lambda: ui.MovetoChapter2(MainWindow))
+    ui.Chapter3Button.clicked.connect(lambda: ui.MovetoChapter3(MainWindow))
+    ui.Chapter5Button.clicked.connect(lambda: ui.MovetoChapter5(MainWindow))
+    ui.Chapter4Button.clicked.connect(lambda: ui.MovetoChapter4(MainWindow))
+
     ui.Chp2startbutton.clicked.connect(lambda: ui.Chapter2Start(MainWindow))
     ui.Chp2mainback.clicked.connect(lambda: ui.MovetoMain(MainWindow))
     ui.Chp2iterback.clicked.connect(lambda: ui.MovetoChapter2(MainWindow))
     ui.Chp2choicebox.currentIndexChanged.connect(lambda: ui.Chp2ChoiceChanged(MainWindow))
-    ui.Chapter3Button.clicked.connect(lambda: ui.MovetoChapter3(MainWindow))
+    
     ui.StartInterpolationButton.clicked.connect(lambda: ui.Chapter3Start(MainWindow))
     ui.Chp3pointsbox.currentIndexChanged.connect(lambda: ui.Chp3pointschanged(MainWindow))
-    ui.Chapter4Button.clicked.connect(lambda: ui.MovetoChapter4(MainWindow))
+    ui.Chp3mainback.clicked.connect(lambda: ui.MovetoMain(MainWindow))
+    ui.Chp3iterback.clicked.connect(lambda: ui.MovetoChapter3(MainWindow))
+    ui.Ch3choicebox.currentIndexChanged.connect(lambda: ui.Chp3ChoiceChanged(MainWindow))
+
     ui.Ch4choicebox.currentIndexChanged.connect(lambda: ui.Chapter4MethodChanged(MainWindow))
     ui.Chp4pointsbox.currentIndexChanged.connect(lambda: ui.Chapter4pointschanged(MainWindow))
     ui.Ch4StartButton.clicked.connect(lambda: ui.Chapter4Start(MainWindow))
     ui.Chp4mainback.clicked.connect(lambda: ui.MovetoMain(MainWindow))
+    ui.Ch4iterback.clicked.connect(lambda: ui.MovetoChapter4(MainWindow))
+
     ui.Ch5StartButton.clicked.connect(lambda: ui.Chapter5Start(MainWindow))
     ui.Chp5mainback.clicked.connect(lambda: ui.MovetoMain(MainWindow))
-    ui.Chapter5Button.clicked.connect(lambda: ui.MovetoChapter5(MainWindow))
     ui.Ch5AnsBackButton.clicked.connect(lambda:ui.MovetoChapter5(MainWindow))
+
     sys.exit(app.exec_())

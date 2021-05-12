@@ -41,7 +41,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="MainTab">
      <attribute name="title">
@@ -66,7 +66,7 @@
         <x>30</x>
         <y>110</y>
         <width>231</width>
-        <height>211</height>
+        <height>221</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -79,9 +79,9 @@
      <widget class="QLabel" name="Chapter3label">
       <property name="geometry">
        <rect>
-        <x>600</x>
+        <x>570</x>
         <y>110</y>
-        <width>261</width>
+        <width>291</width>
         <height>211</height>
        </rect>
       </property>
@@ -144,7 +144,7 @@
        <rect>
         <x>30</x>
         <y>350</y>
-        <width>231</width>
+        <width>241</width>
         <height>211</height>
        </rect>
       </property>
@@ -152,26 +152,26 @@
        <enum>QFrame::NoFrame</enum>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; text-decoration: underline;&quot;&gt;Solutions of Equations &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; text-decoration: underline;&quot;&gt;in one Variable&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;1 ) Bisection Method&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;2 ) Regulai Falsi Method&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;3 ) Newton - Raphson Method&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;4 ) Secant Method&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;5 ) Fixed Point Iteration&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; text-decoration: underline;&quot;&gt;Numerical Differentiation&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; text-decoration: underline;&quot;&gt;and Integration&lt;/span&gt;&lt;/p&gt;&lt;p&gt;1 ) Forward Difference&lt;/p&gt;&lt;p&gt;2 ) 3 Point End &amp;amp; Mid&lt;/p&gt;&lt;p&gt;3 ) 5 Point End &amp;amp; Mid&lt;/p&gt;&lt;p&gt;4 ) Trapezoid Method&lt;/p&gt;&lt;p&gt;5 ) Simpson 1/3rd and 3/8th&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QLabel" name="Chapter5label">
       <property name="geometry">
        <rect>
-        <x>610</x>
+        <x>570</x>
         <y>350</y>
-        <width>261</width>
+        <width>301</width>
         <height>211</height>
        </rect>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; text-decoration: underline;&quot;&gt;Interpolation and &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; text-decoration: underline;&quot;&gt;Polynomial Approximation&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;1 ) Lagrange Polynomial&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;2) Newton Divided Difference&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;3) Newton Foward Backwards (DDT)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;4 ) Newton Forward Backwards (SDT)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;5 ) Stirling's Method&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; text-decoration: underline;&quot;&gt;Initial Value Problems for&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; text-decoration: underline;&quot;&gt;Ordinary Differential Equations&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;1 ) Euler Method&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;2) Modified Euler&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;3) Midpoint Method&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;4 ) Heuns's Method&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;5 ) Runge Kutta Method&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QPushButton" name="Chapter4Button">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>280</x>
         <y>380</y>
         <width>141</width>
         <height>61</height>
@@ -197,7 +197,7 @@
       <property name="geometry">
        <rect>
         <x>410</x>
-        <y>460</y>
+        <y>480</y>
         <width>141</width>
         <height>61</height>
        </rect>
@@ -509,7 +509,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>TextLabel</string>
+       <string>Chapter 2 Answers</string>
       </property>
      </widget>
      <widget class="QPushButton" name="Chp2iterback">
@@ -1066,7 +1066,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Bisection Method Formula:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Root: c = (a+b)/2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Bisection Method Formula:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Root: c = (a+b)/2 &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </widget>
@@ -1206,7 +1206,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Bisection Method Formula:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Root: c = (a+b)/2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Choose your method and input correct values to get the appropriate result!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="Ch4y0input">
@@ -2131,7 +2131,7 @@
         <x>730</x>
         <y>490</y>
         <width>151</width>
-        <height>61</height>
+        <height>81</height>
        </rect>
       </property>
       <property name="font">
