@@ -875,10 +875,13 @@ def FivePointDifferentiation(n,Xpoints,Ypoints,Chp4DerivTable):
         i=i+1
 
 def DoubleDerivativeMidpoint(n,Xpoints,Ypoints,Chp4DerivTable):
+    Chp4DerivTable.setRowCount(n)
+    Chp4DerivTable.setColumnCount(3)
     Deriv2List=[None]*(n)
     height = Xpoints[1]-Xpoints[0]
     i=0
     while(i<n):
+
         Derivative2=0
         if(i>0 and i<(n-1)):
             Derivative2+=Ypoints[i-1]

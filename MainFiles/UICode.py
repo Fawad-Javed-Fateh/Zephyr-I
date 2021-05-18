@@ -1112,7 +1112,7 @@ class Ui_MainWindow(object):
                 self.Chp4pointsbox.setCurrentIndex(1)
         elif (method=="5 Point Mid & End"):
                 self.Chp4pointsbox.setCurrentIndex(3)
-        if(method == "Trapezoid" or method == "Simpson 1/3rd" or method =="Simpson 3/8th" or method == "Midpoint"):
+        if(method == "Trapezoid" or method == "Simpson 1/3rd" or method =="Simpson 3/8th" or method == "Midpoint "):
                 self.Chp4pointsbox.setDisabled(True)
                 self.Ch4XValLabel.setText("Enter the value of limits 'a' and 'b':")
                 self.Ch4YValLabel.setText("Enter the value of height 'h':")
@@ -1232,7 +1232,7 @@ class Ui_MainWindow(object):
             elif(method=="Simpson 3/8th"):
                     Ans=CompositeSimp38(h,a,b,eq)
                     self.Chp4formulalabel.setText("The answer is: " + str(Ans))
-            elif (method=="Midpoint"):
+            elif (method=="Midpoint "):
                     Ans=CompositeMidPoint(h,a,b,eq)
                     self.Chp4formulalabel.setText("The answer is: " + str(Ans))
 
