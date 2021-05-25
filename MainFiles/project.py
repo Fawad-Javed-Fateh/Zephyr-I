@@ -663,7 +663,7 @@ def StirlingsMethod(InterPolVal,n,argx,argy,DifferenceTable):
     return ans
      
 def BackWardsSDT(InterPolVal,n,argx,argy,DifferenceTable,Chp3interpolans):
-    DifferenceTable.setRowCount(n)
+    DifferenceTable.setRowCount(2*n-1)
     x=np.zeros(n,dtype=float)
     y=np.zeros(n,dtype=float)
     SimpleDifferenceTable=np.zeros((n,n),dtype=float)
@@ -672,19 +672,35 @@ def BackWardsSDT(InterPolVal,n,argx,argy,DifferenceTable,Chp3interpolans):
     for i in range(n):
          SimpleDifferenceTable[i][0]=argy[i]
     height=x[1]-x[0]
-    height=round(height,n)
-    status=HeightChecker(height,n,x)
-    if status=="Unequal Heights":
-        return status
     f=str(argy[0])
     Rounder=f[::-1].find('.')
     if Rounder<0:
         Rounder=0
+
+    height=round(height,n)
+    status=HeightChecker(height,n,x)
+    for i in range(n):
+        x[i]=argx[i]
+        SimpleDifferenceTable[i][0]=argy[i]
+        DifferenceTable.setItem(2*i,0, QTableWidgetItem(str(x[i])))
+        DifferenceTable.setItem(2*i,1, QTableWidgetItem(str(SimpleDifferenceTable[i][0])))
+    height=x[1]-x[0]
+    height=round(height,n)
+    status=HeightChecker(height,n,x)
+    if status=="Unequal Heights":
+        return status
     for i in range(1,n):
         for j in range(0,n-i):
-            SimpleDifferenceTable[j][i]=SimpleDifferenceTable[j+1][i-1]-SimpleDifferenceTable[j][i-1]
-            SimpleDifferenceTable[j][i]=round(SimpleDifferenceTable[j][i],Rounder)
-            DifferenceTable.setItem(j,i, QTableWidgetItem(str(SimpleDifferenceTable[j][i])))
+            SimpleDifferenceTable[j][i]=round(SimpleDifferenceTable[j+1][i-1]-SimpleDifferenceTable[j][i-1],Rounder)
+            DifferenceTable.setItem(2*j+i,i+1, QTableWidgetItem(str(SimpleDifferenceTable[j][i])))
+    
+    # if status=="Unequal Heights":
+    #     return status
+    # for i in range(1,n):
+    #     for j in range(0,n-i):
+    #         SimpleDifferenceTable[j][i]=SimpleDifferenceTable[j+1][i-1]-SimpleDifferenceTable[j][i-1]
+    #         SimpleDifferenceTable[j][i]=round(SimpleDifferenceTable[j][i],Rounder)
+    #         DifferenceTable.setItem(j,i, QTableWidgetItem(str(SimpleDifferenceTable[j][i])))
     
     p= ((InterPolVal-x[n-1])/(x[1]-x[0]))
     p=round(p,Rounder)
@@ -713,7 +729,7 @@ def BackWardsSDT(InterPolVal,n,argx,argy,DifferenceTable,Chp3interpolans):
     return ans 
 
 def ForWardsSDT(InterPolVal,n,argx,argy,DifferenceTable,Chp3interpolans):
-    DifferenceTable.setRowCount(n)
+    DifferenceTable.setRowCount(2*n-1)
     x=np.zeros(n,dtype=float)
     y=np.zeros(n,dtype=float)
     SimpleDifferenceTable=np.zeros((n,n),dtype=float)
@@ -721,10 +737,19 @@ def ForWardsSDT(InterPolVal,n,argx,argy,DifferenceTable,Chp3interpolans):
         x[i]=argx[i]
     for i in range(n):
          SimpleDifferenceTable[i][0]=argy[i]
+    height=x[1]-x[0]
     f=str(argy[0])
     Rounder=f[::-1].find('.')
     if Rounder<0:
         Rounder=0
+
+    height=round(height,n)
+    status=HeightChecker(height,n,x)
+    for i in range(n):
+        x[i]=argx[i]
+        SimpleDifferenceTable[i][0]=argy[i]
+        DifferenceTable.setItem(2*i,0, QTableWidgetItem(str(x[i])))
+        DifferenceTable.setItem(2*i,1, QTableWidgetItem(str(SimpleDifferenceTable[i][0])))
     height=x[1]-x[0]
     height=round(height,n)
     status=HeightChecker(height,n,x)
@@ -732,9 +757,8 @@ def ForWardsSDT(InterPolVal,n,argx,argy,DifferenceTable,Chp3interpolans):
         return status
     for i in range(1,n):
         for j in range(0,n-i):
-            SimpleDifferenceTable[j][i]=SimpleDifferenceTable[j+1][i-1]-SimpleDifferenceTable[j][i-1]
-            SimpleDifferenceTable[j][i]=round(SimpleDifferenceTable[j][i],Rounder)
-            DifferenceTable.setItem(j,i, QTableWidgetItem(str(SimpleDifferenceTable[j][i])))
+            SimpleDifferenceTable[j][i]=round(SimpleDifferenceTable[j+1][i-1]-SimpleDifferenceTable[j][i-1],Rounder)
+            DifferenceTable.setItem(2*j+i,i+1, QTableWidgetItem(str(SimpleDifferenceTable[j][i])))
     
     p= ((InterPolVal-x[0])/(x[1]-x[0]))
     p=round(p,Rounder)
