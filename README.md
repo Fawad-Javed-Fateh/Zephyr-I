@@ -25,8 +25,9 @@ The following libraries are required for the script to run :
 4. Math
 5. Array
 6. Tkinter(not a necessity but would be required on older versions of python)
+
 These libraries can be installed by using the following command on the powershell command line or the bash shell:
->pip install <libraryName>
+>pip install libraryName>\
  
 ### Running Instructions:
  After making sure that the required libraries are installed and presnet in the local machine, simply clone the repository into the machine, navigate to the **MainFiles** folder and type in the following command :
